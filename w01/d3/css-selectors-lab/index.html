@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>CSS Fundamentals</title>
+
+    <!-- Un-comment the following line to see what the document looks like with the CSS Reset applied -->
+    <!-- <link rel="stylesheet" href="http://meyerweb.com/eric/tools/css/reset/reset.css"> -->
+
+    <!-- Un-comment the following line to see wht the document looks like with Normalize applied -->
+    <!-- <link rel="stylesheet" href="https://necolas.github.io/normalize.css/5.0.0/normalize.css"> -->
+
+    <!-- HINT: Only uncomment one of the above at a time and make sure to refresh your browser to see the effects! -->
+
+    <!-- Re-comment both of the above <link> tags once you've seen their effect -->
+
+    <!-- Create another <link> tag to import the styles.css file -->
+    <!-- That file is where you will put your styles -->
+  </head>
+  <body>
+    <header>
+      <h1>CSS Selectors</h1>
+      <h2>Playground</h2>
+      <p>
+        Follow the instructions on this page to practice using CSS selectors to
+        target style rules to specific elements on the page.
+      </p>
+    </header>
+
+    <article id="selectors" class="exercises">
+      <header>
+        <h1>Base CSS Selectors</h1>
+        <p>
+          First we'll start off by using the base selectors to add styles to
+          elements on the page. These base selectors have different levels of
+          specificity and are useful in different scenarios.
+        </p>
+      </header>
+
+      <section>
+        <h2>Tag Selectors</h2>
+        <p>
+          Tag selectors are the broadest type of selector. They'll select all
+          elements on the page that have a particular tag, regardless of classes
+          or ids.
+        </p>
+
+        <ul>
+          <li>
+            <p>
+              Use a tag selector to set the <code>font-size</code> for the entire document.
+            </p>
+            <p>
+              <strong>HINT</strong>: The document starts at the <code>html</code> element!
+            </p>
+          </li>
+          <li>
+            <p>
+              Use a tag selector to set the <code>font-family</code> for
+              <code>&lt;h1&gt;</code> and <code>&lt;h2&gt;</code> elements.
+              <a href="http://www.smashingmagazine.com/2009/09/22/complete-guide-to-css-font-stacks/" target="_blank">
+                Check out some different ways of setting your font stack
+              </a>.
+            </p>
+          </li>
+          <li>
+            <p>Use a tag selector to add a bottom border to every <code>&lt;header&gt;</code> tag.</p>
+            <p>
+              <strong>HINT</strong>: The shorthand value for a border rule is
+              always in the form: <strong>[width] [style] [color]</strong>
+            </p>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Class Selectors</h2>
+        <p>
+          Class selectors are more specific than tag selectors. They'll select
+          all elements on the page that have a certain class applied to them.
+          You'll use class selectors most often to apply styles to elements
+          since you have full control over which elements have a particular
+          class applied in the HTML.
+        </p>
+
+        <ul class="class-list">
+          <li class="item odd">
+            <p>Change the <code>list-style-type</code> of this list (.class-list) to 'square'</p>
+          </li>
+          <li class="item even">
+            <p>Give every element with class 'item' a border</p>
+          </li>
+          <li class="item odd">
+            <p>Give elements with class 'even' a <code>background-color</code> of 'grey'</p>
+          </li>
+          <li class="item even">
+            <p>Give elements with class 'odd' a <code>background-color</code> of 'black' and a <code>color</code> of 'white'</p>
+          </li>
+          <li class="item odd">
+            <p>You're done!</p>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>ID Selectors</h2>
+        <p>
+          ID selectors are the most specific type of selector. Since in any
+          given document only one element can have a particular ID, this selector
+          will select at most one element on the page (none if there are no
+          elements with that particular ID on the page). This type of selector
+          should be used sparingly because, as you'll see later, rules set with
+          an ID selector are hard to override.
+        </p>
+
+        <ul>
+          <li id="item1">
+            <p>Select the element with ID of item1 and change the <code>font-size</code> to 30px</p>
+          </li>
+          <li id="item2">
+            <p>Select the element with ID of item2 and change the <code>text-align</code> to right</p>
+          </li>
+        </ul>
+      </section>
+    </article>
+
+    <article id="advanced-selectors" class="exercises">
+      <h1>Advanced Selectors</h1>
+      <p>
+        Here we'll play around with using more advanced selectors to target
+        elements more specifically. You'll need to make use of pseudo-class
+        selectors, attribute selectors and relationship-based selectors to
+        complete the tasks in this section.
+      </p>
+
+      <ol>
+        <li>
+          <p>
+            Style every item in this list with some <code>padding</code> and a
+            <code>background-color</code> of grey
+          </p>
+        </li>
+        <li>
+          <p>
+            Make sure that the list of subitems below isn't affected by the
+            above style rules! (Note - if you happen to use a relationship-based selector to do this, the background color may not change - why might that be?)
+          </p>
+        </li>
+        <li>
+          <p>
+            Use the <code>:nth-child</code> pseudo-selector to turn the
+            <code>background-color</code> of every odd list item green.
+          </p>
+        </li>
+        <li>
+          <p>
+            Select this link by its title attribute and turn off the underline when it's hovered
+            <a href="https://bitmakerlabs.com/" title="Bitmaker">Bitmaker Labs</a>
+          </p>
+        </li>
+        <li>
+          <p>
+            The links in this list should have a <code>background-color</code>
+            of yellow when hovered and red when active. This shouldn't affect the links
+            elsewhere in the document.
+          </p>
+
+          <ul>
+            <li><a href="#">Subitem 001</a></li>
+            <li><a href="#">Subitem 002</a></li>
+            <li><a href="#">Subitem 003</a></li>
+            <li><a href="#">Subitem 004</a></li>
+            <li><a href="#">Subitem 005</a></li>
+          </ul>
+        </li>
+      </ol>
+    </article>
+
+    <h2>Keep playing around, try combining CSS selectors and see what happens!</h2>
+  </body>
+</html>
