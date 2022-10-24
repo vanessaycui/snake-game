@@ -2,6 +2,8 @@
 
 # Welcome to General Assembly Toronto SEI 56!
 
+# I'm the best.
+
 This will be your shared class repo! Guides, in-class labs and code samples, and other resources will live here.
 
 ### Contents
