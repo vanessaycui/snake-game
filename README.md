@@ -1,6 +1,7 @@
 <img src="https://i.imgur.com/XseXU8J.png" width="900">
 
 # Welcome to General Assembly Toronto SEI 56!
+## Aidan is the coolest
 
 # I'm the best.
 
