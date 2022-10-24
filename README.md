@@ -1,6 +1,7 @@
 <img src="https://i.imgur.com/XseXU8J.png" width="900">
 
 # Welcome to General Assembly Toronto SEI 56!
+# Aidan has 2 cats
 
 This will be your shared class repo! Guides, in-class labs and code samples, and other resources will live here.
 
