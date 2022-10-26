@@ -1,8 +1,68 @@
 /* Move your styles here when you're ready to clean up your HTML file */
 /* Don't forget to link to this file in your HTML, otherwise your styles won't show up! */
+html{
+  font-size: 20px;
+  font-family: 'Patrick Hand', cursive;
 
-h1 {
-  color: blue;
 }
+header{
+  border-bottom: 2px dashed #749F82;
+}
+h1, h2 {
+  color: #425F57;
+  font-family: 'Rampart One', cursive;
+  
+}
+.class-list {
+  list-style-type: square;
+}
+
+.item {
+  border: 1px solid black;
+}
+
+.even {
+  background-color: grey;
+}
+
+.odd {
+  background-color: black;
+  color: white;
+}
+
+#item1 {
+  font-size: 30px;
+}
+
+#item2 {
+  text-align: right;
+}
+
+
+ol li{
+  padding: 5px;
+  background-color: grey;
+}
+
+ol li:nth-child(odd){
+  background-color: green;
+}
+/* Q: is there a better way to do this? */
+ol ul li {
+  background-color: green;
+}
+
+[title="Bitmaker"]:hover {
+  text-decoration: none;
+}
+
+a[href="#"] {
+  color: red;
+}
+
+a[href="#"]:hover {
+  background-color: yellow;
+}
+
 
 /* hello */
