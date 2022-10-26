@@ -39,16 +39,12 @@ h1, h2 {
 }
 
 
-ol li{
+ol>li{
   padding: 5px;
   background-color: grey;
 }
 
 ol li:nth-child(odd){
-  background-color: green;
-}
-/* Q: is there a better way to do this? */
-ol ul li {
   background-color: green;
 }
 
