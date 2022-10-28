@@ -2,6 +2,104 @@
 
 ## Unit 1
 
+### Week 2 (Oct 31 - Nov 4)
+
+<table>
+<thead>
+<tr>
+  <td></td>
+  <th>Monday</th>
+  <th>Tuesday</th>
+  <th>Wednesday</th>
+  <th>Thursday</th>
+  <th>Friday</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><strong>Morning</strong></td>
+  <td>    
+    <a href="w02/d1/js-callbacks.md">JavaScript Callbacks</a></br></br>
+    <a href="w02/d1/js-callbacks-lab.md">JavaScript Callbacks Lab</a></br></br>
+  </td>
+  <td>
+    <a href="w02/d2/css-flexbox-grid.md">CSS Flexbox & Grid</a></br></br>
+    <a href="w02/d2/css-flexbox-grid-lab">CSS Flexbox & Grid Lab (Deliverable)</a>
+  </td>
+  <td>
+    <a href="w02/d3/js-classes.md">JS Classes</a></br></br>
+    <a href="w02/d3/js-classes-lab.md">JS Classes Lab</a>
+  </td>
+  <td>
+    <a href="w02/d3/array-iterator-methods.md">Array Iterator Methods</a></br></br>
+  </td>
+  <td>
+    <a href="w02/d5/playing-audio.md">Playing Audio in Browser</a></br></br>
+    <a href="w02/d1/guide-to-building-a-browser-game.md">Build a Game Together</a>
+  </td>
+</tr>
+
+
+<tr>
+  <td><strong>Afternoon</strong></td>
+  <td>
+      <a href="w01/d1/arrow-functions.md">Arrow Functions</a></br></br>
+      <a href="w02/d1/tic-tac-toe">Tic Tac Toe (Deliverable)</a></br></br>
+      <a href="w02/d1/guide-to-building-a-browser-game.md">Build a Browser Game</a>
+  </td>
+  <td>
+    <a href="w02/d2/responsive-design.md">Responsive Design</a></br></br>
+    <a href="w02/d2/media-queries-lab.md">Media Queries Lab</a>
+  </td>
+  <td>
+    <a href="w02/d3/this-keyword.md">'this' keyword</a>
+    <strong>Outcomes 4:00-6:00</strong>
+  </td>
+  <td>
+    <a href="w02/d4/jquery-part-1.md">jQuery part 1</a></br></br>
+    <a href="w02/d4/jquery-lab.md">jQuery Lab</a>
+  </td>
+  <td>
+    <a href="w01/d5/guide-to-building-a-browser-game.md">Build a Game Together</a></br></br>
+    Finish Labs</br></br>
+    Project 1
+  </td>
+</tr>
+
+<tr>
+  <td><strong>Homework</strong></td>
+  <td>
+    <a href="https://www.internetingishard.com/html-and-css/flexbox/">Read Interneting Is Hard: Flexbox</a></br></br>
+    <a href="https://www.internetingishard.com/html-and-css/advanced-positioning/">Read Interneting Is Hard: Advanced Positioning</a></br></br>
+    <a href="https://www.internetingishard.com/html-and-css/responsive-design/">Read Interneting Is Hard: Responsive Design</a></br></br>
+    <a href="https://www.internetingishard.com/html-and-css/responsive-images/">Read Interneting Is Hard: Responsive Images</a>
+  </td>
+  <td>
+    <a href="w02/d2/css-flexbox-grid-lab">CSS Flexbox & Grid Lab (Deliverable)</a></br></br>
+    <a href="w02/d2/media-queries-lab.md">Media Queries Lab</a></br></br>
+    <a href="https://flexboxfroggy.com/">Flexbox Froggy</a></br></br>
+    <a href="https://cssgridgarden.com/">CSS Grid Garden</a>
+  </td>
+
+  <td>
+    <a href="w02/d3/js-classes-lab.md">JS Classes Lab</a></br></br>
+    <a href="w02/d3/array-methods-lab.md">Array Methods Lab</a>
+  </td>
+
+  <td>
+    <a href="w02/d4/jquery-lab.md">jQuery Lab</a>
+  </td>
+
+  <td>
+    Project 1 & Review <br><br>
+    <a href="https://my.generalassemb.ly/activities/511">MyGA - Big O Notation</a>
+  </td>
+</tr>
+
+</tbody>
+</table>
+
 ### Week 1 (Oct 24 - 28)
 
 <table>
