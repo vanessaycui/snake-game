@@ -1,0 +1,33 @@
+- When game loads:
+    - Initialize all state variables by calling init()
+    - Update the display by calling render()
+
+- When a players "drops" a disc by clicking the column marker:
+    - Get the index of the column clicked by extracting it from the marker's id
+    - If the player didn't click the marker, or if there's a winner/tie, exit the function
+    - Compute the index of the first available "row" (first 0 in the column's array)
+    - If there is no zero in the column, exit the function
+    - Update the column array in the board array with the value for whichever player's turn it is (1 or -1)
+    - Update the winner variable by calling getWinner()
+    - Switch turns
+    - Call render() to update display with new state
+
+- getWinner logic:
+    - Start bottom left and check up, check right, check up right diagonal, and check up left diagonal for each cell
+    - Keep track of if a zero has been seen while iterating over cells
+    - If a winner is found while checking, return winner
+    - Otherwise if a winner is not found, and there are no zeros left on board, it is a tie
+    - Otherwise return null for no winner or no tie
+
+- Render logic:
+    - Render the board - for each nested column array in the board array:
+        - Show/hide the marker above the column depending on if the array has any zeros
+        - For each row in the column array:
+            - Select the element in the HTML that maps to the current column and row
+            - Set the element's bg color by looking up the color for the value (0, 1, or -1)
+    - Render the display message:
+        - If there's a winner/tue
+            - If it's a tie, update the message element with a tie message
+            - Otherwise update with a congrats message for player who won
+        - Otherwise update the message element with which player's turn it is
+        
