@@ -31,9 +31,7 @@
 //when the game is over, obtain length of snake array. Write to a text file witin the same project folder recording player name & high score.
 //when user loads the page, the highscore board will read the text file, sort from highest score to lowest score, extract the three highest score and display it
 //2. game difficulty:
-// user to select easy, medium or hard. once user starts the game, the buttons will deactivate, effectively locking in the selection;  default mode is easy.
-// difficulty will dictate the speed in which the snake moves. Hard will include barriers the player will have to avoid on the board.
-//3. light/dark mode
+// add computer generated snake in addition to increasing snake speed in higher difficulty levels!
 //changes the color scheme of the game to light or dark.
 //4. player vs player:
 // adding additional keys to listen for in the game. two snakes will populate; one on each side of the board.
@@ -90,5 +88,5 @@ function snakeInit() {
 }
 
 function genFood(){
-        
+
 }

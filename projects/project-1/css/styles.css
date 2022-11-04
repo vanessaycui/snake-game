@@ -7,6 +7,7 @@
     --itemshoverbg: #F30067;
     --hidden: #212121;
     --board: #393E46;
+    --boardoutline:rgb(255, 0, 128);
     --hover: #F30067;
     --background: #232931;
   }
@@ -25,7 +26,7 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 5%;
 }
 .game-board{
     position: relative;
@@ -36,6 +37,9 @@ main{
     height: 450px;
     margin: 20px;
     /* (30 divs)x (15px) = 450px height and width for board */
+    background-color: var(--board);
+    border: 10px inset var(--boardoutline);
+    animation: spin;
     
 }
 .cell{
