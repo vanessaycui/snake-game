@@ -1,17 +1,22 @@
 :root {
-    --titles: #00D1CD;
-    --titlehover: #00FFC6;
+    --titles: #e4b7ee;
+    --titlehover: #e4b7ee;
     --itemshoveroutline: #393E46;
     --itemsoutline: #00D1CD;
     --itembg: #0D7377;
     --itemshoverbg: #F30067;
     --hidden: #212121;
     --board: #393E46;
-    --boardoutline:rgb(179, 0, 255);
+    --boardoutline:#fefcff;
     --hover: #F30067;
     --background: #232931;
-    --snakebody: #00D1CD;
+    --snakebody: #4efb95;
     --food: orange;
+    --textstyle: 'Press Start 2P', cursive;
+    --instructions: #37f7f9;
+  }
+  *{
+    overflow: hidden;
   }
 
 body{
@@ -20,7 +25,7 @@ body{
     grid-template-columns: auto 600px auto;
     grid-template-rows: auto;
     color: var(--titles);
-    font-family: 'Press Start 2P', cursive;
+    font-family: var(--textstyle);
     height: 100vh;
 }
 
@@ -42,7 +47,7 @@ main{
     background-color: var(--board);
     border: 10px inset var(--boardoutline);
     animation: spin;
-    border-radius: 10px;
+
     
 }
 .cell{
@@ -60,12 +65,29 @@ aside{
 h1{
     font-size: 5rem;
     margin-bottom: 0;
-    transition: all 1s ease-in-out;
+    /* create background image behind text */
+    background-image: linear-gradient(275deg,
+    var(--instructions) 0%,
+    var(--titlehover) 15%,
+    var(--hover) 40%,
+    var(--titles) 75%,
+    var(--instructions)100%);
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #fff;
+    /* background exists in text only. turn text transparent  */
+    background-clip: text; 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* animation (duration| easing-funciton| delay | iteration-count | name) */
+    animation: 1s linear 0s infinite title-animate;
+
 }
 h2{
     font-size:1.5rem;
 }
-h1:hover, h2:hover{
+h2:hover{
     color: var(--titlehover);
     cursor: crosshair;
 }
@@ -79,10 +101,10 @@ li:hover{
 }
 
 #reset-btn{
-    background-color: var(--itembg);
+    background-color: var(--background);
     padding: 20px;
     font-size: 1.5rem;
-    font-family: 'Press Start 2P', cursive;
+    font-family: var(--textstyle);
     border-radius: 10px;
     border: 5px solid var(--itemsoutline);
     color: var(--itemsoutline);
@@ -101,7 +123,7 @@ li:hover{
     top: 190px;
     left: 110px;
     padding: 20px 40px;
-    font-family: 'Press Start 2P', cursive;
+    font-family: var(--textstyle);
     border-radius: 10px;
     background: var(--itemshoverbg);
     font-size: 30px;
@@ -129,3 +151,20 @@ li:hover{
     background-color:var(--food);
     border-radius: 10px;
 }
+
+.game-board > p{
+    font-family: var(--textstyle);
+    position: absolute;
+    text-align: center;
+    top: 100px;
+    left: 50px; 
+    color: var(--instructions);
+}
+
+/* animation keyframes */
+@keyframes title-animate{
+    to {
+        background-position: 200% center;
+    }
+}
+
