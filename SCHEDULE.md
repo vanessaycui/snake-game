@@ -2,6 +2,61 @@
 
 ## Unit 1
 
+### Week 3 (Aug 8 - 12)
+
+<table>
+<thead>
+<tr>
+  <td></td>
+  <th>Monday</th>
+  <th>Tuesday</th>
+  <th>Wednesday</th>
+  <th>Thursday</th>
+  <th>Friday</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><strong>Morning</strong></td>
+  <td>Project 1</td>
+  <td>
+    <a href="w03/d2/deploy-ghpages.md">Deploy to GitHub Pages</a>
+  </td>
+  <td>Project 1</td>
+  <td>Project 1</td>
+  <td>
+    Project 1 Presentations
+  </td>
+</tr>
+
+<tr>
+  <td><strong>Afternoon</strong></td>
+  <td>Project 1</td>
+  <td>
+    <a href="computer-science/01-cs-big-o-notation">Big O Notation</a>
+  </td>
+  <td>Project 1</td>
+  <td>Project 1</td>
+  <td>Unit 1 Assessment</td>
+</tr>
+
+<tr>
+  <td><strong>Homework</strong></td>
+  <td> Project 1 </td>
+  <td>
+    Project 1
+  </td>
+  <td>
+  Project 1
+  </td>
+  <td>Project 1</td>
+  <td>Relax!</td>
+</tr>
+
+</tbody>
+</table>
+
 ### Week 2 (Oct 31 - Nov 4)
 
 <table>
