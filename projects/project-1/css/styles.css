@@ -7,9 +7,11 @@
     --itemshoverbg: #F30067;
     --hidden: #212121;
     --board: #393E46;
-    --boardoutline:rgb(255, 0, 128);
+    --boardoutline:rgb(179, 0, 255);
     --hover: #F30067;
     --background: #232931;
+    --snakebody: #00D1CD;
+    --food: orange;
   }
 
 body{
@@ -40,6 +42,7 @@ main{
     background-color: var(--board);
     border: 10px inset var(--boardoutline);
     animation: spin;
+    border-radius: 10px;
     
 }
 .cell{
@@ -119,5 +122,10 @@ li:hover{
 }
 
 .snake-body{
-    background-color:#00D1CD;
+    background-color:var(--snakebody);
+}
+
+.food{
+    background-color:var(--food);
+    border-radius: 10px;
 }
