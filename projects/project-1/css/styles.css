@@ -10,11 +10,12 @@
     --boardoutline:#fefcff;
     --hover: #F30067;
     --background: #232931;
-    --snakebody: #4efb95;
+    --snakebody: #00D1CD;
     --food: orange;
     --textstyle: 'Press Start 2P', cursive;
     --instructions: #37f7f9;
   }
+
   *{
     overflow: hidden;
   }
@@ -35,6 +36,7 @@ main{
     align-items: center;
     margin-top: 5%;
 }
+
 .game-board{
     position: relative;
     display:flex;
@@ -46,9 +48,7 @@ main{
     /* (30 divs)x (15px) = 450px height and width for board */
     background-color: var(--board);
     border: 10px inset var(--boardoutline);
-    animation: spin;
-
-    
+    animation: spin;   
 }
 .cell{
     background-color: var(--board);
@@ -56,6 +56,7 @@ main{
     width: 15px;
     height: 15px;
 }
+
 aside{
     display: flex;
     flex-direction: column;
@@ -66,12 +67,12 @@ h1{
     font-size: 5rem;
     margin-bottom: 0;
     /* create background image behind text */
-    background-image: linear-gradient(275deg,
-    var(--instructions) 0%,
-    var(--titlehover) 15%,
-    var(--hover) 40%,
-    var(--titles) 75%,
-    var(--instructions)100%);
+    background-image: linear-gradient(90deg,
+    var(--snakebody) 0%,
+    var(--itembg) 40%,
+    var(--snakebody) 50%,
+    var(--itembg) 75%,
+    var(--snakebody)100%);
     background-size: auto auto;
     background-clip: border-box;
     background-size: 200% auto;
@@ -82,18 +83,21 @@ h1{
     -webkit-text-fill-color: transparent;
     /* animation (duration| easing-funciton| delay | iteration-count | name) */
     animation: 1s linear 0s infinite title-animate;
-
 }
+
 h2{
     font-size:1.5rem;
 }
+
 h2:hover{
     color: var(--titlehover);
     cursor: crosshair;
 }
+
 li{
     padding: 5px;
 }
+
 li:hover{
     padding: 5px;
     color: var(--hover);
@@ -108,6 +112,7 @@ li:hover{
     border-radius: 10px;
     border: 5px solid var(--itemsoutline);
     color: var(--itemsoutline);
+    transition: all 400ms ease-in-out;
 }
 
 #reset-btn:hover{
@@ -131,12 +136,12 @@ li:hover{
     color: var(--itemshoveroutline);
     transition: all 400ms ease-in-out;
 }
+
 #start-btn:hover{
     background: var(--itemhover);
     color: var(--itemsoutline);
     border-color: var(--itemsoutline);
     cursor: pointer;
-    
 }
 
 .hidden-stuff{
