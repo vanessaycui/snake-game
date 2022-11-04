@@ -1,11 +1,22 @@
-
+:root {
+    --titles: #00D1CD;
+    --titlehover: #00FFC6;
+    --itemshoveroutline: #393E46;
+    --itemsoutline: #00D1CD;
+    --itembg: #0D7377;
+    --itemshoverbg: #F30067;
+    --hidden: #212121;
+    --board: #393E46;
+    --hover: #F30067;
+    --background: #232931;
+  }
 
 body{
-    background-color: black;
+    background-color: var(--background);
     display: grid;
     grid-template-columns: auto 600px auto;
     grid-template-rows: auto;
-    color: white;
+    color: var(--titles);
     font-family: 'Press Start 2P', cursive;
     height: 100vh;
 }
@@ -28,7 +39,7 @@ main{
     
 }
 .cell{
-    background-color: grey;
+    background-color: var(--board);
     flex-basis: 1;
     width: 15px;
     height: 15px;
@@ -40,37 +51,41 @@ aside{
 }
 
 h1{
-    font-size: 2.75rem;
+    font-size: 5rem;
+    margin-bottom: 0;
+    transition: all 1s ease-in-out;
 }
 h2{
     font-size:1.5rem;
 }
 h1:hover, h2:hover{
-    color: cadetblue;
+    color: var(--titlehover);
+    cursor: crosshair;
 }
 li{
     padding: 5px;
 }
 li:hover{
     padding: 5px;
-    color: cadetblue;
+    color: var(--hover);
     cursor: crosshair;
 }
 
 #reset-btn{
-    background-color: cadetblue;
+    background-color: var(--itembg);
     padding: 20px;
     font-size: 1.5rem;
     font-family: 'Press Start 2P', cursive;
     border-radius: 10px;
-    border: 5px solid;
-    
+    border: 5px solid var(--itemsoutline);
+    color: var(--itemsoutline);
 }
 
 #reset-btn:hover{
-    background-color: white;
-    color: cadetblue;
+    background-color: var(--itemshoverbg);
+    color: var(--background);
     cursor: pointer;
+    border-color:var(--background);
 }
 
 #start-btn{
@@ -81,16 +96,24 @@ li:hover{
     padding: 20px 40px;
     font-family: 'Press Start 2P', cursive;
     border-radius: 10px;
-    background: cadetblue;
+    background: var(--itemshoverbg);
     font-size: 30px;
-    border: 5px solid;
+    border: 5px solid var(--itemshoveroutline);
+    color: var(--itemshoveroutline);
+    transition: all 400ms ease-in-out;
 }
 #start-btn:hover{
-    background: white;
-    color: cadetblue;
+    background: var(--itemhover);
+    color: var(--itemsoutline);
+    border-color: var(--itemsoutline);
     cursor: pointer;
+    
 }
 
 .hidden-stuff{
     display: none;
+}
+
+.snake-body{
+    background-color:#00D1CD;
 }
