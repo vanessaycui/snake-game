@@ -87,11 +87,11 @@
     <a href="w02/d3/js-classes-lab.md">JS Classes Lab</a>
   </td>
   <td>
-    <a href="w02/d3/array-iterator-methods.md">Array Iterator Methods</a></br></br>
+    <a href="w02/d4/array-iterator-methods.md">Array Iterator Methods</a></br></br>
   </td>
   <td>
     <a href="w02/d5/playing-audio.md">Playing Audio in Browser</a></br></br>
-    <a href="w02/d1/guide-to-building-a-browser-game.md">Build a Game Together</a>
+    <a href="w01/d5/guide-to-building-a-browser-game.md">Build a Game Together</a>
   </td>
 </tr>
 
@@ -101,7 +101,7 @@
   <td>
       <a href="w01/d1/arrow-functions.md">Arrow Functions</a></br></br>
       <a href="w02/d1/tic-tac-toe">Tic Tac Toe (Deliverable)</a></br></br>
-      <a href="w02/d1/guide-to-building-a-browser-game.md">Build a Browser Game</a>
+      <a href="w01/d5/guide-to-building-a-browser-game.md">Build a Browser Game</a>
   </td>
   <td>
     <a href="w02/d2/responsive-design.md">Responsive Design</a></br></br>
