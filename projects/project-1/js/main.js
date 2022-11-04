@@ -41,13 +41,49 @@
         // a function to check whether the head of a player's snake has hit itself or another person's snake. 
 
 
-//constants
+
+/*----- constants -----*/
 let boardSize =30;
 
-//create board
+
+/*----- app's state (variables) -----*/
+let gameOn = true;
+
+/*----- cached element references -----*/
+let startBtn = document.querySelector('#start-btn')
+let resetBtn = document.querySelector('#reset-btn')
+let gameBoard = document.querySelector('.game-board')
+
+/*----- event listeners -----*/
+
+startBtn.addEventListener('click', function(event) {
+        event.preventDefault()
+        event.target.style.display = 'none'
+})
+
+resetBtn.addEventListener('click', function(event) {
+        event.preventDefault()
+        startBtn.style.display = 'inline';
+})
+
+//checking to see if divs were populated properly. delete!!!!!
+gameBoard.addEventListener('click', function(event) {
+   
+        if (event.target.nodeName === 'DIV'){
+                console.dir(event.target.id)
+        }
+})
+
+/*----- functions -----*/
+
+
+
+
+//rendering game board, adding id number to square for reference purposes
 for (let i = 0; i< boardSize*boardSize; i++){
         let square = document.createElement('div')
         square.classList.add("cell")
+        square.setAttribute('id',i)
         document.querySelector(".game-board").appendChild(square)
 
 }
