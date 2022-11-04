@@ -41,4 +41,13 @@
         // a function to check whether the head of a player's snake has hit itself or another person's snake. 
 
 
+//constants
+let boardSize =30;
 
+//create board
+for (let i = 0; i< boardSize*boardSize; i++){
+        let square = document.createElement('div')
+        square.classList.add("cell")
+        document.querySelector(".game-board").appendChild(square)
+
+}

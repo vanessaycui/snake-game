@@ -1,0 +1,96 @@
+
+
+body{
+    background-color: black;
+    display: grid;
+    grid-template-columns: auto 600px auto;
+    grid-template-rows: auto;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    height: 100vh;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+.game-board{
+    position: relative;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 450px; 
+    height: 450px;
+    margin: 20px;
+    /* (30 divs)x (15px) = 450px height and width for board */
+    
+}
+.cell{
+    background-color: grey;
+    flex-basis: 1;
+    width: 15px;
+    height: 15px;
+}
+aside{
+    display: flex;
+    flex-direction: column;
+    margin-top: 200px;
+}
+
+h1{
+    font-size: 2.75rem;
+}
+h2{
+    font-size:1.5rem;
+}
+h1:hover, h2:hover{
+    color: cadetblue;
+}
+li{
+    padding: 5px;
+}
+li:hover{
+    padding: 5px;
+    color: cadetblue;
+    cursor: crosshair;
+}
+
+#reset-btn{
+    background-color: cadetblue;
+    padding: 20px;
+    font-size: 1.5rem;
+    font-family: 'Press Start 2P', cursive;
+    border-radius: 10px;
+    border: 5px solid;
+    
+}
+
+#reset-btn:hover{
+    background-color: white;
+    color: cadetblue;
+    cursor: pointer;
+}
+
+#start-btn{
+    position: absolute;
+    cursor: pointer;
+    top: 190px;
+    left: 110px;
+    padding: 20px 40px;
+    font-family: 'Press Start 2P', cursive;
+    border-radius: 10px;
+    background: cadetblue;
+    font-size: 30px;
+    border: 5px solid;
+}
+#start-btn:hover{
+    background: white;
+    color: cadetblue;
+    cursor: pointer;
+}
+
+.hidden-stuff{
+    display: none;
+}
