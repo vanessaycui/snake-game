@@ -9,8 +9,11 @@ let direction = {
   left: [0, -1],
   right: [0, 1],
 };
+let initSpeed = 80;
+let speedChange = 0.90;
+let minInterval = 5;
 
-//creating creating divs
+//dynamically creating divs
 for (let i = 0; i < boardSize; i++) {
   for (let j = 0; j < boardSize; j++) {
     let square = document.createElement("div");
@@ -24,7 +27,7 @@ for (let i = 0; i < boardSize; i++) {
 let gameOn = false;
 let snakeBody = [];//store snake length
 let currentDir = "right"; //a way to check that player can only go orthogonal dir from current dir.
-let snakeSpeed = 100;
+let snakeSpeed = initSpeed;
 let gameStart = null; //used to store id from setInterval so we can stop it in reset btn or when player loses
 
 /*----- cached element references -----*/
@@ -52,7 +55,7 @@ resetBtn.addEventListener("click", function (event) {
   gameOn = false;
   snakeBody = [];
   currentDir = "right";
-  snakeSpeed = 500;
+  snakeSpeed = initSpeed;
   clearInterval(gameStart);
   gameSqs.forEach((sq) => sq.classList.remove("snake-body", "food"));
 });
@@ -155,7 +158,7 @@ function moveSnake() {
       snakeBody.push(tail)
       document.getElementById(snakeBody[0].join("-")).classList.remove("food")
       genFood()
-      snakeSpeed > 10 ? snakeSpeed = Math.floor(snakeSpeed*0.95) :  snakeSpeed = 10
+      snakeSpeed > minInterval ? snakeSpeed = Math.floor(snakeSpeed*speedChange) :  snakeSpeed = minInterval
       //stop current setInterval and start new
       console.log(snakeSpeed)
       clearInterval(gameStart)
@@ -170,3 +173,5 @@ function gameOver(){
   gameOn = false;
 
 }
+//delay registering keys to matcxh setInterval? throttle...
+//food count num %5 or something to increase speed.
