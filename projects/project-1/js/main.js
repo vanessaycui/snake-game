@@ -3,6 +3,12 @@
 let boardSize = 30;
 let initSnakeLen = 3;
 let snakeStartPos = [14, 14];
+let direction = {
+  up: [-1, 0],
+  down: [1,0],
+  left:[0,-1],
+  right:[0,1]
+}
 
 //creating boardMatrix (2D array) AND creating divs
 //don't know if i need boardMatrix yet. might delete.
@@ -22,9 +28,10 @@ for (let x = 0; x < boardSize; x++) {
 /*----- app's state (variables) -----*/
 let gameOn = false;
 let snakeBody = [];
-let snakeHead = snakeBody[0];
 let currentDir = "right"; //a way to check that player can only go orthogonal dir from current dir.
-let snakeSpeed = 500;
+let snakeSpeed = 200;
+let gameStart = null;
+
 /*----- cached element references -----*/
 let startBtn = document.querySelector("#start-btn");
 let resetBtn = document.querySelector("#reset-btn");
@@ -40,7 +47,7 @@ startBtn.addEventListener("click", function (event) {
   gameOn = true;
   snakeInit();
   genFood();
-  setInterval(moveSnake, snakeSpeed)
+  gameStart = setInterval(moveSnake, snakeSpeed);
 });
 
 resetBtn.addEventListener("click", function (event) {
@@ -48,6 +55,10 @@ resetBtn.addEventListener("click", function (event) {
   startBtn.style.display = "inline";
   gameInstruc.style.display = "block";
   gameOn = false;
+  snakeBody = [];
+  currentDir = "right";
+  snakeSpeed = 500;
+  clearInterval(gameStart);
   gameSqs.forEach((sq) => sq.classList.remove("snake-body", "food"));
 });
 
@@ -101,12 +112,11 @@ function genFood() {
   document.getElementById(foodid).classList.add("food");
 }
 
-//section below deals with changing snake direction by changing direction of the head. 
+//section below deals with changing snake direction by changing direction of the head.
 function moveUp() {
   //moving up a row, maintain y-dir.
   let nextPos = [snakeBody[0][0] - 1, snakeBody[0][1]];
   //set head to next Pos
-  snakeBody[0] = nextPos;
   currentDir = "up";
   console.log("moving up");
 }
@@ -131,39 +141,18 @@ function moveRight() {
 
 //deals with moving the snake only. cb function for the setInterval higher-order function.
 function moveSnake() {
-  if (currentDir === "up") {
-    //head will continue to keep moving with y values unchanged.
-    snakeBody[0] = [snakeBody[0][0] - 1, snakeBody[0][1]];
-  } else if (currentDir === "down") {
-    //head will continue to keep moving with y values unchanged.
-    snakeBody[0] = [snakeBody[0][0] + 1, snakeBody[0][1]];
-  } else if (currentDir === "left") {
-      //head will continue to keep moving with x values unchanged.
-      snakeBody[0] = [snakeBody[0][0], snakeBody[0][1]-1];
-  } else if (currentDir === "right") {
-      //head will continue to keep moving with x values unchanged.
-      snakeBody[0] = [snakeBody[0][0], snakeBody[0][1]+1];
-      console.log(snakeBody)
-  }
-  //make end tail disappear...this is wrong:
-  let snakeEnd = snakeBody[snakeBody.length-1].join('-')
-  document.getElementById(snakeEnd).classList.remove("snake-body");
+  
+ 
+  let end = snakeBody.length -1;
+  document.getElementById(snakeBody[end].join("-")).classList.remove("snake-body")
+  
 
-  //incrementally moving each element towards the head.
-  for (let i = 1; i< snakeBody.length; i++){
+  for (let i=end; i>0; i--){
     snakeBody[i] = snakeBody[i-1]
   }
   
-
-
-  snakeBody.forEach((segment) => {
-    console.log(segment)
-    let snakeSegId = segment.join("-")
-    document.getElementById(snakeSegId).classList.add("snake-body");
-  })
-
-
+  snakeBody[0] = [direction[currentDir][0] + snakeBody[0][0], direction[currentDir][1]+snakeBody[0][1]]
+  document.getElementById(snakeBody[0].join("-")).classList.add("snake-body")
+  
 }
-
-
 
