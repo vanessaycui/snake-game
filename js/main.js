@@ -12,6 +12,7 @@ let direction = {
 let initSpeed = 80;
 let speedChange = 0.90;
 let minInterval = 5;
+let gameOverMsgs = ["SAD TIMES","TRY AGAIN", "GAME OVER", "I'M SORRY", "DONT CRY" ]
 
 //dynamically creating divs
 for (let i = 0; i < boardSize; i++) {
@@ -37,6 +38,7 @@ let gameBoard = document.querySelector(".game-board");
 let gameSqs = document.querySelectorAll("div");
 let gameInstruc = document.querySelector(".game-board >p");
 let gameOverMsg = document.querySelector("#game-over-msg");
+let lastMsg = document.querySelector("#game-over-msg >p");
 let heading = document.querySelector("h1");
 
 
@@ -175,6 +177,9 @@ function moveSnake() {
 function gameOver(){
   console.log("lol u suck")
   clearInterval(gameStart)
+  let randomMsgIdx = Math.floor(Math.random()*gameOverMsgs.length);
+  console.log(randomMsgIdx)
+  lastMsg.innerHTML = gameOverMsgs[randomMsgIdx];
   gameOn = false;
   gameOverMsg.style.display = "block";
   heading.style.backgroundImage = "linear-gradient(90deg, var(--hover) 0%,var(--titles) 50%,var(--hover) 100%)";
@@ -182,7 +187,6 @@ function gameOver(){
 //delay registering keys to matcxh setInterval? throttle...
 //food count num %5 or something to increase speed.
 //random gen food colors!
-//add player score at the end
 //score count at the top right to dynamically change so player knows
 //add high score + player name at the top left 
 //high score panel to disappear in small screens.
