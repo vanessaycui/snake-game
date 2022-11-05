@@ -12,7 +12,8 @@ let direction = {
 let initSpeed = 80;
 let speedChange = 0.90;
 let minInterval = 5;
-let gameOverMsgs = ["SAD TIMES","TRY AGAIN", "GAME OVER", "I'M SORRY", "DONT CRY" ]
+let gameOverMsgs = ["TRY AGAIN", "GAME OVER", "I'M SORRY", "DO BETTER"]
+let newHighScoreMsgs= ["NEW HIGH SCORE"]
 
 //dynamically creating divs
 for (let i = 0; i < boardSize; i++) {
@@ -30,6 +31,8 @@ let snakeBody = [];//store snake length
 let currentDir = "right"; //a way to check that player can only go orthogonal dir from current dir.
 let snakeSpeed = initSpeed;
 let gameStart = null; //used to store id from setInterval so we can stop it in reset btn or when player loses
+let highScore = 0;
+let playerScore = 0;
 
 /*----- cached element references -----*/
 let startBtn = document.querySelector("#start-btn");
@@ -40,7 +43,8 @@ let gameInstruc = document.querySelector(".game-board >p");
 let gameOverMsg = document.querySelector("#game-over-msg");
 let lastMsg = document.querySelector("#game-over-msg >p");
 let heading = document.querySelector("h1");
-
+let playerScoreTxt = document.querySelector("#player-score");
+let highScoreTxt = document.querySelector("#high-score");
 
 /*----- event listeners -----*/
 startBtn.addEventListener("click", function (event) {
@@ -61,6 +65,8 @@ resetBtn.addEventListener("click", function (event) {
   snakeBody = [];
   currentDir = "right";
   snakeSpeed = initSpeed;
+  playerScore = 0;
+  playerScoreTxt.innerHTML = '000';
   clearInterval(gameStart);
   gameSqs.forEach((sq) => sq.classList.remove("snake-body", "food"));
   gameOverMsg.style.display = "none";
@@ -79,13 +85,6 @@ document.addEventListener("keyup", (event) => {
     moveRight();
   }
 });
-
-// //check div populated properly
-// gameBoard.addEventListener("click", function (event) {
-//   if (event.target.nodeName === 'DIV'){
-//     console.dir(event.target)
-//   }
-// });
 
 /*----- functions -----*/
 //initializing snake body
@@ -165,6 +164,7 @@ function moveSnake() {
       snakeBody.push(tail)
       document.getElementById(snakeBody[0].join("-")).classList.remove("food")
       genFood()
+      addPoint()
       snakeSpeed > minInterval ? snakeSpeed = Math.floor(snakeSpeed*speedChange) :  snakeSpeed = minInterval
       //stop current setInterval and start new
       console.log(snakeSpeed)
@@ -177,17 +177,48 @@ function moveSnake() {
 function gameOver(){
   console.log("lol u suck")
   clearInterval(gameStart)
-  let randomMsgIdx = Math.floor(Math.random()*gameOverMsgs.length);
-  console.log(randomMsgIdx)
-  lastMsg.innerHTML = gameOverMsgs[randomMsgIdx];
+  
+  if (highScore === playerScore){
+    let randomMsgIdx = Math.floor(Math.random()*newHighScoreMsgs.length);
+    lastMsg.innerHTML = newHighScoreMsgs[0]
+    lastMsg.style.fontSize = "3rem";
+    lastMsg.style.color="var(--instructions)";
+
+  } else {
+    let randomMsgIdx = Math.floor(Math.random()*gameOverMsgs.length);
+    lastMsg.innerHTML = gameOverMsgs[randomMsgIdx];
+    lastMsg.style.fontSize = "4rem";
+    lastMsg.style.color="var(--gameover)";
+  }
+
   gameOn = false;
   gameOverMsg.style.display = "block";
-  heading.style.backgroundImage = "linear-gradient(90deg, var(--hover) 0%,var(--titles) 50%,var(--hover) 100%)";
+  heading.style.backgroundImage = "linear-gradient(90deg, var(--snakebody) 0%,var(--snakebody) 100%)";
+}
+
+function addPoint(){
+  playerScore++
+  if (playerScore> highScore){
+    highScore= playerScore;
+    let padding = 3-highScore.toString().length;
+    let scoreTxt = ''
+    for (let i=0; i<padding; i++){
+      scoreTxt = scoreTxt + '0'    
+    }
+    scoreTxt = scoreTxt+highScore.toString()
+    highScoreTxt.innerHTML = scoreTxt;
+  }
+  let padding = 3-playerScore.toString().length;
+  let scoreTxt = ''
+  for (let i=0; i<padding; i++){
+    scoreTxt = scoreTxt + '0'    
+  }
+  scoreTxt = scoreTxt+playerScore.toString()
+  playerScoreTxt.innerHTML = scoreTxt;
 }
 //delay registering keys to matcxh setInterval? throttle...
 //food count num %5 or something to increase speed.
 //random gen food colors!
-//score count at the top right to dynamically change so player knows
-//add high score + player name at the top left 
+//add celebratory css when hitting high score.
 //high score panel to disappear in small screens.
 
