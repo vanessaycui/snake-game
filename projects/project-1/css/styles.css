@@ -50,6 +50,7 @@ main{
     border: 10px inset var(--boardoutline);
     animation: spin;   
 }
+
 .cell{
     background-color: var(--board);
     flex-basis: 1;
@@ -166,10 +167,12 @@ li:hover{
     color: var(--instructions);
 }
 
+
 /* animation keyframes */
 @keyframes title-animate{
     to {
         background-position: 200% center;
     }
 }
+
 

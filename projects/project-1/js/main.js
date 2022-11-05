@@ -5,10 +5,11 @@ let initSnakeLen = 3;
 let snakeStartPos = [14, 14];
 let direction = {
   up: [-1, 0],
-  down: [1,0],
-  left:[0,-1],
-  right:[0,1]
-}
+  down: [1, 0],
+  left: [0, -1],
+  right: [0, 1],
+};
+
 
 //creating boardMatrix (2D array) AND creating divs
 //don't know if i need boardMatrix yet. might delete.
@@ -25,12 +26,14 @@ for (let x = 0; x < boardSize; x++) {
   boardMatrix.push(rowArr);
 }
 
+
+
 /*----- app's state (variables) -----*/
 let gameOn = false;
 let snakeBody = [];
 let currentDir = "right"; //a way to check that player can only go orthogonal dir from current dir.
-let snakeSpeed = 200;
-let gameStart = null;
+let snakeSpeed = 100;
+let gameStart = null; //used to store id from setInterval so we can stop it in reset btn or you lose.
 
 /*----- cached element references -----*/
 let startBtn = document.querySelector("#start-btn");
@@ -97,14 +100,14 @@ function snakeInit() {
 //randomly generates food on the board.
 function genFood() {
   let randomPos = [
-    Math.floor(Math.random() * 30),
-    Math.floor(Math.random() * 30),
+    Math.floor(Math.random() * boardSize),
+    Math.floor(Math.random() * boardSize),
   ];
   //make sure food doesnt spawn on snake body.
   while (snakeBody.includes(randomPos)) {
     randomPos = [
-      Math.floor(Math.random() * 30),
-      Math.floor(Math.random() * 30),
+      Math.floor(Math.random() * boardSize),
+      Math.floor(Math.random() * boardSize),
     ];
   }
   //display food on board.
@@ -141,18 +144,24 @@ function moveRight() {
 
 //deals with moving the snake only. cb function for the setInterval higher-order function.
 function moveSnake() {
-  
- 
-  let end = snakeBody.length -1;
-  document.getElementById(snakeBody[end].join("-")).classList.remove("snake-body")
-  
-
-  for (let i=end; i>0; i--){
-    snakeBody[i] = snakeBody[i-1]
+  let end = snakeBody.length - 1;
+  document.getElementById(snakeBody[end].join("-")).classList.remove("snake-body");
+  for (let i = end; i > 0; i--) {
+    snakeBody[i] = snakeBody[i - 1];
   }
+  snakeBody[0] = [direction[currentDir][0] + snakeBody[0][0],direction[currentDir][1] + snakeBody[0][1]];
   
-  snakeBody[0] = [direction[currentDir][0] + snakeBody[0][0], direction[currentDir][1]+snakeBody[0][1]]
-  document.getElementById(snakeBody[0].join("-")).classList.add("snake-body")
-  
-}
+  //stop game when snake hits borders 
+  if (snakeBody[0][0]<0 || snakeBody[0][0]>boardSize-1 || snakeBody[0][1]<0 || snakeBody[0][1]>boardSize-1 ){
+    console.log("ahh")
+    clearInterval(gameStart)
+  } else {
 
+    //check if snake hit itself before adding class.
+    document.getElementById(snakeBody[0].join("-")).classList.add("snake-body");
+    console.log(snakeBody[0])
+  }
+
+  //stop game when snake hits itself
+
+}
