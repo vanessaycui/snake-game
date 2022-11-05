@@ -2,7 +2,7 @@
 /*----- constants -----*/
 let boardSize = 30;
 let initSnakeLen = 3;
-let snakeStartPos = [14, 14];
+let snakeStartPos = [14, 14]; //center of board
 let direction = {
   up: [-1, 0],
   down: [1, 0],
@@ -10,30 +10,22 @@ let direction = {
   right: [0, 1],
 };
 
-
-//creating boardMatrix (2D array) AND creating divs
-//don't know if i need boardMatrix yet. might delete.
-let boardMatrix = [];
-for (let x = 0; x < boardSize; x++) {
-  let rowArr = [];
-  for (let y = 0; y < boardSize; y++) {
-    rowArr.push(0);
+//creating creating divs
+for (let i = 0; i < boardSize; i++) {
+  for (let j = 0; j < boardSize; j++) {
     let square = document.createElement("div");
     square.classList.add("cell");
-    square.setAttribute("id", x + "-" + y);
+    square.setAttribute("id", i + "-" + j);
     document.querySelector(".game-board").appendChild(square);
   }
-  boardMatrix.push(rowArr);
 }
-
-
 
 /*----- app's state (variables) -----*/
 let gameOn = false;
-let snakeBody = [];
+let snakeBody = [];//store snake length
 let currentDir = "right"; //a way to check that player can only go orthogonal dir from current dir.
 let snakeSpeed = 100;
-let gameStart = null; //used to store id from setInterval so we can stop it in reset btn or you lose.
+let gameStart = null; //used to store id from setInterval so we can stop it in reset btn or when player loses
 
 /*----- cached element references -----*/
 let startBtn = document.querySelector("#start-btn");
@@ -86,7 +78,6 @@ document.addEventListener("keyup", (event) => {
 // });
 
 /*----- functions -----*/
-
 //initializing snake body
 function snakeInit() {
   for (let i = 0; i < initSnakeLen; i++) {
@@ -96,72 +87,86 @@ function snakeInit() {
     document.getElementById(identifier).classList.add("snake-body");
   }
 }
-
 //randomly generates food on the board.
 function genFood() {
   let randomPos = [
     Math.floor(Math.random() * boardSize),
     Math.floor(Math.random() * boardSize),
   ];
-  //make sure food doesnt spawn on snake body.
-  while (snakeBody.includes(randomPos)) {
+  while (snakeBody.includes(randomPos)) { //make sure food doesnt spawn on snake body
     randomPos = [
       Math.floor(Math.random() * boardSize),
       Math.floor(Math.random() * boardSize),
     ];
   }
-  //display food on board.
   let foodid = randomPos[0].toString() + "-" + randomPos[1].toString();
   document.getElementById(foodid).classList.add("food");
 }
-
-//section below deals with changing snake direction by changing direction of the head.
 function moveUp() {
-  //moving up a row, maintain y-dir.
-  let nextPos = [snakeBody[0][0] - 1, snakeBody[0][1]];
-  //set head to next Pos
-  currentDir = "up";
-  console.log("moving up");
+  if (currentDir !=="down"){
+    let nextPos = [snakeBody[0][0]-1, snakeBody[0][1]];
+    currentDir = "up";
+    console.log("moving up");
+  }
 }
-
 function moveDown() {
-  let nextPos = [snakeBody[0][0] + 1, snakeBody[0][1]];
-  currentDir = "down";
-  console.log("moving down");
+  if (currentDir !== "up"){
+    let nextPos = [snakeBody[0][0]+1, snakeBody[0][1]];
+    currentDir = "down";
+    console.log("moving down");
+  }
 }
-
 function moveLeft() {
-  let nextPos = [snakeBody[0][0], snakeBody[0][1] - 1];
-  currentDir = "left";
-  console.log("moving left");
+  if (currentDir !== "right"){
+    let nextPos = [snakeBody[0][0], snakeBody[0][1]-1];
+    currentDir = "left";
+    console.log("moving left");
+  }
 }
-
 function moveRight() {
-  let nextPos = [snakeBody[0][0], snakeBody[0][1] + 1];
-  currentDir = "right";
-  console.log("moving right");
+  if (currentDir !== "left"){
+    let nextPos = [snakeBody[0][0], snakeBody[0][1+1]];
+    currentDir = "right";
+    console.log("moving right");
+  }
 }
-
-//deals with moving the snake only. cb function for the setInterval higher-order function.
+//deals with moving the snake only. this is the cb for setInterval
 function moveSnake() {
-  let end = snakeBody.length - 1;
+  let end = snakeBody.length - 1; //remove snake-body class from tail
   document.getElementById(snakeBody[end].join("-")).classList.remove("snake-body");
-  for (let i = end; i > 0; i--) {
+  for (let i = end; i > 0; i--) { //incrementally equate current element to prev element
     snakeBody[i] = snakeBody[i - 1];
   }
+  //modify head coordinate to direction snake is currently moving
   snakeBody[0] = [direction[currentDir][0] + snakeBody[0][0],direction[currentDir][1] + snakeBody[0][1]];
   
-  //stop game when snake hits borders 
+  //stop game when snake head coords surpasses borders
   if (snakeBody[0][0]<0 || snakeBody[0][0]>boardSize-1 || snakeBody[0][1]<0 || snakeBody[0][1]>boardSize-1 ){
-    console.log("ahh")
-    clearInterval(gameStart)
+    gameOver()
+  //check if snake head has hit its own body
+  } else if (document.getElementById(snakeBody[0].join("-")).classList.contains("snake-body")){
+    gameOver()
+    //check if snake head has hit food item
   } else {
-
-    //check if snake hit itself before adding class.
-    document.getElementById(snakeBody[0].join("-")).classList.add("snake-body");
-    console.log(snakeBody[0])
+    document.getElementById(snakeBody[0].join("-")).classList.add("snake-body")
+    
+    if (document.getElementById(snakeBody[0].join("-")).classList.contains("food")) {
+      let tail = snakeBody[end]
+      snakeBody.push(tail)
+      document.getElementById(snakeBody[0].join("-")).classList.remove("food")
+      genFood()
+      snakeSpeed > 10 ? snakeSpeed = Math.floor(snakeSpeed*0.95) :  snakeSpeed = 10
+      //stop current setInterval and start new
+      console.log(snakeSpeed)
+      clearInterval(gameStart)
+      gameStart = setInterval(moveSnake, snakeSpeed)
+    }
   }
+}
 
-  //stop game when snake hits itself
+function gameOver(){
+  console.log("lol u suck")
+  clearInterval(gameStart)
+  gameOn = false;
 
 }
