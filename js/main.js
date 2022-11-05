@@ -36,6 +36,9 @@ let resetBtn = document.querySelector("#reset-btn");
 let gameBoard = document.querySelector(".game-board");
 let gameSqs = document.querySelectorAll("div");
 let gameInstruc = document.querySelector(".game-board >p");
+let gameOverMsg = document.querySelector("#game-over-msg");
+let heading = document.querySelector("h1");
+
 
 /*----- event listeners -----*/
 startBtn.addEventListener("click", function (event) {
@@ -58,6 +61,8 @@ resetBtn.addEventListener("click", function (event) {
   snakeSpeed = initSpeed;
   clearInterval(gameStart);
   gameSqs.forEach((sq) => sq.classList.remove("snake-body", "food"));
+  gameOverMsg.style.display = "none";
+  heading.style.backgroundImage = "linear-gradient(90deg,var(--snakebody) 0%,var(--itembg) 40%,var(--snakebody) 50%,var(--itembg) 75%,var(--snakebody)100%)"
 });
 
 //only listen for arrow keys if the game is on
@@ -171,7 +176,14 @@ function gameOver(){
   console.log("lol u suck")
   clearInterval(gameStart)
   gameOn = false;
-
+  gameOverMsg.style.display = "block";
+  heading.style.backgroundImage = "linear-gradient(90deg, var(--hover) 0%,var(--titles) 50%,var(--hover) 100%)";
 }
 //delay registering keys to matcxh setInterval? throttle...
 //food count num %5 or something to increase speed.
+//random gen food colors!
+//add player score at the end
+//score count at the top right to dynamically change so player knows
+//add high score + player name at the top left 
+//high score panel to disappear in small screens.
+

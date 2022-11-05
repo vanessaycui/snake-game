@@ -14,6 +14,8 @@
     --food: orange;
     --textstyle: 'Press Start 2P', cursive;
     --instructions: #37f7f9;
+    --gameover: #F30067;
+    --scoreboard: white;
   }
 
   *{
@@ -36,6 +38,24 @@ main{
     align-items: center;
     margin-top: 5%;
 }
+#score-tracker{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding:0;
+    margin:5px;
+    width: 95%;
+    font-size: 0.75rem;
+    color: var(--scoreboard);
+}
+#score-tracker >div{
+    margin:0;
+    text-align: center;
+}
+
+#score-tracker >div >p {
+    display: inline;
+}
 
 .game-board{
     position: relative;
@@ -44,7 +64,7 @@ main{
     justify-content: space-between;
     width: 450px; 
     height: 450px;
-    margin: 20px;
+    margin-bottom: 20px;
     /* (30 divs)x (15px) = 450px height and width for board */
     background-color: var(--board);
     border: 10px inset var(--boardoutline);
@@ -66,7 +86,7 @@ aside{
 
 h1{
     font-size: 5rem;
-    margin-bottom: 0;
+    margin-bottom: 10px;
     /* create background image behind text */
     background-image: linear-gradient(90deg,
     var(--snakebody) 0%,
@@ -174,5 +194,13 @@ li:hover{
         background-position: 200% center;
     }
 }
-
+#game-over-msg{
+    display:none;
+    position: absolute;
+    text-align: center;
+    font-size: 5rem;
+    left: 5%;
+    top: 10%;
+    color: var(--gameover);
+}
 
