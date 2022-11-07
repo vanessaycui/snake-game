@@ -8,8 +8,9 @@ const direction = {
   left: [0, -1],
   right: [0, 1],
 };
-const initSpeed = 80;
+const initSpeed = 90;
 const speedChange = 0.90;
+const speedChangeFreq = 10;
 const minInterval = 5;
 const gameOverMsgs = ["TRY AGAIN", "GAME OVER"]
 const newHighScoreMsgs= ["NEW HIGH SCORE"]
@@ -103,18 +104,17 @@ function snakeInit() {
 }
 //randomly generates food on the board.
 function genFood() {
-  let randomPos = [
-    Math.floor(Math.random() * boardSize),
-    Math.floor(Math.random() * boardSize),
-  ];
-  while (snakeBody.includes(randomPos)) { //make sure food doesnt spawn on snake body
+  let randomPos = [Math.floor(Math.random() * boardSize),Math.floor(Math.random() * boardSize)];
+  
+  while (snakeBody.some(arr => arr === randomPos)) { //make sure food doesnt spawn on snake body
     randomPos = [
       Math.floor(Math.random() * boardSize),
       Math.floor(Math.random() * boardSize),
     ];
   }
   let foodid = randomPos[0].toString() + "-" + randomPos[1].toString();
-  document.getElementById(foodid).classList.add("food");
+  let foodSq = document.getElementById(foodid)
+  foodSq.classList.add("food");
 }
 
 function executeMove(){
@@ -154,13 +154,20 @@ function snakeMechanics() {
       document.getElementById(snakeBody[0].join("-")).classList.remove("food")
       genFood()
       addPoint()
-      snakeSpeed > minInterval ? snakeSpeed = Math.floor(snakeSpeed*speedChange) :  snakeSpeed = minInterval
-      //stop current setInterval and start new
-      console.log(snakeSpeed)
-      clearInterval(gameStart)
-      gameStart = setInterval(executeMove, snakeSpeed)
+      //change speed every 10 points;
+      if (playerScore%10 === 0) {
+        increaseSpeed()
+      }
     }
   }
+}
+
+function increaseSpeed() {
+  snakeSpeed > minInterval ? snakeSpeed = Math.floor(snakeSpeed*speedChange) :  snakeSpeed = minInterval
+  //stop current setInterval and start new
+  console.log(snakeSpeed)
+  clearInterval(gameStart)
+  gameStart = setInterval(executeMove, snakeSpeed)
 }
 
 //instructions on what to do when the game is over.
@@ -204,8 +211,6 @@ function addPoint(){
   playerScoreTxt.innerHTML = scoreTxt;
 }
 
-
-//food count num %10 or something to increase speed.
 //random gen food colors!
 //add celebratory css when hitting high score.
 //high score panel to disappear in small screens.

@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    <aside>
+    <aside id="info">
         <!-- maybe add some links -->
     </aside>
     <main>
@@ -26,16 +26,13 @@
             <div>
                 <p>SCORE:</p>
                 <p id="player-score"> 000</p>
-            </div>
-            
-            
+            </div>          
         </section>
         <section class="game-board">
             <!-- where the game board divs will go -->
             <section id="game-over-msg">
                 <p>GAME OVER</p>
             </section>
-            
             <p>USE ARROW KEYS TO MOVE</p>
             <button id="start-btn">START</button>
         </section>
@@ -44,15 +41,20 @@
             <button id="reset-btn">RESET</button>
         </section>
     </main>
-    <aside>
-       <!-- <h2>HIGH SCORES:</h2>
+    <aside id="data">
+       <h2>HIGH SCORES:</h2>
         <ol>
             <li> name 25</li>
             <li> name 20</li>
             <li> name 10</li>
-        </ol> -->
-        <!-- add option to adjust difficulty -->
+        </ol> 
     </aside>
+
+    <section id="error">
+        <p> Oops, your window isn't big enough.</p>
+        <p>Please enlarge your window or find a computer to play</p>
+        <h1>SNAKE</h1>
+    </section>
     
     <script src="./js/main.js"></script>
 </body>

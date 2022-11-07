@@ -11,11 +11,11 @@
     --hover: #F30067;
     --background: #232931;
     --snakebody: #00D1CD;
-    --food: orange;
     --textstyle: 'Press Start 2P', cursive;
     --instructions: #37f7f9;
     --gameover: #F30067;
     --scoreboard: white;
+    --foodcolor: orange;
   }
 
   *{
@@ -30,9 +30,17 @@ body{
     color: var(--titles);
     font-family: var(--textstyle);
     height: 100vh;
+    grid-template-areas: 
+    "left middle right";
 }
-
+#info{
+    grid-area: left;
+}
+#data{
+    grid-area: right;
+}
 main{
+    grid-area: middle;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,6 +83,7 @@ main{
     flex-basis: 1;
     width: 15px;
     height: 15px;
+
 }
 
 aside{
@@ -168,12 +177,13 @@ li:hover{
 }
 
 .snake-body{
+    box-sizing: border-box;
     background-color:var(--snakebody);
 }
 
 .food{
-    background-color:var(--food);
     border-radius: 10px;
+    background-color: var(--foodcolor);
 }
 
 .game-board > p{
@@ -228,3 +238,61 @@ li:hover{
     
 }
 
+#error{
+    display: none;
+}
+
+
+@media only screen and (max-width: 907px){
+    aside{
+        display: none;
+    }
+
+    /* thinking of adding highscores at the top, info at the bottom */
+}
+
+
+@media only screen and (max-width: 600px){
+    aside{
+        display: none;
+    }
+    main{
+        display: none;
+    }
+    body{
+        display: block;
+    }
+    h1{
+        margin-top: 0;
+        font-size: 4rem;
+    }
+    p{
+        color: var(--hover);
+    }
+    #error{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        height: 100vh;
+        margin: 1rem;
+    }
+    /* thinking of adding highscores at the top, info at the bottom */
+}
+
+@media only screen and (max-width: 383px){
+    h1{
+        font-size: 3rem;
+    }
+}
+@media only screen and (max-width: 286px){
+    h1{
+        font-size: 2rem;
+    }
+}
+@media only screen and (max-width: 200px){
+    h1{
+        font-size: 1rem;
+    }
+}
