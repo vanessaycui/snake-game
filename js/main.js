@@ -204,16 +204,8 @@ function addPoint(){
   playerScoreTxt.innerHTML = scoreTxt;
 }
 
-function checkKeyPress() {
 
-
-}
-//delay registering keys to matcxh setInterval? throttle...
-// key press queue??
-//requestAnimationFrame()? 
-//handling multiple keyupresses at once
-
-//food count num %5 or something to increase speed.
+//food count num %10 or something to increase speed.
 //random gen food colors!
 //add celebratory css when hitting high score.
 //high score panel to disappear in small screens.
