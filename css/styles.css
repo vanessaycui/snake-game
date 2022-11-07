@@ -149,11 +149,36 @@ li:hover{
     cursor: pointer;
     border-color:var(--background);
 }
+#username{
+    position: absolute;
+    cursor: cell;
+    top: 175px;
+    left: 112px;
+    height: 50px;
+    width: 220px;
+    font-family: var(--textstyle);
+    font-size: 1.5rem;
+    text-align: center;
+    border-radius: 10px;
+    border: 5px solid var(--itemsoutline);
+    background-color: var(--background);
+    color: var(--itemsoutline);
+    caret-color: transparent;
+}
+
+#username:focus{
+    outline: none;
+    background-color: var(--board);
+    top: 170px;
+    left: 107px;
+    height: 60px;
+    width: 230px;
+}
 
 #start-btn{
     position: absolute;
     cursor: pointer;
-    top: 190px;
+    top: 275px;
     left: 110px;
     padding: 20px 40px;
     font-family: var(--textstyle);
@@ -248,7 +273,7 @@ li:hover{
         display: none;
     }
 
-    /* thinking of adding highscores at the top, info at the bottom */
+    /* thinking of adding info at the bottom */
 }
 
 
@@ -278,7 +303,6 @@ li:hover{
         height: 100vh;
         margin: 1rem;
     }
-    /* thinking of adding highscores at the top, info at the bottom */
 }
 
 @media only screen and (max-width: 383px){
