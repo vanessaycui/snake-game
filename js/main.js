@@ -1,21 +1,19 @@
-//rendering game board, adding id number to square for reference purposes
 /*----- constants -----*/
-let boardSize = 30;
-let initSnakeLen = 3;
-let snakeStartPos = [14, 14]; //center of board
-let direction = {
+const boardSize = 30;
+const initSnakeLen = 3;
+const snakeStartPos = [14, 14]; //center of board
+const direction = {
   up: [-1, 0],
   down: [1, 0],
   left: [0, -1],
   right: [0, 1],
 };
-let initSpeed = 80;
-let speedChange = 0.90;
-let minInterval = 5;
-let gameOverMsgs = ["TRY AGAIN", "GAME OVER", "I'M SORRY", "DO BETTER"]
-let newHighScoreMsgs= ["NEW HIGH SCORE"]
-
-//dynamically creating divs
+const initSpeed = 80;
+const speedChange = 0.90;
+const minInterval = 5;
+const gameOverMsgs = ["TRY AGAIN", "GAME OVER"]
+const newHighScoreMsgs= ["NEW HIGH SCORE"]
+//dynamically creating grid of divs for the gameboard.
 for (let i = 0; i < boardSize; i++) {
   for (let j = 0; j < boardSize; j++) {
     let square = document.createElement("div");
@@ -28,23 +26,30 @@ for (let i = 0; i < boardSize; i++) {
 /*----- app's state (variables) -----*/
 let gameOn = false;
 let snakeBody = [];//store snake length
-let currentDir = "right"; //a way to check that player can only go orthogonal dir from current dir.
+let controller = { //track key presses; might expand this later. //might be in const...
+  ArrowUp: {name: "up", opp: "down", doThis: function () {changeDir(this.opp,this.name)}},
+  ArrowDown: {name: "down", opp:"up",doThis: function () {changeDir(this.opp,this.name)}},
+  ArrowLeft:{name: "left", opp: "right", doThis: function () {changeDir(this.opp,this.name)}},
+  ArrowRight:{name: "right", opp: "left", doThis: function (){changeDir(this.opp, this.name)}}
+}
 let snakeSpeed = initSpeed;
 let gameStart = null; //used to store id from setInterval so we can stop it in reset btn or when player loses
 let highScore = 0;
 let playerScore = 0;
+let currentDir = controller.ArrowRight; //a way to check that player can only go orthogonal dir from current dir.
+let keyQueue = [currentDir];
 
 /*----- cached element references -----*/
-let startBtn = document.querySelector("#start-btn");
-let resetBtn = document.querySelector("#reset-btn");
-let gameBoard = document.querySelector(".game-board");
-let gameSqs = document.querySelectorAll("div");
-let gameInstruc = document.querySelector(".game-board >p");
-let gameOverMsg = document.querySelector("#game-over-msg");
-let lastMsg = document.querySelector("#game-over-msg >p");
-let heading = document.querySelector("h1");
-let playerScoreTxt = document.querySelector("#player-score");
-let highScoreTxt = document.querySelector("#high-score");
+const startBtn = document.querySelector("#start-btn");
+const resetBtn = document.querySelector("#reset-btn");
+const gameBoard = document.querySelector(".game-board");
+const gameSqs = document.querySelectorAll("div");
+const gameInstruc = document.querySelector(".game-board >p");
+const gameOverMsg = document.querySelector("#game-over-msg");
+const lastMsg = document.querySelector("#game-over-msg >p");
+const heading = document.querySelector("h1");
+const playerScoreTxt = document.querySelector("#player-score");
+const highScoreTxt = document.querySelector("#high-score");
 
 /*----- event listeners -----*/
 startBtn.addEventListener("click", function (event) {
@@ -54,7 +59,7 @@ startBtn.addEventListener("click", function (event) {
   gameOn = true;
   snakeInit();
   genFood();
-  gameStart = setInterval(moveSnake, snakeSpeed);
+  gameStart = setInterval(executeMove, snakeSpeed);
 });
 
 resetBtn.addEventListener("click", function (event) {
@@ -63,7 +68,8 @@ resetBtn.addEventListener("click", function (event) {
   gameInstruc.style.display = "block";
   gameOn = false;
   snakeBody = [];
-  currentDir = "right";
+  currentDir = controller.ArrowRight;
+  keyQueue= [currentDir]
   snakeSpeed = initSpeed;
   playerScore = 0;
   playerScoreTxt.innerHTML = '000';
@@ -74,16 +80,15 @@ resetBtn.addEventListener("click", function (event) {
 });
 
 //only listen for arrow keys if the game is on
-document.addEventListener("keyup", (event) => {
-  if (event.key === "ArrowUp" && gameOn) {
-    moveUp();
-  } else if (event.key === "ArrowDown" && gameOn) {
-    moveDown();
-  } else if (event.key === "ArrowLeft" && gameOn) {
-    moveLeft();
-  } else if (event.key === "ArrowRight" && gameOn) {
-    moveRight();
-  }
+document.addEventListener("keydown", (event) => {
+//changes direction of snake based on key presses. 
+//if arrow keys are pressed more than once within setInterval time, 
+//it will be added to the key Queue. keys to be executed in sequential order.
+  if (controller[event.key] && gameOn) {
+    if (currentDir.opp !== controller[event.key].name){
+      keyQueue.push(controller[event.key])
+    }
+  } 
 });
 
 /*----- functions -----*/
@@ -111,43 +116,27 @@ function genFood() {
   let foodid = randomPos[0].toString() + "-" + randomPos[1].toString();
   document.getElementById(foodid).classList.add("food");
 }
-function moveUp() {
-  if (currentDir !=="down"){
-    let nextPos = [snakeBody[0][0]-1, snakeBody[0][1]];
-    currentDir = "up";
-    console.log("moving up");
+
+function executeMove(){
+  //Only listen to the last key pressed, delete everything else. 
+  while (keyQueue.length !== 1){
+    keyQueue.shift()
+  }
+  if (currentDir.opp !== keyQueue[0].name){
+    currentDir=keyQueue[0]
+    snakeMechanics()
   }
 }
-function moveDown() {
-  if (currentDir !== "up"){
-    let nextPos = [snakeBody[0][0]+1, snakeBody[0][1]];
-    currentDir = "down";
-    console.log("moving down");
-  }
-}
-function moveLeft() {
-  if (currentDir !== "right"){
-    let nextPos = [snakeBody[0][0], snakeBody[0][1]-1];
-    currentDir = "left";
-    console.log("moving left");
-  }
-}
-function moveRight() {
-  if (currentDir !== "left"){
-    let nextPos = [snakeBody[0][0], snakeBody[0][1+1]];
-    currentDir = "right";
-    console.log("moving right");
-  }
-}
-//deals with moving the snake only. this is the cb for setInterval
-function moveSnake() {
+
+//instructions on how to move
+function snakeMechanics() {
   let end = snakeBody.length - 1; //remove snake-body class from tail
   document.getElementById(snakeBody[end].join("-")).classList.remove("snake-body");
   for (let i = end; i > 0; i--) { //incrementally equate current element to prev element
     snakeBody[i] = snakeBody[i - 1];
   }
   //modify head coordinate to direction snake is currently moving
-  snakeBody[0] = [direction[currentDir][0] + snakeBody[0][0],direction[currentDir][1] + snakeBody[0][1]];
+  snakeBody[0] = [direction[currentDir.name][0] + snakeBody[0][0],direction[currentDir.name][1] + snakeBody[0][1]];
   
   //stop game when snake head coords surpasses borders
   if (snakeBody[0][0]<0 || snakeBody[0][0]>boardSize-1 || snakeBody[0][1]<0 || snakeBody[0][1]>boardSize-1 ){
@@ -169,33 +158,31 @@ function moveSnake() {
       //stop current setInterval and start new
       console.log(snakeSpeed)
       clearInterval(gameStart)
-      gameStart = setInterval(moveSnake, snakeSpeed)
+      gameStart = setInterval(executeMove, snakeSpeed)
     }
   }
 }
 
+//instructions on what to do when the game is over.
 function gameOver(){
   console.log("lol u suck")
   clearInterval(gameStart)
-  
-  if (highScore === playerScore){
+  if (highScore === playerScore && highScore !== 0){
     let randomMsgIdx = Math.floor(Math.random()*newHighScoreMsgs.length);
     lastMsg.innerHTML = newHighScoreMsgs[0]
     lastMsg.style.fontSize = "3rem";
     lastMsg.style.color="var(--instructions)";
-
   } else {
     let randomMsgIdx = Math.floor(Math.random()*gameOverMsgs.length);
     lastMsg.innerHTML = gameOverMsgs[randomMsgIdx];
     lastMsg.style.fontSize = "4rem";
     lastMsg.style.color="var(--gameover)";
   }
-
   gameOn = false;
   gameOverMsg.style.display = "block";
   heading.style.backgroundImage = "linear-gradient(90deg, var(--snakebody) 0%,var(--snakebody) 100%)";
 }
-
+//instructions on what to do when snake eats food.
 function addPoint(){
   playerScore++
   if (playerScore> highScore){
@@ -216,7 +203,16 @@ function addPoint(){
   scoreTxt = scoreTxt+playerScore.toString()
   playerScoreTxt.innerHTML = scoreTxt;
 }
+
+function checkKeyPress() {
+
+
+}
 //delay registering keys to matcxh setInterval? throttle...
+// key press queue??
+//requestAnimationFrame()? 
+//handling multiple keyupresses at once
+
 //food count num %5 or something to increase speed.
 //random gen food colors!
 //add celebratory css when hitting high score.
