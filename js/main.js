@@ -14,6 +14,24 @@ const speedChangeFreq = 10;
 const minInterval = 5;
 const gameOverMsgs = ["TRY AGAIN", "GAME OVER"];
 const newHighScoreMsgs = ["NEW HIGH SCORE"];
+const controller = {
+  ArrowUp: {
+    name: "up",
+    opp: "down"
+  },
+  ArrowDown: {
+    name: "down",
+    opp: "up",
+  },
+  ArrowLeft: {
+    name: "left",
+    opp: "right",
+  },
+  ArrowRight: {
+    name: "right",
+    opp: "left",
+  },
+};
 //dynamically creating grid of divs for the gameboard.
 for (let i = 0; i < boardSize; i++) {
   for (let j = 0; j < boardSize; j++) {
@@ -27,41 +45,10 @@ for (let i = 0; i < boardSize; i++) {
 /*----- app's state (variables) -----*/
 let gameOn = false;
 let snakeBody = []; //store snake length
-let controller = {
-  //track key presses; might expand this later. //might be in const...
-  ArrowUp: {
-    name: "up",
-    opp: "down",
-    doThis: function () {
-      changeDir(this.opp, this.name);
-    },
-  },
-  ArrowDown: {
-    name: "down",
-    opp: "up",
-    doThis: function () {
-      changeDir(this.opp, this.name);
-    },
-  },
-  ArrowLeft: {
-    name: "left",
-    opp: "right",
-    doThis: function () {
-      changeDir(this.opp, this.name);
-    },
-  },
-  ArrowRight: {
-    name: "right",
-    opp: "left",
-    doThis: function () {
-      changeDir(this.opp, this.name);
-    },
-  },
-};
 let snakeSpeed = initSpeed;
 let gameStart = null; //used to store id from setInterval so we can stop it in reset btn or when player loses
 let highScore = 0;
-let currentDir = controller.ArrowRight; //a way to check that player can only go orthogonal dir from current dir.
+let currentDir = controller.ArrowRight; 
 let keyQueue = [currentDir];
 let userData = { username: "player", playerScore: 0 };
 
@@ -80,9 +67,10 @@ const usernameInput = document.querySelector("#username");
 const displayName = document.querySelector("#player-name");
 const highScoreList = document.querySelector("#high-score-list");
 
-/*----- event listeners -----*/
+/*----- Initialization -----*/
 retrieveHighScores();
 
+/*----- event listeners -----*/
 startBtn.addEventListener("click", function (event) {
   event.preventDefault();
   event.target.style.display = "none";
@@ -114,14 +102,14 @@ resetBtn.addEventListener("click", function (event) {
   clearInterval(gameStart);
   gameSqs.forEach((sq) => sq.classList.remove("snake-body", "food"));
   heading.style.backgroundImage =
-    "linear-gradient(90deg,var(--snakebody) 0%,var(--itembg) 40%,var(--snakebody) 50%,var(--itembg) 75%,var(--snakebody)100%)";
+    "linear-gradient(90deg,var(--maintitle1) 0%,var(--maintitle2) 40%,var(--maintitle1) 50%,var(--maintitle2) 75%,var(--maintitle1)100%)";
 });
 
 //only listen for arrow keys if the game is on
 document.addEventListener("keydown", (event) => {
   //if arrow keys are pressed more than once within setInterval time, it will be added to the key Queue.
-  event.preventDefault();
   if (controller[event.key] && gameOn) {
+    event.preventDefault();
     if (currentDir.opp !== controller[event.key].name) {
       keyQueue.push(controller[event.key]);
     }
@@ -142,7 +130,6 @@ function retrieveHighScores() {
       const playerB = b.playerScore;
       return playerB - playerA;
     });
-
     for (let n = 0; n < gameData.length; n++) {
       const list = document.createElement("li");
       let fontSize = 20 - n;
@@ -159,7 +146,6 @@ function retrieveHighScores() {
   }
 }
 //initializing snake body
-
 function snakeInit() {
   for (let i = 0; i < initSnakeLen; i++) {
     let identifier =
@@ -248,7 +234,6 @@ function increaseSpeed() {
       ? (snakeSpeed = Math.floor(snakeSpeed * speedChange))
       : (snakeSpeed = minInterval);
     //stop current setInterval and start new
-    console.log(snakeSpeed);
     clearInterval(gameStart);
     gameStart = setInterval(executeMove, snakeSpeed);
   }
@@ -256,7 +241,6 @@ function increaseSpeed() {
 
 //instructions on what to do when the game is over.
 function gameOver() {
-  console.log("lol u suck");
   clearInterval(gameStart);
   if (highScore === userData.playerScore && highScore !== 0) {
     //let randomMsgIdx = Math.floor(Math.random() * newHighScoreMsgs.length);
@@ -275,7 +259,6 @@ function gameOver() {
     "linear-gradient(90deg, var(--snakebody) 0%,var(--snakebody) 100%)";
   addToStorage();
   const highScoreListItems = document.querySelectorAll("ol>li");
-  console.log(highScoreListItems);
   highScoreListItems.forEach((list) => highScoreList.removeChild(list));
   retrieveHighScores();
 }
@@ -313,7 +296,7 @@ function addPoint() {
 function addUsername() {
   userData.username = usernameInput.value;
   if (userData.username.length === 0) {
-    userData.username = "PLAYER";
+    userData.username = "noname";
   } else {
     displayName.innerHTML =
       formatData(6, userData.username.toUpperCase(), "_") + ":";

@@ -1,35 +1,54 @@
 :root {
-    --titles: #e4b7ee;
-    --titlehover: #e4b7ee;
-    --itemshoveroutline: #393E46;
-    --itemsoutline: #00D1CD;
-    --itembg: #0D7377;
-    --itemshoverbg: #F30067;
-    --hidden: #212121;
+    --defaultcolor: #00D1CD;
+    --textstyle: 'Press Start 2P', cursive;
+    --errorcolor: #F30067;
+    --scoretracker: white;
+
+    --background: #232931;
     --board: #393E46;
     --boardoutline:#fefcff;
-    --hover: #F30067;
-    --background: #232931;
+
+    --maintitle1: #00D1CD;
+    --maintitle2: #0D7377;
+
+    --topscoretitle: #00D1CD;
+    --topscoretitlehover: #F30067;
+    --topscorelist: #00D1CD;
+
+    --resetbtnbg: #232931;
+    --resetbtnborder: #00D1CD;
+    --resetcolor: #00D1CD;
+    --resethoverbg: #F30067;
+    --resethovercolor: #232931;
+
+    --usernamebox: #00D1CD;
+    --usernamebg: #232931;
+    --usernamefocus: #393E46;
+    --usernametext: #00D1CD;
+
+    --startbtnbg: #F30067;
+    --startbtnborder: #F30067;
+    --startbtncolor: #393E46;
+    --startbtnhoverbg: #393E46;
+    --startbtnhoveroutline: #00D1CD;
+    --startbtnhovercolor: #00D1CD;
+
     --snakebody: #00D1CD;
-    --textstyle: 'Press Start 2P', cursive;
     --instructions: #37f7f9;
     --gameover: #F30067;
-    --scoreboard: white;
     --foodcolor: orange;
-    --highscoreboard: #00D1CD;
+}
 
-  }
-
-  *{
-    overflow: hidden;
-  }
+*{
+overflow: hidden;
+}
 
 body{
     background-color: var(--background);
     display: grid;
     grid-template-columns: auto 600px auto;
     grid-template-rows: auto;
-    color: var(--titles);
+    color: var(--defaultcolor);
     font-family: var(--textstyle);
     height: 100vh;
     grid-template-areas: 
@@ -56,7 +75,7 @@ main{
     margin:5px;
     width: 95%;
     font-size: 0.75rem;
-    color: var(--scoreboard);
+    color: var(--scoretracker);
 }
 #score-tracker >div{
     margin:0;
@@ -97,15 +116,14 @@ h1{
     margin-bottom: 10px;
     /* create background image behind text */
     background-image: linear-gradient(90deg,
-    var(--snakebody) 0%,
-    var(--itembg) 40%,
-    var(--snakebody) 50%,
-    var(--itembg) 75%,
-    var(--snakebody)100%);
+    var(--maintitle1) 0%,
+    var(--maintitle2) 40%,
+    var(--maintitle1) 50%,
+    var(--maintitle2) 75%,
+    var(--maintitle1)100%);
     background-size: auto auto;
     background-clip: border-box;
     background-size: 200% auto;
-    color: #fff;
     /* background exists in text only. turn text transparent  */
     background-clip: text; 
     -webkit-background-clip: text;
@@ -115,13 +133,13 @@ h1{
 }
 
 h2{
-    color: var(--highscoreboard);
+    color: var(--topscoretitle);
     font-size:2rem;
     text-align: center;
     animation: 1s linear 0s infinite pulse;
 }
 ol{
-    color: var(--highscoreboard);
+    color: var(--topscorelist);
     padding-inline-start: 0;
     text-align: center;
 }
@@ -131,25 +149,25 @@ li{
 }
 
 h2:hover{
-    color: var(--titlehover);
+    color: var(--topscoretitlehover);
     cursor: crosshair;
 }
 
 #reset-btn{
-    background-color: var(--background);
+    background-color: var(--resetbtnbg);
     padding: 20px;
     font-size: 1.5rem;
     font-family: var(--textstyle);
     border-radius: 10px;
-    border: 5px solid var(--itemsoutline);
+    border: 5px solid var(--resetbtnborder);
     color: var(--itemsoutline);
 }
 
 #reset-btn:hover{
-    background-color: var(--itemshoverbg);
-    color: var(--background);
+    background-color: var(--resethoverbg);
+    color: var(--resethovercolor);
     cursor: pointer;
-    border-color:var(--background);
+    border-color:var(--resethovercolor);
 }
 #username{
     position: absolute;
@@ -162,14 +180,14 @@ h2:hover{
     font-size: 1.5rem;
     text-align: center;
     border-radius: 10px;
-    border: 5px solid var(--itemsoutline);
-    background-color: var(--background);
-    color: var(--itemsoutline);
+    border: 5px solid var(--usernamebox);
+    background-color: var(--usernamebg);
+    color: var(--usernametext);
 }
 
 #username:focus{
     outline: none;
-    background-color: var(--board);
+    background-color: var(--usernamefocus);
     top: 170px;
     left: 107px;
     height: 60px;
@@ -184,23 +202,20 @@ h2:hover{
     padding: 20px 40px;
     font-family: var(--textstyle);
     border-radius: 10px;
-    background: var(--itemshoverbg);
+    background: var(--startbtnbg);
     font-size: 30px;
-    border: 5px solid var(--itemshoveroutline);
-    color: var(--itemshoveroutline);
+    border: 5px solid var(--startbtnborder);
+    color: var(--startbtncolor);
     transition: all 200ms ease-in-out;
 }
 
 #start-btn:hover{
-    background: var(--itemhover);
-    color: var(--itemsoutline);
-    border-color: var(--itemsoutline);
+    background: var(--startbtnhoverbg);
+    color: var(--startbtnhovercolor);
+    border-color: var(--startbtnhoveroutline);
     cursor: pointer;
 }
 
-.hidden-stuff{
-    display: none;
-}
 
 .snake-body{
     box-sizing: border-box;
@@ -245,39 +260,29 @@ h2:hover{
         background-position: 200% center;
     }
 }
-
 @keyframes pulse {
     0% {
 		transform: scale(0.95);
-
 	}
-
 	70% {
 		transform: scale(1);
-
 	}
-
 	100% {
 		transform: scale(0.95);
-	
 	}
-    
 }
 
 #error{
     display: none;
 }
 
-
+/* design for small screens */
 @media only screen and (max-width: 907px){
     aside{
         display: none;
     }
-
     /* thinking of adding info at the bottom */
 }
-
-
 @media only screen and (max-width: 600px){
     aside{
         display: none;
@@ -293,7 +298,7 @@ h2:hover{
         font-size: 4rem;
     }
     p{
-        color: var(--hover);
+        color: var(--errorcolor);
     }
     #error{
         display: flex;
@@ -305,7 +310,6 @@ h2:hover{
         margin: 1rem;
     }
 }
-
 @media only screen and (max-width: 383px){
     h1{
         font-size: 3rem;
