@@ -11,9 +11,8 @@
     --maintitle1: #00D1CD;
     --maintitle2: #0D7377;
 
-    --topscoretitle: #00D1CD;
-    --topscoretitlehover: #F30067;
-    --topscorelist: #00D1CD;
+    --topscoretitle1: #F8B500;
+    --topscoretitle2: #FFFFFF;
 
     --resetbtnbg: #232931;
     --resetbtnborder: #00D1CD;
@@ -46,7 +45,7 @@ overflow: hidden;
 body{
     background-color: var(--background);
     display: grid;
-    grid-template-columns: auto 600px auto;
+    grid-template-columns: auto 600px 300px auto;
     grid-template-rows: auto;
     color: var(--defaultcolor);
     font-family: var(--textstyle);
@@ -59,6 +58,10 @@ body{
 }
 #data{
     grid-area: right;
+    margin-top: 90px;
+    margin-bottom: 200px;
+    padding-top: 70px;
+
 }
 main{
     grid-area: middle;
@@ -107,13 +110,10 @@ main{
 
 }
 
-aside{
-    margin-top: 200px;
-}
-
 h1{
     font-size: 5rem;
     margin-bottom: 10px;
+
     /* create background image behind text */
     background-image: linear-gradient(90deg,
     var(--maintitle1) 0%,
@@ -133,25 +133,47 @@ h1{
 }
 
 h2{
-    color: var(--topscoretitle);
-    font-size:2rem;
+    margin-top: 75px;
+    font-size:3rem;
     text-align: center;
-    animation: 1s linear 0s infinite pulse;
+    background-image: linear-gradient(90deg,
+    var(--topscoretitle1) 0%,
+    var(--topscoretitle2) 10%,
+    var(--topscoretitle1) 20%);
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    /* background exists in text only. turn text transparent  */
+    background-clip: text; 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* animation (duration| easing-funciton| delay | iteration-count | name) */
+    animation: 2s ease-in-out 0s infinite shiney;
 }
 ol{
-    color: var(--topscorelist);
+    /* color: var(--topscorelist); */
     padding-inline-start: 0;
     text-align: center;
+
+    background-image: linear-gradient(90deg,
+    var(--topscoretitle1) 0%,
+    var(--topscoretitle2) 10%,
+    var(--topscoretitle1) 20%);
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    /* background exists in text only. turn text transparent  */
+    background-clip: text; 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* animation (duration| easing-funciton| delay | iteration-count | name) */
+    animation: 2s ease-in-out 0s infinite shiney;
 }
 
 li{
     padding: 5px 0;
 }
 
-h2:hover{
-    color: var(--topscoretitlehover);
-    cursor: crosshair;
-}
 
 #reset-btn{
     background-color: var(--resetbtnbg);
@@ -272,6 +294,18 @@ h2:hover{
 	}
 }
 
+@keyframes shiney{
+  0%{
+    background-position: 0
+  }
+  60%{
+    background-position: 180px
+  }
+  200%{
+    background-position: 180px
+  }
+}
+
 #error{
     display: none;
 }
@@ -324,4 +358,8 @@ h2:hover{
     h1{
         font-size: 1rem;
     }
+}
+
+.change-color{
+    color: var(--)
 }
