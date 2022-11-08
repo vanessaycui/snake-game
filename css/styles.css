@@ -16,6 +16,8 @@
     --gameover: #F30067;
     --scoreboard: white;
     --foodcolor: orange;
+    --highscoreboard: #00D1CD;
+
   }
 
   *{
@@ -87,8 +89,6 @@ main{
 }
 
 aside{
-    display: flex;
-    flex-direction: column;
     margin-top: 200px;
 }
 
@@ -115,21 +115,23 @@ h1{
 }
 
 h2{
-    font-size:1.5rem;
+    color: var(--highscoreboard);
+    font-size:2rem;
+    text-align: center;
+    animation: 1s linear 0s infinite pulse;
+}
+ol{
+    color: var(--highscoreboard);
+    padding-inline-start: 0;
+    text-align: center;
+}
+
+li{
+    padding: 5px 0;
 }
 
 h2:hover{
     color: var(--titlehover);
-    cursor: crosshair;
-}
-
-li{
-    padding: 5px;
-}
-
-li:hover{
-    padding: 5px;
-    color: var(--hover);
     cursor: crosshair;
 }
 

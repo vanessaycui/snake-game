@@ -24,6 +24,8 @@ for (let i = 0; i < boardSize; i++) {
   }
 }
 
+
+
 /*----- app's state (variables) -----*/
 let gameOn = false;
 let snakeBody = []; //store snake length
@@ -65,10 +67,6 @@ let currentDir = controller.ArrowRight; //a way to check that player can only go
 let keyQueue = [currentDir];
 let userData = { username: "player", playerScore: 0 };
 
-//localStorage.removeItem("highScoreData")
-
-
-
 /*----- cached element references -----*/
 const startBtn = document.querySelector("#start-btn");
 const resetBtn = document.querySelector("#reset-btn");
@@ -82,11 +80,12 @@ const playerScoreTxt = document.querySelector("#player-score");
 const highScoreTxt = document.querySelector("#high-score");
 const usernameInput = document.querySelector("#username");
 const displayName = document.querySelector("#player-name");
-const highScoreList = document.querySelectorAll('ol>li');
+const highScoreList = document.querySelector('#high-score-list');
 
-retrieveHighScores()
 
 /*----- event listeners -----*/
+retrieveHighScores()
+
 startBtn.addEventListener("click", function (event) {
   event.preventDefault();
   event.target.style.display = "none";
@@ -123,9 +122,7 @@ resetBtn.addEventListener("click", function (event) {
 
 //only listen for arrow keys if the game is on
 document.addEventListener("keydown", (event) => {
-  //changes direction of snake based on key presses.
-  //if arrow keys are pressed more than once within setInterval time,
-  //it will be added to the key Queue. keys to be executed in sequential order.
+  //if arrow keys are pressed more than once within setInterval time, it will be added to the key Queue. 
   if (controller[event.key] && gameOn) {
     if (currentDir.opp !== controller[event.key].name) {
       keyQueue.push(controller[event.key]);
@@ -134,27 +131,39 @@ document.addEventListener("keydown", (event) => {
 });
 
 /*----- functions -----*/
-//retrieve score data from localStorage;
-//highscorelist is an array of objects: {username: ___, playerScore: ___.}
+//retrieve score data from localStorage
 function retrieveHighScores(){
   const gameData = JSON.parse(localStorage.getItem("highScoreData")) //browser local storage
   if (gameData === null){
     console.log('no local data')
     highScore = 0;
   } else {
+    //sort game Data
     gameData.sort((a,b)=>{
       const playerA = a.playerScore;
       const playerB = b.playerScore;
       return playerB - playerA
     })
-    console.log(gameData)
-    for (let n = 0; n<3; n++){
+    //formatting player score for display.
+    
+    for (let n = 0; n<gameData.length; n++){
+
       let padding = 3 - gameData[n].playerScore.toString().length;
       let scorePadding = "";
       for (let i = 0; i < padding; i++) {
         scorePadding= scorePadding + "0";
       }
-      highScoreList[n].innerHTML = `${gameData[n].username} ${scorePadding}${gameData[n].playerScore}` 
+      const list = document.createElement('li');
+      let listNum = "";
+      if (n<9){
+        listNum = "0"+(n+1).toString()
+      } else {
+        listNum = (n+1).toString()
+      }
+      let fontSize = 20-n;
+      list.innerHTML = `${listNum}. ${gameData[n].username} -- ${scorePadding}${gameData[n].playerScore}` 
+      list.style.fontSize = `${fontSize}px`
+      highScoreList.appendChild(list)
     }
     highScore = gameData[0].playerScore;
     let padding = 3 - highScore.toString().length;
@@ -287,6 +296,9 @@ function gameOver() {
   heading.style.backgroundImage =
     "linear-gradient(90deg, var(--snakebody) 0%,var(--snakebody) 100%)";
   addToStorage()
+  const highScoreListItems = document.querySelectorAll('ol>li');
+  console.log(highScoreListItems)
+  highScoreListItems.forEach(list => highScoreList.removeChild(list))
   retrieveHighScores()
 }
 
@@ -296,7 +308,16 @@ function addToStorage(){
     const newData = [userData, {username: "------", playerScore: 0}, {username: "------", playerScore: 0}]
     localStorage.setItem("highScoreData", JSON.stringify(newData));
   } else {
+      //only show top 10
       gameData.push(userData)
+      gameData.sort((a,b)=>{
+        const playerA = a.playerScore;
+        const playerB = b.playerScore;
+        return playerB - playerA
+      })
+      if (gameData.length >10){
+        gameData.splice(10, (gameData.length-10))
+      }
       localStorage.setItem("highScoreData", JSON.stringify(gameData));
   }
 }
@@ -321,17 +342,19 @@ function addUsername() {
     let padding = 6 - userData.username.length;
     let userPadding = "";
     for (let i = 0; i < padding; i++) {
-      userPadding = userPadding + "*";
+      userPadding = userPadding + "_";
     }
     userData.username = userPadding + usernameInput.value.toUpperCase();
     displayName.innerHTML = userData.username.toUpperCase() + ":";
   }
 }
 
+function formatNumbers(){
+
+}
 //add celebratory css when hitting high score.
 //add firebase backend to store highscore data for this project.
-//score to be more simulating: pulsate, vibrate, flash,e tc.
+//score to be more simulating: pulsate, vibrate, flash, etc.
 //indicator for when snake eats food
 //frantic music as you get higher level
-//add localstorage to pull player's highscore.
 //poisonous food
