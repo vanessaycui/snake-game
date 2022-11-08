@@ -163,7 +163,6 @@ li:hover{
     border: 5px solid var(--itemsoutline);
     background-color: var(--background);
     color: var(--itemsoutline);
-    caret-color: transparent;
 }
 
 #username:focus{
