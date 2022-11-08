@@ -24,8 +24,6 @@ for (let i = 0; i < boardSize; i++) {
   }
 }
 
-
-
 /*----- app's state (variables) -----*/
 let gameOn = false;
 let snakeBody = []; //store snake length
@@ -80,11 +78,10 @@ const playerScoreTxt = document.querySelector("#player-score");
 const highScoreTxt = document.querySelector("#high-score");
 const usernameInput = document.querySelector("#username");
 const displayName = document.querySelector("#player-name");
-const highScoreList = document.querySelector('#high-score-list');
-
+const highScoreList = document.querySelector("#high-score-list");
 
 /*----- event listeners -----*/
-retrieveHighScores()
+retrieveHighScores();
 
 startBtn.addEventListener("click", function (event) {
   event.preventDefault();
@@ -122,7 +119,8 @@ resetBtn.addEventListener("click", function (event) {
 
 //only listen for arrow keys if the game is on
 document.addEventListener("keydown", (event) => {
-  //if arrow keys are pressed more than once within setInterval time, it will be added to the key Queue. 
+  //if arrow keys are pressed more than once within setInterval time, it will be added to the key Queue.
+  event.preventDefault();
   if (controller[event.key] && gameOn) {
     if (currentDir.opp !== controller[event.key].name) {
       keyQueue.push(controller[event.key]);
@@ -132,47 +130,32 @@ document.addEventListener("keydown", (event) => {
 
 /*----- functions -----*/
 //retrieve score data from localStorage
-function retrieveHighScores(){
-  const gameData = JSON.parse(localStorage.getItem("highScoreData")) //browser local storage
-  if (gameData === null){
-    console.log('no local data')
+function retrieveHighScores() {
+  const gameData = JSON.parse(localStorage.getItem("highScoreData")); //browser local storage
+  if (gameData === null) {
+    console.log("no local data");
     highScore = 0;
   } else {
     //sort game Data
-    gameData.sort((a,b)=>{
+    gameData.sort((a, b) => {
       const playerA = a.playerScore;
       const playerB = b.playerScore;
-      return playerB - playerA
-    })
-    //formatting player score for display.
-    
-    for (let n = 0; n<gameData.length; n++){
+      return playerB - playerA;
+    });
 
-      let padding = 3 - gameData[n].playerScore.toString().length;
-      let scorePadding = "";
-      for (let i = 0; i < padding; i++) {
-        scorePadding= scorePadding + "0";
-      }
-      const list = document.createElement('li');
-      let listNum = "";
-      if (n<9){
-        listNum = "0"+(n+1).toString()
-      } else {
-        listNum = (n+1).toString()
-      }
-      let fontSize = 20-n;
-      list.innerHTML = `${listNum}. ${gameData[n].username} -- ${scorePadding}${gameData[n].playerScore}` 
-      list.style.fontSize = `${fontSize}px`
-      highScoreList.appendChild(list)
+    for (let n = 0; n < gameData.length; n++) {
+      const list = document.createElement("li");
+      let fontSize = 20 - n;
+      list.innerHTML = `${formatData(2, n + 1, "0")}. ${formatData(
+        6,
+        gameData[n].username,
+        "_"
+      )} ${formatData(3, gameData[n].playerScore, "0")}`;
+      list.style.fontSize = `${fontSize}px`;
+      highScoreList.appendChild(list);
     }
     highScore = gameData[0].playerScore;
-    let padding = 3 - highScore.toString().length;
-    let scoreTxt = "";
-    for (let i = 0; i < padding; i++) {
-      scoreTxt = scoreTxt + "0";
-    }
-    scoreTxt = scoreTxt + highScore.toString();
-    highScoreTxt.innerHTML = scoreTxt;
+    highScoreTxt.innerHTML = formatData(3, highScore.toString(), "0");
   }
 }
 //initializing snake body
@@ -231,16 +214,12 @@ function snakeMechanics() {
     direction[currentDir.name][1] + snakeBody[0][1],
   ];
 
-  //stop game when snake head coords surpasses borders
+  //stop game when snake head coords surpasses borders or hits its own body
   if (
     snakeBody[0][0] < 0 ||
     snakeBody[0][0] > boardSize - 1 ||
     snakeBody[0][1] < 0 ||
-    snakeBody[0][1] > boardSize - 1
-  ) {
-    gameOver();
-    //check if snake head has hit its own body
-  } else if (
+    snakeBody[0][1] > boardSize - 1 ||
     document
       .getElementById(snakeBody[0].join("-"))
       .classList.contains("snake-body")
@@ -258,22 +237,21 @@ function snakeMechanics() {
       document.getElementById(snakeBody[0].join("-")).classList.remove("food");
       genFood();
       addPoint();
-      //change speed every 10 points;
-      if (userData.playerScore % 10 === 0) {
-        increaseSpeed();
-      }
+      increaseSpeed();
     }
   }
 }
 
 function increaseSpeed() {
-  snakeSpeed > minInterval
-    ? (snakeSpeed = Math.floor(snakeSpeed * speedChange))
-    : (snakeSpeed = minInterval);
-  //stop current setInterval and start new
-  console.log(snakeSpeed);
-  clearInterval(gameStart);
-  gameStart = setInterval(executeMove, snakeSpeed);
+  if (userData.playerScore % speedChangeFreq === 0 ){
+    snakeSpeed > minInterval
+      ? (snakeSpeed = Math.floor(snakeSpeed * speedChange))
+      : (snakeSpeed = minInterval);
+    //stop current setInterval and start new
+    console.log(snakeSpeed);
+    clearInterval(gameStart);
+    gameStart = setInterval(executeMove, snakeSpeed);
+  }
 }
 
 //instructions on what to do when the game is over.
@@ -295,43 +273,41 @@ function gameOver() {
   gameOverMsg.style.display = "block";
   heading.style.backgroundImage =
     "linear-gradient(90deg, var(--snakebody) 0%,var(--snakebody) 100%)";
-  addToStorage()
-  const highScoreListItems = document.querySelectorAll('ol>li');
-  console.log(highScoreListItems)
-  highScoreListItems.forEach(list => highScoreList.removeChild(list))
-  retrieveHighScores()
+  addToStorage();
+  const highScoreListItems = document.querySelectorAll("ol>li");
+  console.log(highScoreListItems);
+  highScoreListItems.forEach((list) => highScoreList.removeChild(list));
+  retrieveHighScores();
 }
 
-function addToStorage(){
-  const gameData = JSON.parse(localStorage.getItem("highScoreData")) //browser local storage
-  if (gameData === null){
-    const newData = [userData, {username: "------", playerScore: 0}, {username: "------", playerScore: 0}]
+function addToStorage() {
+  const gameData = JSON.parse(localStorage.getItem("highScoreData")); //browser local storage
+  if (gameData === null) {
+    const newData = [
+      userData,
+      { username: "------", playerScore: 0 },
+      { username: "------", playerScore: 0 },
+    ];
     localStorage.setItem("highScoreData", JSON.stringify(newData));
   } else {
-      //only show top 10
-      gameData.push(userData)
-      gameData.sort((a,b)=>{
-        const playerA = a.playerScore;
-        const playerB = b.playerScore;
-        return playerB - playerA
-      })
-      if (gameData.length >10){
-        gameData.splice(10, (gameData.length-10))
-      }
-      localStorage.setItem("highScoreData", JSON.stringify(gameData));
+    //only show top 10
+    gameData.push(userData);
+    gameData.sort((a, b) => {
+      const playerA = a.playerScore;
+      const playerB = b.playerScore;
+      return playerB - playerA;
+    });
+    if (gameData.length > 10) {
+      gameData.splice(10, gameData.length - 10);
+    }
+    localStorage.setItem("highScoreData", JSON.stringify(gameData));
   }
 }
 
 //instructions on what to do when snake eats food.
 function addPoint() {
   userData.playerScore++;
-  let padding = 3 - userData.playerScore.toString().length;
-  let scoreTxt = "";
-  for (let i = 0; i < padding; i++) {
-    scoreTxt = scoreTxt + "0";
-  }
-  scoreTxt = scoreTxt + userData.playerScore.toString();
-  playerScoreTxt.innerHTML = scoreTxt;
+  playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
 }
 
 function addUsername() {
@@ -339,18 +315,19 @@ function addUsername() {
   if (userData.username.length === 0) {
     userData.username = "PLAYER";
   } else {
-    let padding = 6 - userData.username.length;
-    let userPadding = "";
-    for (let i = 0; i < padding; i++) {
-      userPadding = userPadding + "_";
-    }
-    userData.username = userPadding + usernameInput.value.toUpperCase();
-    displayName.innerHTML = userData.username.toUpperCase() + ":";
+    displayName.innerHTML =
+      formatData(6, userData.username.toUpperCase(), "_") + ":";
   }
 }
 
-function formatNumbers(){
-
+function formatData(maxLen, value, pad) {
+  let padding = maxLen - value.toString().length;
+  let string = "";
+  for (let i = 0; i < padding; i++) {
+    string = string + pad.toString();
+  }
+  string = string + value.toString();
+  return string;
 }
 //add celebratory css when hitting high score.
 //add firebase backend to store highscore data for this project.
