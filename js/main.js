@@ -42,6 +42,7 @@ for (let i = 0; i < boardSize; i++) {
   }
 }
 
+
 /*----- app's state (variables) -----*/
 let gameOn = false;
 let snakeBody = []; //store snake length
@@ -68,6 +69,8 @@ const displayName = document.querySelector("#player-name");
 const highScoreList = document.querySelector("#high-score-list");
 
 /*----- Initialization -----*/
+
+
 retrieveHighScores();
 
 /*----- event listeners -----*/
@@ -103,7 +106,9 @@ resetBtn.addEventListener("click", function (event) {
   gameSqs.forEach((sq) => sq.classList.remove("snake-body", "food"));
   heading.style.backgroundImage =
     "linear-gradient(90deg,var(--maintitle1) 0%,var(--maintitle2) 40%,var(--maintitle1) 50%,var(--maintitle2) 75%,var(--maintitle1)100%)";
-});
+  gameBoard.style.borderImage="none";
+  gameBoard.style.animation= "none";
+  });
 
 //only listen for arrow keys if the game is on
 document.addEventListener("keydown", (event) => {
@@ -122,6 +127,13 @@ function retrieveHighScores() {
   const gameData = JSON.parse(localStorage.getItem("highScoreData")); //browser local storage
   if (gameData === null) {
     console.log("no local data");
+    for (let n = 0; n < 10; n++) {
+      const list = document.createElement("li");
+      let fontSize = 20 - n;
+      list.innerHTML = `${formatData(2, n + 1, "0")}. ______ 000`;
+      list.style.fontSize = `${fontSize}px`;
+      highScoreList.appendChild(list);
+    }
     highScore = 0;
   } else {
     //sort game Data
@@ -242,11 +254,13 @@ function increaseSpeed() {
 //instructions on what to do when the game is over.
 function gameOver() {
   clearInterval(gameStart);
-  if (highScore === userData.playerScore && highScore !== 0) {
+  if (highScore < userData.playerScore) {
     //let randomMsgIdx = Math.floor(Math.random() * newHighScoreMsgs.length);
     lastMsg.innerHTML = newHighScoreMsgs[0];
     lastMsg.style.fontSize = "3rem";
     lastMsg.style.color = "var(--instructions)";
+    gameBoard.style.borderImage="conic-gradient(from var(--angle), red, yellow, lime, aqua, blue, magenta, red) 1";
+    gameBoard.style.animation=" 1s rotate linear infinite";
   } else {
     let randomMsgIdx = Math.floor(Math.random() * gameOverMsgs.length);
     lastMsg.innerHTML = gameOverMsgs[randomMsgIdx];
@@ -268,6 +282,13 @@ function addToStorage() {
   if (gameData === null) {
     const newData = [
       userData,
+      { username: "------", playerScore: 0 },
+      { username: "------", playerScore: 0 },
+      { username: "------", playerScore: 0 },
+      { username: "------", playerScore: 0 },
+      { username: "------", playerScore: 0 },
+      { username: "------", playerScore: 0 },
+      { username: "------", playerScore: 0 },
       { username: "------", playerScore: 0 },
       { username: "------", playerScore: 0 },
     ];
@@ -312,9 +333,13 @@ function formatData(maxLen, value, pad) {
   string = string + value.toString();
   return string;
 }
-//add celebratory css when hitting high score.
-//add firebase backend to store highscore data for this project.
-//score to be more simulating: pulsate, vibrate, flash, etc.
-//indicator for when snake eats food
+
+//score to be more simulating: pulsate ONCE, diff colour when snaske eats food.
+//snake title turns rainow when you hit highest score.
+//snake title turns yellow/orange when you hit top 10
+//snake title turns red when you dont make it to top 10
+//winning message -> top 10
+//new no. 1 msg -> highest score.
+//not making it, red border, red snake.
 //frantic music as you get higher level
 //poisonous food
