@@ -52,6 +52,7 @@ let highScore = 0;
 let currentDir = controller.ArrowRight; 
 let keyQueue = [currentDir];
 let userData = { username: "player", playerScore: 0 };
+let poisonList=[];
 
 /*----- cached element references -----*/
 const startBtn = document.querySelector("#start-btn");
@@ -67,6 +68,7 @@ const highScoreTxt = document.querySelector("#high-score");
 const usernameInput = document.querySelector("#username");
 const displayName = document.querySelector("#player-name");
 const highScoreList = document.querySelector("#high-score-list");
+const scoreTracker = document.querySelector('#score-tracker')
 
 /*----- Initialization -----*/
 
@@ -103,7 +105,7 @@ resetBtn.addEventListener("click", function (event) {
   playerScoreTxt.innerHTML = "000";
   displayName.innerHTML = userData.username.toUpperCase() + ":";
   clearInterval(gameStart);
-  gameSqs.forEach((sq) => sq.classList.remove("snake-body", "food"));
+  gameSqs.forEach((sq) => sq.classList.remove("snake-body", "food", "poison"));
   heading.style.backgroundImage =
     "linear-gradient(90deg,var(--maintitle1) 0%,var(--maintitle2) 40%,var(--maintitle1) 50%,var(--maintitle2) 75%,var(--maintitle1)100%)";
   gameBoard.style.borderImage="none";
@@ -183,6 +185,20 @@ function genFood() {
   foodSq.classList.add("food");
 }
 
+//randomly generates poison on the board.
+function genPoison() {
+  if (userData.playerScore > 10){
+    let randomPos = [
+      Math.floor(Math.random() * boardSize),
+      Math.floor(Math.random() * boardSize),
+    ];
+    poisonList.push(randomPos)
+    let poisonid = randomPos[0].toString() + "-" + randomPos[1].toString();
+    let poisonSq = document.getElementById(poisonid);
+    poisonSq.classList.add("poison");
+  }
+}
+
 function executeMove() {
   //Only listen to the last key pressed, delete everything else.
   while (keyQueue.length !== 1) {
@@ -210,6 +226,8 @@ function snakeMechanics() {
     direction[currentDir.name][1] + snakeBody[0][1],
   ];
 
+  checkPoison()
+  
   //stop game when snake head coords surpasses borders or hits its own body
   if (
     snakeBody[0][0] < 0 ||
@@ -232,9 +250,27 @@ function snakeMechanics() {
       snakeBody.push(tail);
       document.getElementById(snakeBody[0].join("-")).classList.remove("food");
       genFood();
+      genPoison();
       addPoint();
       increaseSpeed();
     }
+    if (
+      document.getElementById(snakeBody[0].join("-")).classList.contains("poison")
+    ) {
+      document.getElementById(snakeBody[0].join("-")).classList.remove("poison");
+      genPoison();
+      subtractPoint();
+    }
+  }
+}
+
+function checkPoison(){
+  if (poisonList.length > 2){
+    let poisonCoord = poisonList.shift()
+    let poisonid = poisonCoord[0].toString() + "-" + poisonCoord[1].toString();
+    let poisonSq = document.getElementById(poisonid);
+    poisonSq.classList.remove("poison");
+
   }
 }
 
@@ -334,6 +370,22 @@ function addToStorage() {
 function addPoint() {
   userData.playerScore++;
   playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
+  gameBoard.classList.add("board-emphasis")
+
+  setTimeout(()=>{
+    gameBoard.classList.remove("board-emphasis")
+  },1000)
+}
+
+//instructions on what to do when snake eats poison.
+function subtractPoint() {
+  userData.playerScore = Math.floor(userData.playerScore*0.9);
+  playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
+  gameBoard.classList.add("board-emphasis-poison")
+
+  setTimeout(()=>{
+    gameBoard.classList.remove("board-emphasis-poison")
+  },1000)
 }
 
 //extract username from input box
@@ -358,8 +410,5 @@ function formatData(maxLen, value, pad) {
 }
 
 //score to be more simulating: pulsate ONCE, diff colour when snaske eats food.
-
-//new no. 1 msg -> highest score.
-//not making it, red border, red snake.
 //frantic music as you get higher level
 //poisonous food
