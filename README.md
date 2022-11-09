@@ -14,10 +14,10 @@ This version includes the following features:
 ## **SCREENSHOTS**
 
 
-<div style="width:100%;height:0;padding-bottom:84%;position:relative;"><iframe src="https://giphy.com/embed/xrcJD4GAcNGgnDTEex" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/xrcJD4GAcNGgnDTEex">via GIPHY</a></p>
+![](https://giphy.com/embed/xrcJD4GAcNGgnDTEex)
 
 
-<div style="width:100%;height:0;padding-bottom:84%;position:relative;"><iframe src="https://giphy.com/embed/OKObugJpYcYWhDgrFO" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/OKObugJpYcYWhDgrFO">via GIPHY</a></p>
+![](https://giphy.com/embed/OKObugJpYcYWhDgrFO)
 
 
 <div style="width:100%;height:0;padding-bottom:84%;position:relative;"><iframe src="https://giphy.com/embed/cX0fil0emqfVP280aY" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/cX0fil0emqfVP280aY">via GIPHY</a></p>
