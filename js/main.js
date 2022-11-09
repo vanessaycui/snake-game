@@ -52,6 +52,7 @@ let currentDir = controller.ArrowRight;
 let keyQueue = [currentDir];
 let userData = { username: "player", playerScore: 0 };
 let poisonList = [];
+let foodCoord = null;
 let boosterCoord = null;
 let movements = ["up", "down", "right", "left"];
 let randomDir = movements[0];
@@ -195,11 +196,11 @@ function snakeInit() {
 
 //randomly generates food on the board.
 function genFood() {
-  let randomPos = [
+  foodCoord = [
     Math.floor(Math.random() * boardSize),
     Math.floor(Math.random() * boardSize),
   ];
-  let foodid = randomPos[0].toString() + "-" + randomPos[1].toString();
+  let foodid = foodCoord[0].toString() + "-" + foodCoord[1].toString();
   let foodSq = document.getElementById(foodid);
   foodSq.classList.add("food");
 }
@@ -227,6 +228,13 @@ function genPoison() {
       Math.floor(Math.random() * boardSize),
       Math.floor(Math.random() * boardSize),
     ];
+    //ensure it's not overlapping a food
+    while (randomPos === foodCoord){
+      randomPos = [
+        Math.floor(Math.random() * boardSize),
+        Math.floor(Math.random() * boardSize),
+      ];
+    }
     poisonList.push(randomPos);
     let poisonid = randomPos[0].toString() + "-" + randomPos[1].toString();
     let poisonSq = document.getElementById(poisonid);
@@ -261,7 +269,7 @@ function snakeMechanics() {
     direction[currentDir.name][1] + snakeBody[0][1],
   ];
   checkPoison();
-  //managing speed of boosterfood.
+  //managing speed of booster.
   intervalCount++;
   if (intervalCount % 2 === 0) {
     boosterFoodMechanics();
