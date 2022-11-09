@@ -53,6 +53,14 @@ let currentDir = controller.ArrowRight;
 let keyQueue = [currentDir];
 let userData = { username: "player", playerScore: 0 };
 let poisonList=[];
+let boosterCoord = null;
+let movements = ["up", "down", "right", "left"]
+let randomDir = movements[0];
+setInterval(()=>{
+  randomDir = movements[Math.floor(Math.random()*movements.length)]
+}, 1000); //generating random direction for superFood, every 6 seconds
+
+let intervalCount = 0;
 
 /*----- cached element references -----*/
 const startBtn = document.querySelector("#start-btn");
@@ -105,7 +113,7 @@ resetBtn.addEventListener("click", function (event) {
   playerScoreTxt.innerHTML = "000";
   displayName.innerHTML = userData.username.toUpperCase() + ":";
   clearInterval(gameStart);
-  gameSqs.forEach((sq) => sq.classList.remove("snake-body", "food", "poison"));
+  gameSqs.forEach((sq) => sq.classList.remove("snake-body", "food", "poison","super-food"));
   heading.style.backgroundImage =
     "linear-gradient(90deg,var(--maintitle1) 0%,var(--maintitle2) 40%,var(--maintitle1) 50%,var(--maintitle2) 75%,var(--maintitle1)100%)";
   gameBoard.style.borderImage="none";
@@ -185,9 +193,24 @@ function genFood() {
   foodSq.classList.add("food");
 }
 
+//randomly generates superFood on the board.
+function genSuperFood() {
+  let randomNum = Math.floor(Math.random()*10);
+  if(randomNum%5===0){
+    boosterCoord = [
+      Math.floor(Math.random() * boardSize),
+      Math.floor(Math.random() * boardSize),
+    ];
+    let superFoodId = boosterCoord[0].toString() + "-" + boosterCoord[1].toString();
+    let superFoodSq = document.getElementById(superFoodId);
+    superFoodSq.classList.add("super-food");
+  }
+}
+
 //randomly generates poison on the board.
 function genPoison() {
-  if (userData.playerScore > 10){
+  let randomNum = Math.floor(Math.random()*10);
+  if (userData.playerScore > 10 && randomNum%3===0){
     let randomPos = [
       Math.floor(Math.random() * boardSize),
       Math.floor(Math.random() * boardSize),
@@ -227,6 +250,16 @@ function snakeMechanics() {
   ];
 
   checkPoison()
+
+  //managing speed of superfood.
+  intervalCount ++
+  if (intervalCount%2 ===0){
+    superFood()
+  }
+  if (intervalCount >100){
+    intervalCount = 0
+  }
+ 
   
   //stop game when snake head coords surpasses borders or hits its own body
   if (
@@ -251,6 +284,7 @@ function snakeMechanics() {
       document.getElementById(snakeBody[0].join("-")).classList.remove("food");
       genFood();
       genPoison();
+      genSuperFood()
       addPoint();
       increaseSpeed();
     }
@@ -261,18 +295,43 @@ function snakeMechanics() {
       genPoison();
       subtractPoint();
     }
+    if (
+      document.getElementById(snakeBody[0].join("-")).classList.contains("super-food")
+    ) {
+      document.getElementById(snakeBody[0].join("-")).classList.remove("super-food");
+      boosterCoord=null;
+      genSuperFood();
+      boostPoint();
+    }
+
+  }
+}
+
+//big booster that moves. 
+function superFood(){
+  if (boosterCoord !== null){
+    document.getElementById(boosterCoord.join("-")).classList.remove("super-food");
+    boosterCoord = [
+      direction[randomDir][0] + boosterCoord[0],
+      direction[randomDir][1] + boosterCoord[1],
+    ];
+    if (boosterCoord[0]<0 || boosterCoord[0]>boardSize-1 || boosterCoord[1]<0 || boosterCoord[1]>boardSize-1){
+      boosterCoord = null;
+    } else {
+    document.getElementById(boosterCoord.join("-")).classList.add("super-food");
+    }
   }
 }
 
 function checkPoison(){
-  if (poisonList.length > 2){
+  if (poisonList.length > 1){
     let poisonCoord = poisonList.shift()
     let poisonid = poisonCoord[0].toString() + "-" + poisonCoord[1].toString();
     let poisonSq = document.getElementById(poisonid);
     poisonSq.classList.remove("poison");
-
   }
 }
+
 
 function increaseSpeed() {
   if (userData.playerScore % speedChangeFreq === 0 ){
@@ -388,6 +447,18 @@ function subtractPoint() {
   },1000)
 }
 
+//instructions on whatg to do when snake eats booster
+function boostPoint(){
+  userData.playerScore = Math.floor(userData.playerScore*1.2);
+  playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
+  gameBoard.classList.add("board-emphasis-booster")
+
+  setTimeout(()=>{
+    gameBoard.classList.remove("board-emphasis-booster")
+  },1000)
+
+}
+
 //extract username from input box
 function addUsername() {
   userData.username = usernameInput.value.toUpperCase();
@@ -409,6 +480,7 @@ function formatData(maxLen, value, pad) {
   return string;
 }
 
-//score to be more simulating: pulsate ONCE, diff colour when snaske eats food.
-//frantic music as you get higher level
-//poisonous food
+//make food wiggle or pulsate. make poison move erratically. 
+//add food boost that moves at 2x speed.
+//add msg for top 3. 
+//add touch screen capabilities.

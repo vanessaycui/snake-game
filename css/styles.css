@@ -36,12 +36,13 @@
     --startbtnhoveroutline: #00D1CD;
     --startbtnhovercolor: #00D1CD;
 
-    --snakebody: #00D1CD;
+    --snakebody: #37f7f9;
     --instructions: #37f7f9;
     --winningmsg: #37f7f9;
     --gameover: #F30067;
-    --foodcolor: orange;
+    --foodcolor: #37f7f9;
     --poisoncolor: #F30067;
+    --superfoodcolor: orange;
 }
 
 *{
@@ -301,7 +302,12 @@ li{
 
 .poison{
     border-radius: 10px;
-    background-color: var(--poisoncolor);
+    background-image: repeating-linear-gradient(to right,var(--poisoncolor), #FFFFFF, var(--poisoncolor));
+}
+
+.super-food{
+    border-radius: 10px;
+    background-color: var(--superfoodcolor);
 }
 
 .game-board > p{
@@ -324,6 +330,10 @@ li{
     transition: all 0.5s ease-out;
 }
 
+.board-emphasis-booster{
+    border: 10px solid var(--superfoodcolor);
+    transition: all 0.5s ease-out;
+}
 
 #game-over-msg{
     display:none;
