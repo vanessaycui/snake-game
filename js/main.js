@@ -13,11 +13,11 @@ const speedChange = 0.9;
 const speedChangeFreq = 10;
 const minInterval = 5;
 const gameOverMsgs = ["TRY AGAIN", "GAME OVER"];
-const winningMsgs = ["NEW TOP SCORE!", "TOP 10!"];
+const winningMsgs = ["NEW TOP SCORE!", "AWESOME!! TOP 10!"];
 const controller = {
   ArrowUp: {
     name: "up",
-    opp: "down"
+    opp: "down",
   },
   ArrowDown: {
     name: "down",
@@ -42,25 +42,23 @@ for (let i = 0; i < boardSize; i++) {
   }
 }
 
-
 /*----- app's state (variables) -----*/
 let gameOn = false;
 let snakeBody = []; //store snake length
 let snakeSpeed = initSpeed;
 let gameStart = null; //used to store id from setInterval so we can stop it in reset btn or when player loses
 let highScore = 0;
-let currentDir = controller.ArrowRight; 
+let currentDir = controller.ArrowRight;
 let keyQueue = [currentDir];
 let userData = { username: "player", playerScore: 0 };
-let poisonList=[];
+let poisonList = [];
 let boosterCoord = null;
-let movements = ["up", "down", "right", "left"]
+let movements = ["up", "down", "right", "left"];
 let randomDir = movements[0];
-setInterval(()=>{
-  randomDir = movements[Math.floor(Math.random()*movements.length)]
-}, 1000); //generating random direction for superFood, every 6 seconds
-
-let intervalCount = 0;
+setInterval(() => {
+  randomDir = movements[Math.floor(Math.random() * movements.length)];
+}, 1000); //generating random direction for booster, every 6 seconds
+let intervalCount = 0; //tracks speed of booster
 
 /*----- cached element references -----*/
 const startBtn = document.querySelector("#start-btn");
@@ -76,19 +74,15 @@ const highScoreTxt = document.querySelector("#high-score");
 const usernameInput = document.querySelector("#username");
 const displayName = document.querySelector("#player-name");
 const highScoreList = document.querySelector("#high-score-list");
-const scoreTracker = document.querySelector('#score-tracker')
+const scoreTracker = document.querySelector("#score-tracker");
 
 /*----- Initialization -----*/
-
-
 retrieveHighScores();
 
 /*----- event listeners -----*/
 startBtn.addEventListener("click", function (event) {
   event.preventDefault();
-  event.target.style.display = "none";
-  gameInstruc.style.display = "none";
-  usernameInput.style.display = "none";
+  renderGameBoard(event);
   gameOn = true;
   addUsername();
   snakeInit();
@@ -98,27 +92,11 @@ startBtn.addEventListener("click", function (event) {
 
 resetBtn.addEventListener("click", function (event) {
   event.preventDefault();
-  startBtn.style.display = "block";
-  usernameInput.style.display = "block";
-  usernameInput.value = "";
-  gameInstruc.style.display = "block";
-  gameOverMsg.style.display = "none";
-  gameOn = false;
-  snakeBody = [];
-  currentDir = controller.ArrowRight;
-  keyQueue = [currentDir];
-  snakeSpeed = initSpeed;
-  userData.playerScore = 0;
-  userData.username = "player";
-  playerScoreTxt.innerHTML = "000";
-  displayName.innerHTML = userData.username.toUpperCase() + ":";
+  restartGameBoard(event);
+  restartGameState();
   clearInterval(gameStart);
-  gameSqs.forEach((sq) => sq.classList.remove("snake-body", "food", "poison","super-food"));
-  heading.style.backgroundImage =
-    "linear-gradient(90deg,var(--maintitle1) 0%,var(--maintitle2) 40%,var(--maintitle1) 50%,var(--maintitle2) 75%,var(--maintitle1)100%)";
-  gameBoard.style.borderImage="none";
-  gameBoard.style.animation= "none";
-  });
+
+});
 
 //only listen for arrow keys if the game is on
 document.addEventListener("keydown", (event) => {
@@ -133,6 +111,38 @@ document.addEventListener("keydown", (event) => {
 
 /*----- functions -----*/
 //retrieve score data from localStorage
+
+function renderGameBoard(event){
+  event.target.style.display = "none";
+  gameInstruc.style.display = "none";
+  usernameInput.style.display = "none";
+}
+
+function restartGameBoard(event){
+  startBtn.style.display = "block";
+  usernameInput.style.display = "block";
+  usernameInput.value = "";
+  gameInstruc.style.display = "block";
+  gameOverMsg.style.display = "none";
+  playerScoreTxt.innerHTML = "000";
+  displayName.innerHTML = userData.username.toUpperCase() + ":";
+  gameSqs.forEach((sq) => sq.classList.remove("snake-body", "food", "poison", "super-food"));
+  heading.style.backgroundImage =
+  "linear-gradient(90deg,var(--maintitle1) 0%,var(--maintitle2) 40%,var(--maintitle1) 50%,var(--maintitle2) 75%,var(--maintitle1)100%)";
+  gameBoard.style.borderImage = "none";
+  gameBoard.style.animation = "none";
+}
+
+function restartGameState(){
+  gameOn = false;
+  snakeBody = [];
+  currentDir = controller.ArrowRight;
+  keyQueue = [currentDir];
+  snakeSpeed = initSpeed;
+  userData.playerScore = 0;
+  userData.username = "player";
+}
+
 function retrieveHighScores() {
   const gameData = JSON.parse(localStorage.getItem("highScoreData")); //browser local storage
   if (gameData === null) {
@@ -157,22 +167,22 @@ function retrieveHighScores() {
       )} ${formatData(3, gameData[n].playerScore, "0")}`;
       list.style.fontSize = `${fontSize}px`;
       highScoreList.appendChild(list);
-      if (n == 0){
-        list.classList.add('gold-place')
+      if (n == 0) {
+        list.classList.add("gold-place");
       }
-      if (n == 1){
-        list.classList.add('silver-place')
+      if (n == 1) {
+        list.classList.add("silver-place");
       }
-      if (n===2){
-        list.classList.add('bronze-place')
+      if (n === 2) {
+        list.classList.add("bronze-place");
       }
     }
     highScore = gameData[0].playerScore;
     highScoreTxt.innerHTML = formatData(3, highScore.toString(), "0");
-
-    return gameData
+    return gameData;
   }
 }
+
 //initializing snake body
 function snakeInit() {
   for (let i = 0; i < initSnakeLen; i++) {
@@ -182,6 +192,7 @@ function snakeInit() {
     document.getElementById(identifier).classList.add("snake-body");
   }
 }
+
 //randomly generates food on the board.
 function genFood() {
   let randomPos = [
@@ -193,29 +204,30 @@ function genFood() {
   foodSq.classList.add("food");
 }
 
-//randomly generates superFood on the board.
-function genSuperFood() {
-  let randomNum = Math.floor(Math.random()*10);
-  if(randomNum%5===0){
+//randomly generates booster on the board.
+function genBooster() {
+  let randomNum = Math.floor(Math.random() * 10);
+  if (randomNum % 5 === 0 && boosterCoord === null) {
     boosterCoord = [
       Math.floor(Math.random() * boardSize),
       Math.floor(Math.random() * boardSize),
     ];
-    let superFoodId = boosterCoord[0].toString() + "-" + boosterCoord[1].toString();
-    let superFoodSq = document.getElementById(superFoodId);
-    superFoodSq.classList.add("super-food");
+    let boosterId =
+      boosterCoord[0].toString() + "-" + boosterCoord[1].toString();
+    let boosterSq = document.getElementById(boosterId);
+    boosterSq.classList.add("super-food");
   }
 }
 
 //randomly generates poison on the board.
 function genPoison() {
-  let randomNum = Math.floor(Math.random()*10);
-  if (userData.playerScore > 10 && randomNum%3===0){
+  let randomNum = Math.floor(Math.random() * 10);
+  if (userData.playerScore > 10 && randomNum % 3 === 0) {
     let randomPos = [
       Math.floor(Math.random() * boardSize),
       Math.floor(Math.random() * boardSize),
     ];
-    poisonList.push(randomPos)
+    poisonList.push(randomPos);
     let poisonid = randomPos[0].toString() + "-" + randomPos[1].toString();
     let poisonSq = document.getElementById(poisonid);
     poisonSq.classList.add("poison");
@@ -248,19 +260,15 @@ function snakeMechanics() {
     direction[currentDir.name][0] + snakeBody[0][0],
     direction[currentDir.name][1] + snakeBody[0][1],
   ];
-
-  checkPoison()
-
-  //managing speed of superfood.
-  intervalCount ++
-  if (intervalCount%2 ===0){
-    superFood()
+  checkPoison();
+  //managing speed of boosterfood.
+  intervalCount++;
+  if (intervalCount % 2 === 0) {
+    boosterFoodMechanics();
   }
-  if (intervalCount >100){
-    intervalCount = 0
+  if (intervalCount > 100) {
+    intervalCount = 0;
   }
- 
-  
   //stop game when snake head coords surpasses borders or hits its own body
   if (
     snakeBody[0][0] < 0 ||
@@ -275,7 +283,6 @@ function snakeMechanics() {
     //check if snake head has hit food item
   } else {
     document.getElementById(snakeBody[0].join("-")).classList.add("snake-body");
-
     if (
       document.getElementById(snakeBody[0].join("-")).classList.contains("food")
     ) {
@@ -284,57 +291,75 @@ function snakeMechanics() {
       document.getElementById(snakeBody[0].join("-")).classList.remove("food");
       genFood();
       genPoison();
-      genSuperFood()
+      genBooster();
       addPoint();
       increaseSpeed();
     }
     if (
-      document.getElementById(snakeBody[0].join("-")).classList.contains("poison")
+      document
+        .getElementById(snakeBody[0].join("-"))
+        .classList.contains("poison")
     ) {
-      document.getElementById(snakeBody[0].join("-")).classList.remove("poison");
+      document
+        .getElementById(snakeBody[0].join("-"))
+        .classList.remove("poison");
       genPoison();
       subtractPoint();
     }
     if (
-      document.getElementById(snakeBody[0].join("-")).classList.contains("super-food")
+      document
+        .getElementById(snakeBody[0].join("-"))
+        .classList.contains("super-food")
     ) {
-      document.getElementById(snakeBody[0].join("-")).classList.remove("super-food");
-      boosterCoord=null;
-      genSuperFood();
+      document
+        .getElementById(snakeBody[0].join("-"))
+        .classList.remove("super-food");
+      boosterCoord = null;
+      genBooster();
       boostPoint();
+      increaseSpeed();
     }
-
   }
 }
 
-//big booster that moves. 
-function superFood(){
-  if (boosterCoord !== null){
-    document.getElementById(boosterCoord.join("-")).classList.remove("super-food");
+//mechanics on how booster will randomly move on the board after spawning.
+function boosterFoodMechanics() {
+  if (boosterCoord !== null) {
+    document
+      .getElementById(boosterCoord.join("-"))
+      .classList.remove("super-food");
     boosterCoord = [
       direction[randomDir][0] + boosterCoord[0],
       direction[randomDir][1] + boosterCoord[1],
     ];
-    if (boosterCoord[0]<0 || boosterCoord[0]>boardSize-1 || boosterCoord[1]<0 || boosterCoord[1]>boardSize-1){
+    if (
+      boosterCoord[0] < 0 ||
+      boosterCoord[0] > boardSize - 1 ||
+      boosterCoord[1] < 0 ||
+      boosterCoord[1] > boardSize - 1
+    ) {
       boosterCoord = null;
     } else {
-    document.getElementById(boosterCoord.join("-")).classList.add("super-food");
+      document
+        .getElementById(boosterCoord.join("-"))
+        .classList.add("super-food");
     }
   }
 }
 
-function checkPoison(){
-  if (poisonList.length > 1){
-    let poisonCoord = poisonList.shift()
+//controls number of poison on board.
+function checkPoison() {
+  if (poisonList.length > 3) {
+    let poisonCoord = poisonList.shift();
     let poisonid = poisonCoord[0].toString() + "-" + poisonCoord[1].toString();
     let poisonSq = document.getElementById(poisonid);
     poisonSq.classList.remove("poison");
   }
 }
 
-
+//mechanics to increase speed.
 function increaseSpeed() {
-  if (userData.playerScore % speedChangeFreq === 0 ){
+  if (userData.playerScore % speedChangeFreq === 0) {
     snakeSpeed > minInterval
       ? (snakeSpeed = Math.floor(snakeSpeed * speedChange))
       : (snakeSpeed = minInterval);
@@ -349,12 +374,11 @@ function gameOver() {
   clearInterval(gameStart);
   let topScores = retrieveHighScores();
   if (highScore < userData.playerScore) {
-    //let randomMsgIdx = Math.floor(Math.random() * newHighScoreMsgs.length);
-    newTopScoreUI()
-  } else if (userData.playerScore > topScores.pop().playerScore ){
-    topTenUI()
+    newTopScoreUI();
+  } else if (userData.playerScore > topScores.pop().playerScore) {
+    topTenUI();
   } else {
-    noRankUI()
+    noRankUI();
   }
   gameOn = false;
   gameOverMsg.style.display = "block";
@@ -364,38 +388,42 @@ function gameOver() {
   retrieveHighScores();
 }
 
-function newTopScoreUI(){
+function newTopScoreUI() {
   lastMsg.innerHTML = winningMsgs[0];
   lastMsg.style.fontSize = "3rem";
   lastMsg.style.color = "var(--winningmsg)";
-  gameBoard.style.borderImage="conic-gradient(from var(--angle), red, yellow, lime, aqua, blue, magenta, red) 1";
-  gameBoard.style.animation=" 1s rotate linear infinite";
-  heading.style.backgroundImage = "linear-gradient(90deg, red 0%, yellow 10%, lime 20%, aqua 50%, blue 70%, magenta 80%, red 100%)";
-
+  gameBoard.style.borderImage =
+    "conic-gradient(from var(--angle), red, yellow, lime, aqua, blue, magenta, red) 1";
+  gameBoard.style.animation = " 1s rotate linear infinite";
+  heading.style.backgroundImage =
+    "linear-gradient(90deg, red 0%, yellow 10%, lime 20%, aqua 50%, blue 70%, magenta 80%, red 100%)";
 }
 
-function topTenUI(){
+function topTenUI() {
   lastMsg.innerHTML = winningMsgs[1];
   lastMsg.style.fontSize = "3rem";
   lastMsg.style.color = "var(--winningmsg)";
-  gameBoard.style.borderImage="conic-gradient(from var(--angle), #0D7377,#00D1CD, #FFFFFF,#00D1CD, #0D7377 ) 1";
-  gameBoard.style.animation=" 1s rotate linear infinite";
-  heading.style.backgroundImage = "linear-gradient(90deg, #0D7377 0%,#00D1CD 20% , #FFFFFF 50%,#00D1CD 70%, #0D7377 100%)";
-
+  gameBoard.style.borderImage =
+    "conic-gradient(from var(--angle), var(--topscoretitle1),var(--topscoretitle2), var(--topscoretitle1) ) 1";
+  gameBoard.style.animation = " 1s rotate linear infinite";
+  heading.style.backgroundImage =
+    "linear-gradient(90deg, var(--topscoretitle1) 0%, var(--topscoretitle2) 50%, var(--topscoretitle1) 100%)";
 }
 
-function noRankUI(){
+function noRankUI() {
   let randomMsgIdx = Math.floor(Math.random() * gameOverMsgs.length);
   lastMsg.innerHTML = gameOverMsgs[randomMsgIdx];
   lastMsg.style.fontSize = "4rem";
   lastMsg.style.color = "var(--gameover)";
-  gameBoard.style.borderImage="conic-gradient(from var(--angle), #F30067,#FAEEE7, #F30067 ) 1";
-  gameBoard.style.animation=" 1s rotate linear infinite";
-  heading.style.backgroundImage = "linear-gradient(90deg, #F30067 0%,#FAEEE7 50%, #F30067 100%)";
+  gameBoard.style.borderImage =
+    "conic-gradient(from var(--angle), var(--gameover),var(--gameover2), var(--gameover) ) 1";
+  gameBoard.style.animation = " 1s rotate linear infinite";
+  heading.style.backgroundImage =
+    "linear-gradient(90deg, var(--gameover) 0%,var(--gameover2) 50%, var(--gameover) 100%)";
 }
 
 function addToStorage() {
-  const gameData = JSON.parse(localStorage.getItem("highScoreData")); //browser local storage
+  const gameData = JSON.parse(localStorage.getItem("highScoreData")); //retrieve data from browser localStorage
   if (gameData === null) {
     const newData = [
       userData,
@@ -411,7 +439,7 @@ function addToStorage() {
     ];
     localStorage.setItem("highScoreData", JSON.stringify(newData));
   } else {
-    //only show top 10
+    //only show top 10 players on the screen
     gameData.push(userData);
     gameData.sort((a, b) => {
       const playerA = a.playerScore;
@@ -429,37 +457,39 @@ function addToStorage() {
 function addPoint() {
   userData.playerScore++;
   playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
-  gameBoard.classList.add("board-emphasis")
+  gameBoard.classList.add("board-emphasis");
 
-  setTimeout(()=>{
-    gameBoard.classList.remove("board-emphasis")
-  },1000)
+  setTimeout(() => {
+    gameBoard.classList.remove("board-emphasis");
+  }, 1000);
 }
 
 //instructions on what to do when snake eats poison.
 function subtractPoint() {
-  userData.playerScore = Math.floor(userData.playerScore*0.9);
+  userData.playerScore = Math.floor(userData.playerScore * 0.9);
   playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
-  gameBoard.classList.add("board-emphasis-poison")
+  gameBoard.classList.add("board-emphasis-poison");
 
-  setTimeout(()=>{
-    gameBoard.classList.remove("board-emphasis-poison")
-  },1000)
+  setTimeout(() => {
+    gameBoard.classList.remove("board-emphasis-poison");
+  }, 1000);
 }
 
-//instructions on whatg to do when snake eats booster
-function boostPoint(){
-  userData.playerScore = Math.floor(userData.playerScore*1.2);
+//instructions on what to do when snake eats booster.
+function boostPoint() {
+  userData.playerScore = userData.playerScore + 10;
   playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
-  gameBoard.classList.add("board-emphasis-booster")
+  gameBoard.style.borderImage =
+    "conic-gradient(from var(--angle), red, yellow, lime, aqua, blue, magenta, red) 1";
+  gameBoard.style.animation = " 1s rotate linear infinite";
 
-  setTimeout(()=>{
-    gameBoard.classList.remove("board-emphasis-booster")
-  },1000)
-
+  setTimeout(() => {
+    gameBoard.style.borderImage = "none";
+    gameBoard.style.animation = "none";
+  }, 1000);
 }
 
-//extract username from input box
+//extract username from input.
 function addUsername() {
   userData.username = usernameInput.value.toUpperCase();
   if (userData.username.length === 0) {
@@ -470,6 +500,7 @@ function addUsername() {
   }
 }
 
+//formats names and points on screen.
 function formatData(maxLen, value, pad) {
   let padding = maxLen - value.toString().length;
   let string = "";
@@ -479,8 +510,3 @@ function formatData(maxLen, value, pad) {
   string = string + value.toString();
   return string;
 }
-
-//make food wiggle or pulsate. make poison move erratically. 
-//add food boost that moves at 2x speed.
-//add msg for top 3. 
-//add touch screen capabilities.

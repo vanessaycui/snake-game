@@ -1,440 +1,500 @@
 :root {
-    --defaultcolor: #00D1CD;
-    --textstyle: 'Press Start 2P', cursive;
-    --errorcolor: #F30067;
-    --scoretracker: #F5F5F5;
-    --scoreemphasis: #F30067;
+  --defaultcolor: #00d1cd;
+  --textstyle: "Press Start 2P", cursive;
+  --errorcolor: #f30067;
+  --scoretracker: #f5f5f5;
+  --scoreemphasis: #f30067;
 
-    --background: #232931;
-    --board: #393E46;
-    --boardoutline: #bcb5b5;;
+  --background: #232931;
+  --board: #393e46;
+  --boardoutline: #bcb5b5;
 
-    --maintitle1: #00D1CD;
-    --maintitle2: #0D7377;
+  --maintitle1: #00d1cd;
+  --maintitle2: #0d7377;
 
-    --topscoretitle1: #F8B500;
-    --topscoretitle2: #FFFFFF;
-    --silverplace: #C0C0C0;
-    --bronzeplace: 	#CD7F32;
-    --otherplace: #4c4f54;
+  --topscoretitle1: #f8b500;
+  --topscoretitle2: #ffffff;
+  --silverplace: #c0c0c0;
+  --bronzeplace: #cd7f32;
+  --otherplace: #4c4f54;
 
-    --resetbtnbg: #232931;
-    --resetbtnborder: #00D1CD;
-    --resetcolor: #00D1CD;
-    --resethoverbg: #F30067;
-    --resethovercolor: #232931;
+  --resetbtnbg: #232931;
+  --resetbtnborder: #00d1cd;
+  --resetcolor: #00d1cd;
+  --resethoverbg: #f30067;
+  --resethovercolor: #232931;
 
-    --usernamebox: #00D1CD;
-    --usernamebg: #232931;
-    --usernamefocus: #393E46;
-    --usernametext: #00D1CD;
+  --usernamebox: #00d1cd;
+  --usernamebg: #232931;
+  --usernamefocus: #393e46;
+  --usernametext: #00d1cd;
 
-    --startbtnbg: #F30067;
-    --startbtnborder: #F30067;
-    --startbtncolor: #393E46;
-    --startbtnhoverbg: #393E46;
-    --startbtnhoveroutline: #00D1CD;
-    --startbtnhovercolor: #00D1CD;
+  --startbtnbg: #f30067;
+  --startbtnborder: #f30067;
+  --startbtncolor: #393e46;
+  --startbtnhoverbg: #393e46;
+  --startbtnhoveroutline: #00d1cd;
+  --startbtnhovercolor: #00d1cd;
 
-    --snakebody: #37f7f9;
-    --instructions: #37f7f9;
-    --winningmsg: #37f7f9;
-    --gameover: #F30067;
-    --foodcolor: #37f7f9;
-    --poisoncolor: #F30067;
-    --superfoodcolor: orange;
+  --snakebody: #37f7f9;
+  --instructions: #37f7f9;
+  --winningmsg: #f8b500;
+  --gameover: #f30067;
+  --gameover2: violet;
+  --foodcolor: #37f7f9;
+  --poisoncolor: #f30067;
+  --superfoodcolor: #a3e4db;
 }
 
-*{
-overflow: hidden;
+* {
+  overflow: hidden;
 }
 
-body{
-    background-color: var(--background);
-    display: grid;
-    grid-template-columns: auto 600px 300px auto;
-    grid-template-rows: auto;
-    color: var(--defaultcolor);
-    font-family: var(--textstyle);
-    height: 100vh;
-    grid-template-areas: 
-    "left middle right";
-}
-#info{
-    grid-area: left;
-}
-#data{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    grid-area: right;
-    margin-top: 20px;
-
-    padding-top: 70px;
-
-}
-main{
-    grid-area: middle;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 5%;
-}
-#score-tracker{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding:0;
-    margin:5px;
-    width: 95%;
-    font-size: 0.75rem;
-    color: var(--scoretracker);
-}
-#score-tracker >div{
-    margin:0;
-    text-align: center;
+body {
+  background-color: var(--background);
+  display: grid;
+  grid-template-columns: auto 600px 300px auto;
+  grid-template-rows: auto;
+  color: var(--defaultcolor);
+  font-family: var(--textstyle);
+  height: 100vh;
+  grid-template-areas: "left middle right";
 }
 
-#score-tracker >div >p {
-    display: inline;
+body:hover {
+  cursor: cell;
 }
 
-.game-board{
-    position: relative;
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 450px; 
-    height: 450px;
-    margin-bottom: 20px;
-
-    /* (30 divs)x (15px) = 450px height and width for board */
-    background-color: var(--board);
-    border: 10px solid var(--boardoutline);
-    transition: all 0.5s ease-out;
+#info {
+  grid-area: left;
 }
 
-.cell{
-    background-color: var(--board);
-    flex-basis: 1;
-    width: 15px;
-    height: 15px;
+#data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-area: right;
+  margin-top: 20px;
 
+  padding-top: 70px;
 }
 
-h1{
-    font-size: 5rem;
-    margin-bottom: 10px;
+main {
+  grid-area: middle;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+}
 
-    /* create background image behind text */
-    background-image: linear-gradient(90deg,
+#score-tracker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 0;
+  margin: 5px;
+  width: 95%;
+  font-size: 0.75rem;
+  color: var(--scoretracker);
+}
+
+#score-tracker > div {
+  margin: 0;
+  text-align: center;
+}
+
+#score-tracker > div > p {
+  display: inline;
+}
+
+.game-board {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 450px;
+  height: 450px;
+  margin-bottom: 20px;
+  /* (30 divs)x (15px) = 450px height and width for board */
+  background-color: var(--board);
+  border: 10px solid var(--boardoutline);
+  transition: all 0.5s ease-out;
+}
+
+.cell {
+  background-color: var(--board);
+  flex-basis: 1;
+  width: 15px;
+  height: 15px;
+}
+
+h1 {
+  font-size: 5rem;
+  margin-bottom: 10px;
+  /* create background image behind text */
+  background-image: linear-gradient(
+    90deg,
     var(--maintitle1) 0%,
     var(--maintitle2) 40%,
     var(--maintitle1) 50%,
     var(--maintitle2) 75%,
-    var(--maintitle1)100%);
-    background-size: auto auto;
-    background-clip: border-box;
-    background-size: 200% auto;
-    /* background exists in text only. turn text transparent  */
-    background-clip: text; 
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    /* animation (duration| easing-funciton| delay | iteration-count | name) */
-    animation: 1s linear 0s infinite title-animate;
+    var(--maintitle1) 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  /* background exists in text only. turn text transparent  */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* animation (duration| easing-funciton| delay | iteration-count | name) */
+  animation: 1s linear 0s infinite title-animate;
 }
 
-#crown-img{
-    height: 100px;
+#crown-img {
+  height: 100px;
 }
 
-h2{
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-size:3rem;
-    text-align: center;
-    background-image: linear-gradient(90deg,
+h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 3rem;
+  text-align: center;
+  background-image: linear-gradient(
+    90deg,
     var(--topscoretitle1) 0%,
     var(--topscoretitle2) 10%,
-    var(--topscoretitle1) 20%);
-    background-size: auto auto;
-    background-clip: border-box;
-    background-size: 200% auto;
-    /* background exists in text only. turn text transparent  */
-    background-clip: text; 
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    /* animation (duration| easing-funciton| delay | iteration-count | name) */
-    animation: 2s ease-in-out 0s infinite shiny;
-}
-ol{
-    /* color: var(--topscorelist); */
-    padding-inline-start: 0;
-    text-align: center;
-    color: var(--otherplace);
+    var(--topscoretitle1) 20%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  /* background exists in text only. turn text transparent  */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* animation (duration| easing-funciton| delay | iteration-count | name) */
+  animation: 2s ease-in-out 0s infinite shiny;
 }
 
-li{
-    padding: 10px 0;
+ol {
+  /* color: var(--topscorelist); */
+  padding-inline-start: 0;
+  text-align: center;
+  color: var(--otherplace);
 }
 
-.gold-place{
-    background-image: linear-gradient(90deg,
+li {
+  padding: 10px 0;
+}
+
+.gold-place {
+  background-image: linear-gradient(
+    90deg,
     var(--topscoretitle1) 0%,
     var(--topscoretitle2) 10%,
-    var(--topscoretitle1) 20%);
-    background-size: auto auto;
-    background-clip: border-box;
-    background-size: 200% auto;
-    /* background exists in text only. turn text transparent  */
-    background-clip: text; 
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    /* animation (duration| easing-funciton| delay | iteration-count | name) */
-    animation: 2s ease-in-out 0s infinite shiny;
+    var(--topscoretitle1) 20%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  /* background exists in text only. turn text transparent  */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* animation (duration| easing-funciton| delay | iteration-count | name) */
+  animation: 2s ease-in-out 0s infinite shiny;
 }
-.silver-place{
-    background-image: linear-gradient(90deg,
+
+.silver-place {
+  background-image: linear-gradient(
+    90deg,
     var(--silverplace) 0%,
     var(--topscoretitle2) 10%,
-    var(--silverplace) 20%);
-    background-size: auto auto;
-    background-clip: border-box;
-    background-size: 200% auto;
-    /* background exists in text only. turn text transparent  */
-    background-clip: text; 
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    /* animation (duration| easing-funciton| delay | iteration-count | name) */
-    animation: 2s ease-in-out 0s infinite shiny;
+    var(--silverplace) 20%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  /* background exists in text only. turn text transparent  */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* animation (duration| easing-funciton| delay | iteration-count | name) */
+  animation: 2s ease-in-out 0s infinite shiny;
 }
-.bronze-place{
-    background-image: linear-gradient(90deg,
+
+.bronze-place {
+  background-image: linear-gradient(
+    90deg,
     var(--bronzeplace) 0%,
     var(--topscoretitle2) 10%,
-    var(--bronzeplace) 20%);
-    background-size: auto auto;
-    background-clip: border-box;
-    background-size: 200% auto;
-    /* background exists in text only. turn text transparent  */
-    background-clip: text; 
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    /* animation (duration| easing-funciton| delay | iteration-count | name) */
-    animation: 2s ease-in-out 0s infinite shiny;
+    var(--bronzeplace) 20%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  /* background exists in text only. turn text transparent  */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* animation (duration| easing-funciton| delay | iteration-count | name) */
+  animation: 2s ease-in-out 0s infinite shiny;
 }
 
-
-#reset-btn{
-    background-color: var(--resetbtnbg);
-    padding: 20px;
-    font-size: 1.5rem;
-    font-family: var(--textstyle);
-    border-radius: 10px;
-    border: 5px solid var(--resetbtnborder);
-    color: var(--itemsoutline);
+#reset-btn {
+  background-color: var(--resetbtnbg);
+  padding: 20px;
+  font-size: 1.5rem;
+  font-family: var(--textstyle);
+  border-radius: 10px;
+  border: 5px solid var(--resetbtnborder);
+  color: var(--itemsoutline);
 }
 
-#reset-btn:hover{
-    background-color: var(--resethoverbg);
-    color: var(--resethovercolor);
-    cursor: pointer;
-    border-color:var(--resethovercolor);
-}
-#username{
-    position: absolute;
-    cursor: cell;
-    top: 175px;
-    left: 112px;
-    height: 50px;
-    width: 220px;
-    font-family: var(--textstyle);
-    font-size: 1.5rem;
-    text-align: center;
-    border-radius: 10px;
-    border: 5px solid var(--usernamebox);
-    background-color: var(--usernamebg);
-    color: var(--usernametext);
+#reset-btn:hover {
+  background-color: var(--resethoverbg);
+  color: var(--resethovercolor);
+  cursor: pointer;
+  border-color: var(--resethovercolor);
 }
 
-#username:focus{
-    outline: none;
-    background-color: var(--usernamefocus);
-    top: 170px;
-    left: 107px;
-    height: 60px;
-    width: 230px;
+#username {
+  position: absolute;
+  cursor: cell;
+  top: 175px;
+  left: 112px;
+  height: 50px;
+  width: 220px;
+  font-family: var(--textstyle);
+  font-size: 1.5rem;
+  text-align: center;
+  border-radius: 10px;
+  border: 5px solid var(--usernamebox);
+  background-color: var(--usernamebg);
+  color: var(--usernametext);
 }
 
-#start-btn{
-    position: absolute;
-    cursor: pointer;
-    top: 275px;
-    left: 110px;
-    padding: 20px 40px;
-    font-family: var(--textstyle);
-    border-radius: 10px;
-    background: var(--startbtnbg);
-    font-size: 30px;
-    border: 5px solid var(--startbtnborder);
-    color: var(--startbtncolor);
-    transition: all 200ms ease-in-out;
+#username:focus {
+  outline: none;
+  background-color: var(--usernamefocus);
+  top: 170px;
+  left: 107px;
+  height: 60px;
+  width: 230px;
 }
 
-#start-btn:hover{
-    background: var(--startbtnhoverbg);
-    color: var(--startbtnhovercolor);
-    border-color: var(--startbtnhoveroutline);
-    cursor: pointer;
+#start-btn {
+  position: absolute;
+  cursor: pointer;
+  top: 275px;
+  left: 110px;
+  padding: 20px 40px;
+  font-family: var(--textstyle);
+  border-radius: 10px;
+  background: var(--startbtnbg);
+  font-size: 30px;
+  border: 5px solid var(--startbtnborder);
+  color: var(--startbtncolor);
+  transition: all 200ms ease-in-out;
 }
 
-
-.snake-body{
-    box-sizing: border-box;
-    background-color:var(--snakebody)!important;
-    border-radius: 0!important;
+#start-btn:hover {
+  background: var(--startbtnhoverbg);
+  color: var(--startbtnhovercolor);
+  border-color: var(--startbtnhoveroutline);
+  cursor: pointer;
 }
 
-.food{
-    border-radius: 10px;
-    background-color: var(--foodcolor);
+.snake-body {
+  box-sizing: border-box;
+  background-color: var(--snakebody) !important;
+  border-radius: 0 !important;
 }
 
-.poison{
-    border-radius: 10px;
-    background-image: repeating-linear-gradient(to right,var(--poisoncolor), #FFFFFF, var(--poisoncolor));
+.food {
+  border-radius: 10px;
+  background-color: var(--foodcolor);
+  animation: 800ms linear 0s infinite foodpulse;
 }
 
-.super-food{
-    border-radius: 10px;
-    background-color: var(--superfoodcolor);
+.poison {
+  border-radius: 5px;
+  background-color: var(--poisoncolor);
+  animation: 400ms linear 0s infinite foodpulse;
 }
 
-.game-board > p{
-    font-family: var(--textstyle);
-    position: absolute;
-    text-align: center;
-    top: 100px;
-    left: 50px; 
-    color: var(--instructions);
-    animation: 1s linear 0s infinite pulse;
+.super-food {
+  border-radius: 10px;
+  background-color: var(--superfoodcolor);
 }
 
-.board-emphasis{
-    border: 10px solid var(--foodcolor);
-    transition: all 0.5s ease-out;
+.game-board > p {
+  font-family: var(--textstyle);
+  position: absolute;
+  text-align: center;
+  top: 100px;
+  left: 50px;
+  color: var(--instructions);
+  animation: 1s linear 0s infinite pulse;
 }
 
-.board-emphasis-poison{
-    border: 10px solid var(--poisoncolor);
-    transition: all 0.5s ease-out;
+.board-emphasis {
+  border: 10px solid var(--foodcolor);
+  transition: all 0.5s ease-out;
 }
 
-.board-emphasis-booster{
-    border: 10px solid var(--superfoodcolor);
-    transition: all 0.5s ease-out;
+.board-emphasis-poison {
+  border: 10px solid var(--poisoncolor);
+  transition: all 0.5s ease-out;
 }
 
-#game-over-msg{
-    display:none;
-    position: absolute;
-    text-align: center;
-    font-size: 4rem;
-    width: 100%;
-    top: 15%;
+.board-emphasis-booster {
+  border: 10px solid var(--superfoodcolor);
+  transition: all 0.5s ease-out;
 }
 
-#game-over-msg >p {
-    color: var(--gameover);
-    /* animation (duration| easing-funciton| delay | iteration-count | name) */
-    animation: 1s linear 0s infinite pulse;
+#game-over-msg {
+  display: none;
+  position: absolute;
+  text-align: center;
+  font-size: 4rem;
+  width: 100%;
+  top: 15%;
 }
-#error{
-    display: none;
+
+#game-over-msg > p {
+  color: var(--gameover);
+  /* animation (duration| easing-funciton| delay | iteration-count | name) */
+  animation: 1s linear 0s infinite pulse;
+}
+
+#error {
+  display: none;
 }
 
 @property --angle {
-    syntax: '<angle>';
-    initial-value: 0deg;
-    inherits: false;
-  }
-   
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 /* animation keyframes */
-@keyframes title-animate{
-    to {background-position: 200% center;}
+@keyframes title-animate {
+  to {
+    background-position: 200% center;
+  }
 }
+
 @keyframes pulse {
-    0% {transform: scale(0.95);}
-	70% {transform: scale(1);}
-	100% {transform: scale(0.95);}
+  0% {
+    transform: scale(0.95);
+  }
+  70% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.95);
+  }
 }
 
-
-@keyframes shiny{
-  0%{background-position: 0}
-  60%{background-position: 180px}
-  200%{background-position: 180px}
+@keyframes foodpulse {
+  0% {
+    transform: scale(0.85);
+  }
+  70% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.85);
+  }
 }
+
+@keyframes poisonpulse {
+  0% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.5);
+  }
+}
+
+@keyframes shiny {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 180px;
+  }
+  200% {
+    background-position: 180px;
+  }
+}
+
 @keyframes rotate {
-	to {--angle: 360deg;}
+  to {
+    --angle: 360deg;
+  }
 }
 
-
-
-/* design for small screens */
-@media only screen and (max-width: 951px){
-    aside{
-        display: none;
-    }
-    #data{
-        display: none;
-    }
-    /* thinking of adding info at the bottom */
-}
-@media only screen and (max-width: 600px){
-    aside{
-        display: none;
-    }
-    main{
-        display: none;
-    }
-    body{
-        display: block;
-    }
-    h1{
-        margin-top: 0;
-        font-size: 4rem;
-    }
-    p{
-        color: var(--errorcolor);
-    }
-    #error{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        height: 100vh;
-        margin: 1rem;
-    }
-}
-@media only screen and (max-width: 383px){
-    h1{
-        font-size: 3rem;
-    }
-}
-@media only screen and (max-width: 286px){
-    h1{
-        font-size: 2rem;
-    }
-}
-@media only screen and (max-width: 200px){
-    h1{
-        font-size: 1rem;
-    }
+@media only screen and (max-width: 951px) {
+  body {
+    grid-template-columns: auto 600px auto;
+    grid-template-areas: "left middle right";
+  }
+  aside {
+    display: none;
+  }
+  #data {
+    display: none;
+  }
 }
 
+@media only screen and (max-width: 600px) {
+  aside {
+    display: none;
+  }
+  main {
+    display: none;
+  }
+  body {
+    display: block;
+  }
+  h1 {
+    margin-top: 0;
+    font-size: 4rem;
+  }
+  p {
+    color: var(--errorcolor);
+  }
+  #error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    margin: 1rem;
+  }
+}
 
+@media only screen and (max-width: 383px) {
+  h1 {
+    font-size: 3rem;
+  }
+}
 
+@media only screen and (max-width: 286px) {
+  h1 {
+    font-size: 2rem;
+  }
+}
 
-
+@media only screen and (max-width: 200px) {
+  h1 {
+    font-size: 1rem;
+  }
+}
