@@ -13,7 +13,7 @@ const speedChange = 0.9;
 const speedChangeFreq = 10;
 const minInterval = 5;
 const gameOverMsgs = ["TRY AGAIN", "GAME OVER"];
-const newHighScoreMsgs = ["NEW HIGH SCORE"];
+const winningMsgs = ["NEW TOP SCORE!", "TOP 10!"];
 const controller = {
   ArrowUp: {
     name: "up",
@@ -137,11 +137,6 @@ function retrieveHighScores() {
     highScore = 0;
   } else {
     //sort game Data
-    gameData.sort((a, b) => {
-      const playerA = a.playerScore;
-      const playerB = b.playerScore;
-      return playerB - playerA;
-    });
     for (let n = 0; n < gameData.length; n++) {
       const list = document.createElement("li");
       let fontSize = 20 - n;
@@ -152,9 +147,20 @@ function retrieveHighScores() {
       )} ${formatData(3, gameData[n].playerScore, "0")}`;
       list.style.fontSize = `${fontSize}px`;
       highScoreList.appendChild(list);
+      if (n == 0){
+        list.classList.add('gold-place')
+      }
+      if (n == 1){
+        list.classList.add('silver-place')
+      }
+      if (n===2){
+        list.classList.add('bronze-place')
+      }
     }
     highScore = gameData[0].playerScore;
     highScoreTxt.innerHTML = formatData(3, highScore.toString(), "0");
+
+    return gameData
   }
 }
 //initializing snake body
@@ -254,27 +260,51 @@ function increaseSpeed() {
 //instructions on what to do when the game is over.
 function gameOver() {
   clearInterval(gameStart);
+  let topScores = retrieveHighScores();
   if (highScore < userData.playerScore) {
     //let randomMsgIdx = Math.floor(Math.random() * newHighScoreMsgs.length);
-    lastMsg.innerHTML = newHighScoreMsgs[0];
-    lastMsg.style.fontSize = "3rem";
-    lastMsg.style.color = "var(--instructions)";
-    gameBoard.style.borderImage="conic-gradient(from var(--angle), red, yellow, lime, aqua, blue, magenta, red) 1";
-    gameBoard.style.animation=" 1s rotate linear infinite";
+    newTopScoreUI()
+  } else if (userData.playerScore > topScores.pop().playerScore ){
+    topTenUI()
   } else {
-    let randomMsgIdx = Math.floor(Math.random() * gameOverMsgs.length);
-    lastMsg.innerHTML = gameOverMsgs[randomMsgIdx];
-    lastMsg.style.fontSize = "4rem";
-    lastMsg.style.color = "var(--gameover)";
+    noRankUI()
   }
   gameOn = false;
   gameOverMsg.style.display = "block";
-  heading.style.backgroundImage =
-    "linear-gradient(90deg, var(--snakebody) 0%,var(--snakebody) 100%)";
-  addToStorage();
   const highScoreListItems = document.querySelectorAll("ol>li");
   highScoreListItems.forEach((list) => highScoreList.removeChild(list));
+  addToStorage();
   retrieveHighScores();
+}
+
+function newTopScoreUI(){
+  lastMsg.innerHTML = winningMsgs[0];
+  lastMsg.style.fontSize = "3rem";
+  lastMsg.style.color = "var(--winningmsg)";
+  gameBoard.style.borderImage="conic-gradient(from var(--angle), red, yellow, lime, aqua, blue, magenta, red) 1";
+  gameBoard.style.animation=" 1s rotate linear infinite";
+  heading.style.backgroundImage = "linear-gradient(90deg, red 0%, yellow 10%, lime 20%, aqua 50%, blue 70%, magenta 80%, red 100%)";
+
+}
+
+function topTenUI(){
+  lastMsg.innerHTML = winningMsgs[1];
+  lastMsg.style.fontSize = "3rem";
+  lastMsg.style.color = "var(--winningmsg)";
+  gameBoard.style.borderImage="conic-gradient(from var(--angle), #0D7377,#00D1CD, #FFFFFF,#00D1CD, #0D7377 ) 1";
+  gameBoard.style.animation=" 1s rotate linear infinite";
+  heading.style.backgroundImage = "linear-gradient(90deg, #0D7377 0%,#00D1CD 20% , #FFFFFF 50%,#00D1CD 70%, #0D7377 100%)";
+
+}
+
+function noRankUI(){
+  let randomMsgIdx = Math.floor(Math.random() * gameOverMsgs.length);
+  lastMsg.innerHTML = gameOverMsgs[randomMsgIdx];
+  lastMsg.style.fontSize = "4rem";
+  lastMsg.style.color = "var(--gameover)";
+  gameBoard.style.borderImage="conic-gradient(from var(--angle), #F30067,#FAEEE7, #F30067 ) 1";
+  gameBoard.style.animation=" 1s rotate linear infinite";
+  heading.style.backgroundImage = "linear-gradient(90deg, #F30067 0%,#FAEEE7 50%, #F30067 100%)";
 }
 
 function addToStorage() {
@@ -314,8 +344,9 @@ function addPoint() {
   playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
 }
 
+//extract username from input box
 function addUsername() {
-  userData.username = usernameInput.value;
+  userData.username = usernameInput.value.toUpperCase();
   if (userData.username.length === 0) {
     userData.username = "noname";
   } else {
@@ -335,7 +366,7 @@ function formatData(maxLen, value, pad) {
 }
 
 //score to be more simulating: pulsate ONCE, diff colour when snaske eats food.
-//snake title turns rainow when you hit highest score.
+//snake title turns rainbow when you hit highest score.
 //snake title turns yellow/orange when you hit top 10
 //snake title turns red when you dont make it to top 10
 //winning message -> top 10
