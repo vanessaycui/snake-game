@@ -36,7 +36,7 @@ HTML, CSS, and vanilla JavaScript
 <h2><strong>GETTING STARTED</strong></h2>
 
 This game is hosted on GitHub Pages! 
-Whenever you're ready, please click on the link below:
+Whenever you're ready to play, please click on the link below:
 
 <button style="padding: 20px; font-size: 30px; border-radius: 10px; background-color: #8EC3B0; border: none;" ><strong><a style="color: white; text-decoration: none;" href="https://vanessaycui.github.io/snake-game/">PLAY SNAKE</a></strong></button>
 </div>
