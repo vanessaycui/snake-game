@@ -287,12 +287,14 @@ li{
 
 .snake-body{
     box-sizing: border-box;
-    background-color:var(--snakebody);
+    background-color:var(--snakebody)!important;
+    border-radius: 0!important;
 }
 
 .food{
     border-radius: 10px;
     background-color: var(--foodcolor);
+
 }
 
 .game-board > p{

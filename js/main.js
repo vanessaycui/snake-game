@@ -178,14 +178,6 @@ function genFood() {
     Math.floor(Math.random() * boardSize),
     Math.floor(Math.random() * boardSize),
   ];
-
-  while (snakeBody.some((arr) => arr === randomPos)) {
-    //make sure food doesnt spawn on snake body
-    randomPos = [
-      Math.floor(Math.random() * boardSize),
-      Math.floor(Math.random() * boardSize),
-    ];
-  }
   let foodid = randomPos[0].toString() + "-" + randomPos[1].toString();
   let foodSq = document.getElementById(foodid);
   foodSq.classList.add("food");
@@ -366,10 +358,7 @@ function formatData(maxLen, value, pad) {
 }
 
 //score to be more simulating: pulsate ONCE, diff colour when snaske eats food.
-//snake title turns rainbow when you hit highest score.
-//snake title turns yellow/orange when you hit top 10
-//snake title turns red when you dont make it to top 10
-//winning message -> top 10
+
 //new no. 1 msg -> highest score.
 //not making it, red border, red snake.
 //frantic music as you get higher level
