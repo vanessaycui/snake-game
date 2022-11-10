@@ -33,6 +33,9 @@ const controller = {
   },
 };
 
+/*----- Initialization -----*/
+initGameBoard();
+
 /*----- app's state (variables) -----*/
 let gameOn = false;
 let snakeBody = []; //store snake length
@@ -68,8 +71,7 @@ const pointDisplay = document.querySelector("#num-points");
 
 /*----- Initialization -----*/
 randGenDir();
-initGameBoard();
-retrieveHighScores();
+renderHighScores();
 
 /*----- event listeners -----*/
 startBtn.addEventListener("click", function (event) {
@@ -85,7 +87,7 @@ startBtn.addEventListener("click", function (event) {
 resetBtn.addEventListener("click", function (event) {
   event.preventDefault();
   restartGameState();
-  restartGameBoard(event);
+  restartGameBoard();
   clearInterval(gameStart);
 });
 
@@ -101,30 +103,28 @@ document.addEventListener("keydown", (event) => {
 });
 
 /*----- functions -----*/
-//generating random direction for booster, every 6 seconds
-function randGenDir(){
+
+function randGenDir(){//generating random direction for booster, every 6 seconds
   setInterval(() => {
     randomDir = movements[Math.floor(Math.random() * movements.length)];
   }, 1000); 
 }
-function initGameBoard(){
-//dynamically creating grid of divs for the gameboard.
-for (let i = 0; i < boardSize; i++) {
-  for (let j = 0; j < boardSize; j++) {
-    let square = document.createElement("div");
-    square.classList.add("cell");
-    square.setAttribute("id", i + "-" + j);
-    document.querySelector(".game-board").appendChild(square);
+function initGameBoard(){//dynamically creating grid of divs for the gameboard.
+  for (let i = 0; i < boardSize; i++) {
+    for (let j = 0; j < boardSize; j++) {
+      let square = document.createElement("div");
+      square.classList.add("cell");
+      square.setAttribute("id", i + "-" + j);
+      document.querySelector(".game-board").appendChild(square);
+    }
   }
-}
 }
 function renderGameBoard(event){
   event.target.style.display = "none";
   gameInstruc.style.display = "none";
   usernameInput.style.display = "none";
 }
-
-function restartGameBoard(event){
+function restartGameBoard(){
   startBtn.style.display = "block";
   usernameInput.style.display = "block";
   usernameInput.value = "";
@@ -138,7 +138,6 @@ function restartGameBoard(event){
   gameBoard.style.borderImage = "none";
   gameBoard.style.animation = "none";
 }
-
 function restartGameState(){
   gameOn = false;
   snakeBody = [];
@@ -148,8 +147,7 @@ function restartGameState(){
   userData.playerScore = 0;
   userData.username = "player";
 }
-
-function retrieveHighScores() {
+function renderHighScores() {
   const gameData = JSON.parse(localStorage.getItem("highScoreData")); //browser local storage
   if (gameData === null) {
     console.log("no local data");
@@ -162,7 +160,6 @@ function retrieveHighScores() {
     }
     highScore = 0;
   } else {
-    //sort game Data
     for (let n = 0; n < gameData.length; n++) {
       const list = document.createElement("li");
       let fontSize = 20 - n;
@@ -188,9 +185,7 @@ function retrieveHighScores() {
     return gameData;
   }
 }
-
-//initializing snake body
-function snakeInit() {
+function snakeInit() {//initializing snake body
   for (let i = 0; i < initSnakeLen; i++) {
     let identifier =
       snakeStartPos[0].toString() + "-" + (snakeStartPos[1] - i).toString();
@@ -198,9 +193,7 @@ function snakeInit() {
     document.getElementById(identifier).classList.add("snake-body");
   }
 }
-
-//randomly generates food on the board.
-function genFood() {
+function genFood() {//randomly generates food on the board.
   foodCoord = [
     Math.floor(Math.random() * boardSize),
     Math.floor(Math.random() * boardSize),
@@ -209,9 +202,7 @@ function genFood() {
   let foodSq = document.getElementById(foodid);
   foodSq.classList.add("food");
 }
-
-//randomly generates booster on the board.
-function genBooster() {
+function genBooster() {//randomly generates booster on the board.
   let randomNum = Math.floor(Math.random() * 10);
   if (randomNum % 5 === 0 && boosterCoord === null) {
     boosterCoord = [
@@ -224,9 +215,7 @@ function genBooster() {
     boosterSq.classList.add("super-food");
   }
 }
-
-//randomly generates poison on the board.
-function genPoison() {
+function genPoison() {//randomly generates poison on the board.
   let randomNum = Math.floor(Math.random() * 10);
   if (userData.playerScore > 10 && randomNum % 3 === 0) {
     let randomPos = [
@@ -246,9 +235,7 @@ function genPoison() {
     poisonSq.classList.add("poison");
   }
 }
-
-function executeMove() {
-  //Only listen to the last key pressed, delete everything else.
+function executeMove() {  //Only listen to the last key pressed, delete everything else.
   while (keyQueue.length !== 1) {
     keyQueue.shift();
   }
@@ -257,9 +244,7 @@ function executeMove() {
     snakeMechanics();
   }
 }
-
-//instructions on how to move
-function snakeMechanics() {
+function snakeMechanics() {//instructions on how to move
   let end = snakeBody.length - 1; //remove snake-body class from tail
   document
     .getElementById(snakeBody[end].join("-"))
@@ -282,7 +267,7 @@ function snakeMechanics() {
   if (intervalCount > 100) {
     intervalCount = 0;
   }
-  //stop game when snake head coords surpasses borders or hits its own body
+
   if (
     snakeBody[0][0] < 0 ||
     snakeBody[0][0] > boardSize - 1 ||
@@ -291,10 +276,10 @@ function snakeMechanics() {
     document
       .getElementById(snakeBody[0].join("-"))
       .classList.contains("snake-body")
-  ) {
+  ) {   //stop game when snake head coords surpasses borders or hits its own body
     gameOver();
-    //check if snake head has hit food item
-  } else {
+
+  } else {    //check if snake head has hit food, poison, booster
     document.getElementById(snakeBody[0].join("-")).classList.add("snake-body");
     if (
       document.getElementById(snakeBody[0].join("-")).classList.contains("food")
@@ -334,9 +319,7 @@ function snakeMechanics() {
     }
   }
 }
-
-//mechanics on how booster will randomly move on the board after spawning.
-function boosterFoodMechanics() {
+function boosterFoodMechanics() {//mechanics on how booster will randomly move on the board after spawning.
   if (boosterCoord !== null) {
     document
       .getElementById(boosterCoord.join("-"))
@@ -359,9 +342,7 @@ function boosterFoodMechanics() {
     }
   }
 }
-
-//controls number of poison on board.
-function checkPoison() {
+function checkPoison() {//controls number of poison on board.
   if (poisonList.length > 3) {
     let poisonCoord = poisonList.shift();
     let poisonid = poisonCoord[0].toString() + "-" + poisonCoord[1].toString();
@@ -369,9 +350,7 @@ function checkPoison() {
     poisonSq.classList.remove("poison");
   }
 }
-
-//mechanics to increase speed.
-function increaseSpeed() {
+function increaseSpeed() {//mechanics to increase speed.
   if (userData.playerScore % speedChangeFreq === 0) {
     snakeSpeed > minInterval
       ? (snakeSpeed = Math.floor(snakeSpeed * speedChange))
@@ -381,11 +360,9 @@ function increaseSpeed() {
     gameStart = setInterval(executeMove, snakeSpeed);
   }
 }
-
-//instructions on what to do when the game is over.
-function gameOver() {
+function gameOver() {//instructions on what to do when the game is over.
   clearInterval(gameStart);
-  let topScores = retrieveHighScores();
+  let topScores = renderHighScores();
   if (highScore < userData.playerScore) {
     newTopScoreUI();
   } else if (userData.playerScore > topScores.pop().playerScore) {
@@ -397,10 +374,9 @@ function gameOver() {
   gameOverMsg.style.display = "block";
   const highScoreListItems = document.querySelectorAll("ol>li");
   highScoreListItems.forEach((list) => highScoreList.removeChild(list));
-  addToStorage();
-  retrieveHighScores();
+  updateStorage();
+  renderHighScores();
 }
-
 function newTopScoreUI() {
   lastMsg.innerHTML = winningMsgs[0];
   lastMsg.style.fontSize = "3rem";
@@ -411,7 +387,6 @@ function newTopScoreUI() {
   heading.style.backgroundImage =
     "linear-gradient(90deg, red 0%, yellow 10%, lime 20%, aqua 50%, blue 70%, magenta 80%, red 100%)";
 }
-
 function topTenUI() {
   lastMsg.innerHTML = winningMsgs[1];
   lastMsg.style.fontSize = "3rem";
@@ -422,7 +397,6 @@ function topTenUI() {
   heading.style.backgroundImage =
     "linear-gradient(90deg, var(--topscoretitle1) 0%, var(--topscoretitle2) 50%, var(--topscoretitle1) 100%)";
 }
-
 function noRankUI() {
   let randomMsgIdx = Math.floor(Math.random() * gameOverMsgs.length);
   lastMsg.innerHTML = gameOverMsgs[randomMsgIdx];
@@ -434,9 +408,8 @@ function noRankUI() {
   heading.style.backgroundImage =
     "linear-gradient(90deg, var(--gameover) 0%,var(--gameover2) 50%, var(--gameover) 100%)";
 }
-
-function addToStorage() {
-  const gameData = JSON.parse(localStorage.getItem("highScoreData")); //retrieve data from browser localStorage
+function updateStorage() {
+  const gameData = JSON.parse(localStorage.getItem("highScoreData"));
   if (gameData === null) {
     const newData = [
       userData,
@@ -465,9 +438,7 @@ function addToStorage() {
     localStorage.setItem("highScoreData", JSON.stringify(gameData));
   }
 }
-
-//instructions on what to do when snake eats food.
-function addPoint() {
+function addPoint() {//instructions on what to do when snake eats food.
   userData.playerScore++;
   playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
   gameBoard.classList.add("board-emphasis");
@@ -480,9 +451,7 @@ function addPoint() {
     pointDisplay.style.display = "none"
   }, 1000);
 }
-
-//instructions on what to do when snake eats poison.
-function subtractPoint() {
+function subtractPoint() {//instructions on what to do when snake eats poison.
   userData.playerScore = userData.playerScore -5;
   if (userData.playerScore< 0){
     gameOver()
@@ -500,9 +469,7 @@ function subtractPoint() {
     }, 1000);
   }
 }
-
-//instructions on what to do when snake eats booster.
-function boostPoint() {
+function boostPoint() {//instructions on what to show when snake eats booster.
   userData.playerScore = userData.playerScore + 10;
   playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
   gameBoard.style.borderImage =
@@ -518,9 +485,7 @@ function boostPoint() {
     pointDisplay.style.display = "none";
   }, 1000);
 }
-
-//extract username from input.
-function addUsername() {
+function addUsername() {//extract username from input.
   userData.username = usernameInput.value.toUpperCase();
   if (userData.username.length === 0) {
     userData.username = "noname";
@@ -529,9 +494,7 @@ function addUsername() {
       formatData(6, userData.username.toUpperCase(), "_") + ":";
   }
 }
-
-//formats names and points on screen.
-function formatData(maxLen, value, pad) {
+function formatData(maxLen, value, pad) {//formats names and points on screen.
   let padding = maxLen - value.toString().length;
   let string = "";
   for (let i = 0; i < padding; i++) {
