@@ -40,7 +40,7 @@ initGameBoard();
 let gameOn = false;
 let snakeBody = []; //store snake length
 let snakeSpeed = initSpeed;
-let gameStart = null; //used to store id from setInterval so we can stop it in reset btn or when player loses
+let moveFrames = null; //used to store id from setInterval so we can stop it in reset btn or when player loses
 let highScore = 0;
 let currentDir = controller.ArrowRight;
 let keyQueue = [currentDir];
@@ -81,14 +81,14 @@ startBtn.addEventListener("click", function (event) {
   addUsername();
   snakeInit();
   genFood();
-  gameStart = setInterval(executeMove, snakeSpeed);
+  moveFrames = setInterval(executeMove, snakeSpeed);
 });
 
 resetBtn.addEventListener("click", function (event) {
   event.preventDefault();
   restartGameState();
   restartGameBoard();
-  clearInterval(gameStart);
+  clearInterval(moveFrames);
 });
 
 //only listen for arrow keys if the game is on
@@ -366,13 +366,13 @@ function increaseSpeed() {//mechanics to increase speed.
       ? (snakeSpeed = Math.floor(snakeSpeed * speedChange))
       : (snakeSpeed = minInterval);
     //stop current setInterval and start new
-    clearInterval(gameStart);
-    gameStart = setInterval(executeMove, snakeSpeed);
+    clearInterval(moveFrames);
+    moveFrames = setInterval(executeMove, snakeSpeed);
   }
 }
 
 function gameOver() {//instructions on what to do when the game is over.
-  clearInterval(gameStart);
+  clearInterval(moveFrames);
   let topScores = renderHighScores();
   if (highScore < userData.playerScore) {
     newTopScoreUI();
