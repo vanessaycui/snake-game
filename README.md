@@ -14,20 +14,24 @@ This version of snake includes the following features:
 
 ## **SCREENSHOTS & INSTRUCTIONS**
 
-<div style="display:flex; flex-wrap: wrap; width: 800px; justify-content: space-around;">
+<div style="display:flex; flex-wrap: wrap; width: 800px;">
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/00DephsKWdKTWQJFDK/giphy.gif">
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/ZyzunZN5Xt8h1glO7V/giphy.gif">
-<p style="display: inline-block; padding: 20px; font-size: 20px; width: 350px;"> Enter a username & click play! If no username is provided, you'll be recorded as "noname" on the TOP SCORES board.</p>
-<p style="display: inline-block; padding: 20px; font-size: 20px; width: 350px;"> Use your arrow keys to move. Gain points by eating food (blue dots).</p></td>
+<p>1. Enter a username & click play! If no username is provided, you'll be recorded as "noname" on the TOP SCORES board (left).</p>
+<p> 2. Use your arrow keys to move. Gain points by eating food (right).</p>
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/D3NrE5G94LZzDL3wLK/giphy.gif">
-<div style="display: flex; align-items: center; flex: 0 0 50%; width: 350px; height: 300px;"><p style="padding: 20px; font-size: 20px;"> Avoid poisonous food (red/pink dots). </p></div>
-<div style="display: flex; align-items: center; justify-content: right;flex: 0 0 50%; width: 350px; height: 300px;"><p style="padding: 20px; font-size: 20px;"> If you're ambitious, try to catch the floating food items (moving light-blue dots).</p></div>
-<img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/bEwRHZcHvzB6Nj3t2D/giphy.gif">
 
+<img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/bEwRHZcHvzB6Nj3t2D/giphy.gif">
+<p>3. Avoid poisonous food (left). </p>
+
+<p>4. If you're ambitious, try to catch the floating food items (right).</p>
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/yLq8eZAy82QzYI9HCV/giphy.gif">
-<div style="display: flex; align-items: center; flex: 0 0 50%; width: 350px; height: 300px;"><p style="padding: 20px; font-size: 20px;"> Your score gets recorded if you've managed to gain enough points to be in the top 10.  </p></div>
-<div style="display: flex; align-items: center; justify-content: right;flex: 0 0 50%; width: 350px; height: 300px;"><p style="padding: 20px; font-size: 20px;"> If you've managed to gain enough points to surpass the highest score, your score will be recorded above the top left corner of the board. Your name will also be in gold under TOP SCORES. </p></div>
+
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/tqRQ2tQqkoTtc7CebU/giphy.gif">
+
+<p>5. Your score gets recorded if you've managed to gain enough points to be in the top 10 (left).  </p>
+<p>6. If you've managed to gain enough points to surpass the highest score, your score will be recorded above the top left corner of the board. Your name will also be in gold under TOP SCORES (right). </p>
+
 </div>
 
 <strong>Like the GIFs? Create your own at <a href="https://giphy.com/">giphy.com</a></strong>
