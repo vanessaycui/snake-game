@@ -18,19 +18,21 @@ This version of snake includes the following features:
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/00DephsKWdKTWQJFDK/giphy.gif">
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/ZyzunZN5Xt8h1glO7V/giphy.gif">
 <p>1. Enter a username & click play! If no username is provided, you'll be recorded as "noname" on the TOP SCORES board (left).</p>
-<p> 2. Use your arrow keys to move. Gain points by eating food (right).</p>
+<p> 2. Use your arrow keys to move. Gain points by eating food shown in blue. You will gain 1 point(right).</p>
+
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/D3NrE5G94LZzDL3wLK/giphy.gif">
 
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/bEwRHZcHvzB6Nj3t2D/giphy.gif">
-<p>3. Avoid poisonous food (left). </p>
 
-<p>4. If you're ambitious, try to catch the floating food items (right).</p>
+<p>3. Avoid poisonous food shown in red/pink. You will lose 5 points if you eat one(left)</p>
+<p> 4. If you're ambitious, try eating a floating food shown in light-blue. You will gain 10 points (right).</p>
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/yLq8eZAy82QzYI9HCV/giphy.gif">
 
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/tqRQ2tQqkoTtc7CebU/giphy.gif">
 
 <p>5. Your score gets recorded if you've managed to gain enough points to be in the top 10 (left).  </p>
 <p>6. If you've managed to gain enough points to surpass the highest score, your score will be recorded above the top left corner of the board. Your name will also be in gold under TOP SCORES (right). </p>
+<p>7. Click RESTART to play again. Refer to Step 1.</p>
 
 </div>
 
