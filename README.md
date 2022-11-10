@@ -74,6 +74,7 @@ HOW TO STOP:
 
 HOW TO CLEAR SCORE RECORDS:
 1. Clear your brower's cookies and site data.
+2. Type localStorage.clear("highScoreData") in your console, enter, and refresh your page.
 
 
 This game is hosted on GitHub Pages! 
