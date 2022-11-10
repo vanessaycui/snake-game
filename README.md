@@ -1,14 +1,14 @@
-# **SNAKE GAME**
+# **SNAKE**
 
-Snake is a nostalgic game for me. I used to play on my cousin's Nokia phone back in the 90's during boring family dinners. I decided to create my own version of this game. The user interface is inspired by the flashy casino games in Las Vegas.
+Snake is a nostalgic game for me. I used to play on my cousin's Nokia back in the 90's during family dinners. I decided to create my own version of Snake. The user interface is inspired by the flashy casino games in Las Vegas.
 
 This version of snake includes the following features:
-* Moving boosters that increases score by 10 points
-* Static poisonous food that decreases score by 10%
-* Static food that increases score by 1 point
-* Top scores obtained by the player will be stored in the user's localStorage in their browser
+* Moving boosters (increases score by 10 points)
+* Static poisonous food (decreases score by 5 points)
+* Static food (increases score by 1 point)
+* Top scores will be stored in the user's localStorage in their browser
 
-Please take a look at the screenshots below. 
+Screenshots below show the game in action.
 <hr>
 
 <div style = "text-align: center">
@@ -16,10 +16,10 @@ Please take a look at the screenshots below.
 ## **SCREENSHOTS**
 
 <div style="display:flex; flex-wrap: wrap; width: 800px; justify-content: space-around;">
-<img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/xrcJD4GAcNGgnDTEex/giphy.gif">
-<img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/OKObugJpYcYWhDgrFO/giphy.gif">
-<img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/1mQPBV1mBPpXa7u7UF/giphy.gif">
-<img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/cX0fil0emqfVP280aY/giphy.gif">
+<img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/G3c6y4tW25uSKKae9C/giphy.gif">
+<img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/ZyzunZN5Xt8h1glO7V/giphy.gif">
+<img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/D3NrE5G94LZzDL3wLK/giphy.gif">
+<img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/bEwRHZcHvzB6Nj3t2D/giphy.gif">
 <img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/yLq8eZAy82QzYI9HCV/giphy.gif">
 <img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/tqRQ2tQqkoTtc7CebU/giphy.gif">
 </div>
@@ -36,7 +36,7 @@ HTML, CSS, and vanilla JavaScript
 <h2><strong>GETTING STARTED</strong></h2>
 
 This game is hosted on GitHub Pages! 
-Whenever you're ready to play, please click on the link below:
+Click on the link below to play.
 
 <button style="padding: 20px; font-size: 30px; border-radius: 10px; background-color: #8EC3B0; border: none;" ><strong><a style="color: white; text-decoration: none;" href="https://vanessaycui.github.io/snake-game/">PLAY SNAKE</a></strong></button>
 </div>
