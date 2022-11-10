@@ -72,9 +72,9 @@ HOW TO PLAY:
 HOW TO STOP:
 1. Click RESET. ***If RESET was clicked mid-play, your score will not be recorded.***
 
-HOW TO CLEAR SCORE RECORDS:
-1. Clear your brower's cookies and site data.
-2. Type localStorage.clear("highScoreData") in your console, enter, and refresh your page.
+TWO WAYS TO CLEAR SCORE RECORDS:
+1. Hard way: Clear your brower's cookies and site data. Close & reopen your browser.
+2. Easy way: Type localStorage.clear("highScoreData") in your console, enter, and refresh your page.
 
 
 This game is hosted on GitHub Pages! 
