@@ -109,6 +109,7 @@ function randGenDir(){//generating random direction for booster, every 6 seconds
     randomDir = movements[Math.floor(Math.random() * movements.length)];
   }, 1000); 
 }
+
 function initGameBoard(){//dynamically creating grid of divs for the gameboard.
   for (let i = 0; i < boardSize; i++) {
     for (let j = 0; j < boardSize; j++) {
@@ -119,11 +120,13 @@ function initGameBoard(){//dynamically creating grid of divs for the gameboard.
     }
   }
 }
+
 function renderGameBoard(event){
   event.target.style.display = "none";
   gameInstruc.style.display = "none";
   usernameInput.style.display = "none";
 }
+
 function restartGameBoard(){
   startBtn.style.display = "block";
   usernameInput.style.display = "block";
@@ -138,6 +141,7 @@ function restartGameBoard(){
   gameBoard.style.borderImage = "none";
   gameBoard.style.animation = "none";
 }
+
 function restartGameState(){
   gameOn = false;
   snakeBody = [];
@@ -147,6 +151,7 @@ function restartGameState(){
   userData.playerScore = 0;
   userData.username = "player";
 }
+
 function renderHighScores() {
   const gameData = JSON.parse(localStorage.getItem("highScoreData")); //browser local storage
   if (gameData === null) {
@@ -185,6 +190,7 @@ function renderHighScores() {
     return gameData;
   }
 }
+
 function snakeInit() {//initializing snake body
   for (let i = 0; i < initSnakeLen; i++) {
     let identifier =
@@ -193,6 +199,7 @@ function snakeInit() {//initializing snake body
     document.getElementById(identifier).classList.add("snake-body");
   }
 }
+
 function genFood() {//randomly generates food on the board.
   foodCoord = [
     Math.floor(Math.random() * boardSize),
@@ -202,6 +209,7 @@ function genFood() {//randomly generates food on the board.
   let foodSq = document.getElementById(foodid);
   foodSq.classList.add("food");
 }
+
 function genBooster() {//randomly generates booster on the board.
   let randomNum = Math.floor(Math.random() * 10);
   if (randomNum % 5 === 0 && boosterCoord === null) {
@@ -215,6 +223,7 @@ function genBooster() {//randomly generates booster on the board.
     boosterSq.classList.add("super-food");
   }
 }
+
 function genPoison() {//randomly generates poison on the board.
   let randomNum = Math.floor(Math.random() * 10);
   if (userData.playerScore > 10 && randomNum % 3 === 0) {
@@ -235,6 +244,7 @@ function genPoison() {//randomly generates poison on the board.
     poisonSq.classList.add("poison");
   }
 }
+
 function executeMove() {  //Only listen to the last key pressed, delete everything else.
   while (keyQueue.length !== 1) {
     keyQueue.shift();
@@ -244,6 +254,7 @@ function executeMove() {  //Only listen to the last key pressed, delete everythi
     snakeMechanics();
   }
 }
+
 function snakeMechanics() {//instructions on how to move
   let end = snakeBody.length - 1; //remove snake-body class from tail
   document
@@ -258,16 +269,12 @@ function snakeMechanics() {//instructions on how to move
     direction[currentDir.name][0] + snakeBody[0][0],
     direction[currentDir.name][1] + snakeBody[0][1],
   ];
-  checkPoison();
+  checkPoison(); //ensure there arent too many poison on the board
   //managing speed of booster.
   intervalCount++;
   if (intervalCount % 2 === 0) {
     boosterFoodMechanics();
   }
-  if (intervalCount > 100) {
-    intervalCount = 0;
-  }
-
   if (
     snakeBody[0][0] < 0 ||
     snakeBody[0][0] > boardSize - 1 ||
@@ -279,7 +286,7 @@ function snakeMechanics() {//instructions on how to move
   ) {   //stop game when snake head coords surpasses borders or hits its own body
     gameOver();
 
-  } else {    //check if snake head has hit food, poison, booster
+  } else { //check if snake head has hit food, poison, booster
     document.getElementById(snakeBody[0].join("-")).classList.add("snake-body");
     if (
       document.getElementById(snakeBody[0].join("-")).classList.contains("food")
@@ -319,6 +326,7 @@ function snakeMechanics() {//instructions on how to move
     }
   }
 }
+
 function boosterFoodMechanics() {//mechanics on how booster will randomly move on the board after spawning.
   if (boosterCoord !== null) {
     document
@@ -342,6 +350,7 @@ function boosterFoodMechanics() {//mechanics on how booster will randomly move o
     }
   }
 }
+
 function checkPoison() {//controls number of poison on board.
   if (poisonList.length > 3) {
     let poisonCoord = poisonList.shift();
@@ -350,6 +359,7 @@ function checkPoison() {//controls number of poison on board.
     poisonSq.classList.remove("poison");
   }
 }
+
 function increaseSpeed() {//mechanics to increase speed.
   if (userData.playerScore % speedChangeFreq === 0) {
     snakeSpeed > minInterval
@@ -360,6 +370,7 @@ function increaseSpeed() {//mechanics to increase speed.
     gameStart = setInterval(executeMove, snakeSpeed);
   }
 }
+
 function gameOver() {//instructions on what to do when the game is over.
   clearInterval(gameStart);
   let topScores = renderHighScores();
@@ -377,6 +388,7 @@ function gameOver() {//instructions on what to do when the game is over.
   updateStorage();
   renderHighScores();
 }
+
 function newTopScoreUI() {
   lastMsg.innerHTML = winningMsgs[0];
   lastMsg.style.fontSize = "3rem";
@@ -387,6 +399,7 @@ function newTopScoreUI() {
   heading.style.backgroundImage =
     "linear-gradient(90deg, red 0%, yellow 10%, lime 20%, aqua 50%, blue 70%, magenta 80%, red 100%)";
 }
+
 function topTenUI() {
   lastMsg.innerHTML = winningMsgs[1];
   lastMsg.style.fontSize = "3rem";
@@ -397,6 +410,7 @@ function topTenUI() {
   heading.style.backgroundImage =
     "linear-gradient(90deg, var(--topscoretitle1) 0%, var(--topscoretitle2) 50%, var(--topscoretitle1) 100%)";
 }
+
 function noRankUI() {
   let randomMsgIdx = Math.floor(Math.random() * gameOverMsgs.length);
   lastMsg.innerHTML = gameOverMsgs[randomMsgIdx];
@@ -408,6 +422,7 @@ function noRankUI() {
   heading.style.backgroundImage =
     "linear-gradient(90deg, var(--gameover) 0%,var(--gameover2) 50%, var(--gameover) 100%)";
 }
+
 function updateStorage() {
   const gameData = JSON.parse(localStorage.getItem("highScoreData"));
   if (gameData === null) {
@@ -438,6 +453,7 @@ function updateStorage() {
     localStorage.setItem("highScoreData", JSON.stringify(gameData));
   }
 }
+
 function addPoint() {//instructions on what to do when snake eats food.
   userData.playerScore++;
   playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
@@ -445,12 +461,12 @@ function addPoint() {//instructions on what to do when snake eats food.
   pointDisplay.innerHTML = "+1";
   pointDisplay.style.left = "130px";
   pointDisplay.style.display = "block";
-
   setTimeout(() => {
     gameBoard.classList.remove("board-emphasis");
     pointDisplay.style.display = "none"
   }, 1000);
 }
+
 function subtractPoint() {//instructions on what to do when snake eats poison.
   userData.playerScore = userData.playerScore -5;
   if (userData.playerScore< 0){
@@ -461,7 +477,6 @@ function subtractPoint() {//instructions on what to do when snake eats poison.
     pointDisplay.style.color = "var(--poisoncolor)"
     pointDisplay.innerHTML = "-5"
     pointDisplay.style.display = "block";
-  
     setTimeout(() => {
       gameBoard.classList.remove("board-emphasis-poison");
       pointDisplay.style.display="none";
@@ -469,6 +484,7 @@ function subtractPoint() {//instructions on what to do when snake eats poison.
     }, 1000);
   }
 }
+
 function boostPoint() {//instructions on what to show when snake eats booster.
   userData.playerScore = userData.playerScore + 10;
   playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
@@ -485,6 +501,7 @@ function boostPoint() {//instructions on what to show when snake eats booster.
     pointDisplay.style.display = "none";
   }, 1000);
 }
+
 function addUsername() {//extract username from input.
   userData.username = usernameInput.value.toUpperCase();
   if (userData.username.length === 0) {
@@ -494,6 +511,7 @@ function addUsername() {//extract username from input.
       formatData(6, userData.username.toUpperCase(), "_") + ":";
   }
 }
+
 function formatData(maxLen, value, pad) {//formats names and points on screen.
   let padding = maxLen - value.toString().length;
   let string = "";
