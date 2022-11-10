@@ -38,7 +38,7 @@ This version of snake includes the following features:
 
 <p>6. Your score gets recorded if you've managed to gain enough points to be in the top 10.  </p>
 <p>7. If you've managed to gain enough points to surpass the highest score, your score will be recorded above the top left corner of the board. Your name will also be in gold under TOP SCORES. </p>
-<p>8. Click RESTART to play again. Refer to Step 1.</p>
+<p>8. Click RESET to play again. Refer to Step 1.</p>
 
 </div>
 
@@ -57,7 +57,7 @@ This version of snake includes the following features:
 
 HOW TO START:
 1. Enter your username (max length is 6 characters) & click **START**
-2. After you lose, click **RESTART** to play again.
+2. After you lose, click **RESET** to play again.
 
 HOW TO PLAY:
 1. The snake will move instantly. **Use your arrow keys to move.**
@@ -70,7 +70,7 @@ HOW TO PLAY:
 8. Compete with your family & friends.  
 
 HOW TO STOP:
-1. Click RESTART. ***If restart was clicked mid-play, your score will not be recorded.***
+1. Click RESET. ***If RESET was clicked mid-play, your score will not be recorded.***
 
 HOW TO CLEAR SCORE RECORDS:
 1. Clear your brower's cookies and site data.
