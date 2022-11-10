@@ -17,8 +17,8 @@ This version of snake includes the following features:
 <div style="display:flex; flex-wrap: wrap; width: 800px; justify-content: space-around;">
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/00DephsKWdKTWQJFDK/giphy.gif">
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/ZyzunZN5Xt8h1glO7V/giphy.gif">
-<div style="display: flex; align-items: center; flex: 0 0 100%;  width: 800px; height: 300px;"><table><tr><td style="width: 350px;"><p style="padding: 20px; font-size: 20px;"> Enter a username & click play! If no username is provided, you'll be recorded as "noname" on the TOP SCORES board.</p></td>
-<td style="width: 350px;><p style="><p style="padding: 20px; font-size: 20px;"> Use your arrow keys to move. Gain points by eating food (blue dots).</p></td></table></div>
+<div style="display: flex; align-items: center; flex: 0 0 100%;  width: 800px; height: 300px;"><p style="display: inline-block; padding: 20px; font-size: 20px; width: 350px;"> Enter a username & click play! If no username is provided, you'll be recorded as "noname" on the TOP SCORES board.</p>
+<p style="display: inline-block; padding: 20px; font-size: 20px; width: 350px;"> Use your arrow keys to move. Gain points by eating food (blue dots).</p></td></div>
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/D3NrE5G94LZzDL3wLK/giphy.gif">
 <div style="display: flex; align-items: center; flex: 0 0 50%; width: 350px; height: 300px;"><p style="padding: 20px; font-size: 20px;"> Avoid poisonous food (red/pink dots). </p></div>
 <div style="display: flex; align-items: center; justify-content: right;flex: 0 0 50%; width: 350px; height: 300px;"><p style="padding: 20px; font-size: 20px;"> If you're ambitious, try to catch the floating food items (moving light-blue dots).</p></div>
