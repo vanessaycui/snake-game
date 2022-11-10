@@ -1,17 +1,17 @@
 # **SNAKE**
 
-Snake is a nostalgic game for me. It's a game where the player moves a growing snake that will eventually become its own obstacle. I used to play on my cousin's Nokia back in the 90's during family dinners. I decided to create my own version of Snake so I can tinker with the game rules and UI. Eventually, I'd like to play this on mobile. 
+Snake is a nostalgic game for me. It's a game where the player moves a growing snake that will eventually become its own obstacle. I used to play on my cousin's Nokia back in the 90's during family dinners. I decided to create my own version of Snake so I can tinker with the game rules and UI. Eventually, I'd like to make this available on mobile. 
 
 This version of snake includes the following features:
 * Moving boosters (increases score by 10 points)
 * Static poisonous food (decreases score by 5 points)
 * Static food (increases score by 1 point)
-* Player will lose if it collides with itself or the borders. 
+* Player will lose if it collides with itself or the borders
 * Top scores will be stored in the user's localStorage in their browser
 
 ## **SPECIAL CONDITIONS** 
-* SNAKE is optimized for playing in a Chrome browser window with a minimum width of 600px and minimum height of 810px. 
-* Player will need access to a keyboard with arrow keys! 
+* SNAKE is optimized for playing in a Chrome browser window with a minimum width of 600px and minimum height of 810px
+* Player will need access to a keyboard with arrow keys
 
 ***Stay tuned for a mobile-friendly version of this game in the near future!***
 
