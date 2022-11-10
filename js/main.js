@@ -232,7 +232,7 @@ function genPoison() {//randomly generates poison on the board.
       Math.floor(Math.random() * boardSize),
     ];
     //ensure it's not overlapping a food
-    while (randomPos === foodCoord){
+    while (randomPos[0] === foodCoord[0] && randomPos[1]===foodCoord[1]){
       randomPos = [
         Math.floor(Math.random() * boardSize),
         Math.floor(Math.random() * boardSize),
