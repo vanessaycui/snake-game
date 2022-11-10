@@ -8,7 +8,11 @@ This version of snake includes the following features:
 * Static food (increases score by 1 point)
 * Top scores will be stored in the user's localStorage in their browser
 
-***Please note: SNAKE is optimized for playing in a Chrome browser window with a minimum width of 600px and minimum height of 810px. User will need access to a keyboard with arrow keys! Stay tuned for a mobile-friendly version of this game in the near future!***
+## **SPECIAL CONDITIONS** 
+* SNAKE is optimized for playing in a Chrome browser window with a minimum width of 600px and minimum height of 810px. 
+* Player will need access to a keyboard with arrow keys! 
+
+***Stay tuned for a mobile-friendly version of this game in the near future!***
 
 <hr>
 
@@ -83,10 +87,10 @@ The following enhancements are some exiting features I will be implementing in t
 * Adding sound effects
 * Option to include or exclude boosters/poisonous food in the game
 * Option for Player vs Player
-* Creating a backend to store top scores so players can compete against others online
+* Creating a backend to store top scores so players can compete against each other online
 * Creating a mobile-friendly version 
 
-Please feel free to leave a comment or provide some feedback.
+Please feel free to leave a comment or provide some feedback. Open to all suggestions :)
 
 <hr>
 
