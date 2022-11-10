@@ -111,8 +111,6 @@ document.addEventListener("keydown", (event) => {
 });
 
 /*----- functions -----*/
-//retrieve score data from localStorage
-
 function renderGameBoard(event){
   event.target.style.display = "none";
   gameInstruc.style.display = "none";
@@ -479,17 +477,21 @@ function addPoint() {
 //instructions on what to do when snake eats poison.
 function subtractPoint() {
   userData.playerScore = userData.playerScore -5;
-  playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
-  gameBoard.classList.add("board-emphasis-poison");
-  pointDisplay.style.color = "var(--poisoncolor)"
-  pointDisplay.innerHTML = "-5"
-  pointDisplay.style.display = "block";
-
-  setTimeout(() => {
-    gameBoard.classList.remove("board-emphasis-poison");
-    pointDisplay.style.display="none";
-    pointDisplay.style.color = "var(--pointdisplay)"
-  }, 1000);
+  if (userData.playerScore< 0){
+    gameOver()
+  } else {
+    playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
+    gameBoard.classList.add("board-emphasis-poison");
+    pointDisplay.style.color = "var(--poisoncolor)"
+    pointDisplay.innerHTML = "-5"
+    pointDisplay.style.display = "block";
+  
+    setTimeout(() => {
+      gameBoard.classList.remove("board-emphasis-poison");
+      pointDisplay.style.display="none";
+      pointDisplay.style.color = "var(--pointdisplay)"
+    }, 1000);
+  }
 }
 
 //instructions on what to do when snake eats booster.
