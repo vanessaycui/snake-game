@@ -76,6 +76,7 @@ const usernameInput = document.querySelector("#username");
 const displayName = document.querySelector("#player-name");
 const highScoreList = document.querySelector("#high-score-list");
 const scoreTracker = document.querySelector("#score-tracker");
+const pointDisplay = document.querySelector("#num-points");
 
 /*----- Initialization -----*/
 retrieveHighScores();
@@ -93,10 +94,9 @@ startBtn.addEventListener("click", function (event) {
 
 resetBtn.addEventListener("click", function (event) {
   event.preventDefault();
-  restartGameBoard(event);
   restartGameState();
+  restartGameBoard(event);
   clearInterval(gameStart);
-
 });
 
 //only listen for arrow keys if the game is on
@@ -466,20 +466,29 @@ function addPoint() {
   userData.playerScore++;
   playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
   gameBoard.classList.add("board-emphasis");
+  pointDisplay.innerHTML = "+1";
+  pointDisplay.style.left = "130px";
+  pointDisplay.style.display = "block";
 
   setTimeout(() => {
     gameBoard.classList.remove("board-emphasis");
+    pointDisplay.style.display = "none"
   }, 1000);
 }
 
 //instructions on what to do when snake eats poison.
 function subtractPoint() {
-  userData.playerScore = Math.floor(userData.playerScore * 0.9);
+  userData.playerScore = userData.playerScore -5;
   playerScoreTxt.innerHTML = formatData(3, userData.playerScore, "0");
   gameBoard.classList.add("board-emphasis-poison");
+  pointDisplay.style.color = "var(--poisoncolor)"
+  pointDisplay.innerHTML = "-5"
+  pointDisplay.style.display = "block";
 
   setTimeout(() => {
     gameBoard.classList.remove("board-emphasis-poison");
+    pointDisplay.style.display="none";
+    pointDisplay.style.color = "var(--pointdisplay)"
   }, 1000);
 }
 
@@ -490,10 +499,14 @@ function boostPoint() {
   gameBoard.style.borderImage =
     "conic-gradient(from var(--angle), red, yellow, lime, aqua, blue, magenta, red) 1";
   gameBoard.style.animation = " 1s rotate linear infinite";
+  pointDisplay.innerHTML = "+10"
+  pointDisplay.style.left = "90px"
+  pointDisplay.style.display = "block";
 
   setTimeout(() => {
     gameBoard.style.borderImage = "none";
     gameBoard.style.animation = "none";
+    pointDisplay.style.display = "none";
   }, 1000);
 }
 
