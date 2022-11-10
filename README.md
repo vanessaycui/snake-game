@@ -16,7 +16,7 @@ Screenshots below show the game in action.
 ## **SCREENSHOTS**
 
 <div style="display:flex; flex-wrap: wrap; width: 800px; justify-content: space-around;">
-<img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/G3c6y4tW25uSKKae9C/giphy.gif">
+<img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/00DephsKWdKTWQJFDK/giphy.gif">
 <img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/ZyzunZN5Xt8h1glO7V/giphy.gif">
 <img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/D3NrE5G94LZzDL3wLK/giphy.gif">
 <img style="flex: 0 0 50%; width: 350px;" src="https://media.giphy.com/media/bEwRHZcHvzB6Nj3t2D/giphy.gif">
