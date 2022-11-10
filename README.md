@@ -31,7 +31,7 @@ This version of snake includes the following features:
 
 <p>3. Avoid poisonous food in red/pink. You will lose 5 points if you eat one.</p>
 <p> 4. If you're ambitious, try to catch the booster in light-blue. You will gain 10 points.</p>
-<p> 5. You'll instantly lose if: (a)your points are less than 0, (b) you collide into yourself, or (c) you collide into the borders! 
+<p> 5. You'll instantly lose if: (a)your points are less than 0, (b) you collide into yourself, or (c) you collide into the borders! </p>
 <img style="flex: 0 0 50%; height: 300px;" src="https://media.giphy.com/media/yLq8eZAy82QzYI9HCV/giphy.gif">
 
 <img style="flex: 0 0 50%; height: 300px;" src="https://media.giphy.com/media/tqRQ2tQqkoTtc7CebU/giphy.gif">
