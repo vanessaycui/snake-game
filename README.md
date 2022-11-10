@@ -96,12 +96,3 @@ The following enhancements are some exiting features I will be implementing in t
 Please feel free to leave a comment or provide some feedback. Open to all suggestions :)
 
 <hr>
-
-## **USER SUGGESTIONS**
-
-* Make the food rainbow
-* Floating food to have a trail of rainbow
-* Make a cat version of this game with grass the background.
-
-
-
