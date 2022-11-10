@@ -17,7 +17,7 @@ This version of snake includes the following features:
 <div style="display:flex; flex-wrap: wrap; width: 800px;">
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/00DephsKWdKTWQJFDK/giphy.gif">
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/ZyzunZN5Xt8h1glO7V/giphy.gif">
-<p>1. Enter a username & click play! If no username is provided, you'll be recorded as "noname" on the TOP SCORES board (left).</p>
+<p>1. Enter a username & click START! If no username is provided, you'll be recorded as "noname" on the TOP SCORES board (left).</p>
 <p> 2. Use your arrow keys to move. Gain points by eating food shown in blue. You will gain 1 point(right).</p>
 
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/D3NrE5G94LZzDL3wLK/giphy.gif">
