@@ -24,7 +24,7 @@ This version of snake includes the following features:
 
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/bEwRHZcHvzB6Nj3t2D/giphy.gif">
 
-<p>3. Avoid poisonous food shown in red/pink. You will lose 5 points if you eat one(left)</p>
+<p>3. Avoid poisonous food shown in red/pink. You will lose 5 points if you eat one(left).</p>
 <p> 4. If you're ambitious, try eating a floating food shown in light-blue. You will gain 10 points (right).</p>
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/yLq8eZAy82QzYI9HCV/giphy.gif">
 
