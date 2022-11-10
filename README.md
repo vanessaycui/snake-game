@@ -5,7 +5,7 @@ Snake is a nostalgic game for me. It's a game where the player moves a growing s
 This version of snake includes the following features:
 * Moving boosters (increases score by 10 points)
 * Static poisonous food (decreases score by 5 points)
-* Static food (increases score by 1 point)
+* Static food (increases score by 1 point and increases length by 1 unit)
 * Player will lose if it collides with itself or the borders
 * Top scores will be stored in the user's localStorage in their browser
 
@@ -13,7 +13,7 @@ This version of snake includes the following features:
 * SNAKE is optimized for playing in a Chrome browser window with a minimum width of 600px and minimum height of 810px
 * Player will need access to a keyboard with arrow keys
 
-***Stay tuned for a mobile-friendly version of this game in the near future!***
+***Look out for a mobile-friendly version of this game in the near future!***
 
 <hr>
 
@@ -23,14 +23,14 @@ This version of snake includes the following features:
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/00DephsKWdKTWQJFDK/giphy.gif">
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/ZyzunZN5Xt8h1glO7V/giphy.gif">
 <p>1. Enter a username & click START! If no username is provided, you'll be recorded as "noname" on the TOP SCORES board.</p>
-<p> 2. Use your arrow keys to move. Gain points by eating food shown in blue. You will gain 1 point.</p>
+<p> 2. Use your arrow keys to move. Gain points by eating food in blue. You will gain 1 point and you'll grow longer.</p>
 
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/D3NrE5G94LZzDL3wLK/giphy.gif">
 
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/bEwRHZcHvzB6Nj3t2D/giphy.gif">
 
-<p>3. Avoid poisonous food shown in red/pink. You will lose 5 points if you eat one.</p>
-<p> 4. If you're ambitious, try eating a floating food shown in light-blue. You will gain 10 points.</p>
+<p>3. Avoid poisonous food in red/pink. You will lose 5 points if you eat one.</p>
+<p> 4. If you're ambitious, try to catch the booster in light-blue. You will gain 10 points.</p>
 <p> 5. You'll instantly lose if your points are less than 0, you collide into yourself, or you collide into the borders! 
 <img style="flex: 0 0 50%; width: 350px; height: 300px;" src="https://media.giphy.com/media/yLq8eZAy82QzYI9HCV/giphy.gif">
 
@@ -67,7 +67,7 @@ HOW TO PLAY:
 5. Avoid colliding with yourself, you'll lose instantly.
 6. If your points go below 0, you'll lose.
 7. Gain enough points for your name to be shown on the TOP SCORES list. 
-8. Compete with your family & friends.  
+8. Compete with family & friends.  
 
 HOW TO STOP:
 1. Click RESET. ***If RESET was clicked mid-play, your score will not be recorded.***
