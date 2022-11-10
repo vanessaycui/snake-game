@@ -32,15 +32,6 @@ const controller = {
     opp: "left",
   },
 };
-//dynamically creating grid of divs for the gameboard.
-for (let i = 0; i < boardSize; i++) {
-  for (let j = 0; j < boardSize; j++) {
-    let square = document.createElement("div");
-    square.classList.add("cell");
-    square.setAttribute("id", i + "-" + j);
-    document.querySelector(".game-board").appendChild(square);
-  }
-}
 
 /*----- app's state (variables) -----*/
 let gameOn = false;
@@ -56,9 +47,6 @@ let foodCoord = null;
 let boosterCoord = null;
 let movements = ["up", "down", "right", "left"];
 let randomDir = movements[0];
-setInterval(() => {
-  randomDir = movements[Math.floor(Math.random() * movements.length)];
-}, 1000); //generating random direction for booster, every 6 seconds
 let intervalCount = 0; //tracks speed of booster
 
 /*----- cached element references -----*/
@@ -79,6 +67,8 @@ const scoreTracker = document.querySelector("#score-tracker");
 const pointDisplay = document.querySelector("#num-points");
 
 /*----- Initialization -----*/
+randGenDir();
+initGameBoard();
 retrieveHighScores();
 
 /*----- event listeners -----*/
@@ -111,6 +101,23 @@ document.addEventListener("keydown", (event) => {
 });
 
 /*----- functions -----*/
+//generating random direction for booster, every 6 seconds
+function randGenDir(){
+  setInterval(() => {
+    randomDir = movements[Math.floor(Math.random() * movements.length)];
+  }, 1000); 
+}
+function initGameBoard(){
+//dynamically creating grid of divs for the gameboard.
+for (let i = 0; i < boardSize; i++) {
+  for (let j = 0; j < boardSize; j++) {
+    let square = document.createElement("div");
+    square.classList.add("cell");
+    square.setAttribute("id", i + "-" + j);
+    document.querySelector(".game-board").appendChild(square);
+  }
+}
+}
 function renderGameBoard(event){
   event.target.style.display = "none";
   gameInstruc.style.display = "none";
