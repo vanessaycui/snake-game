@@ -49,7 +49,7 @@ This version of snake includes the following features:
 ## **TECHNOLOGIES**
 
 * HTML
-* CSSS
+* CSS
 * JavaScript
 
 <hr>
