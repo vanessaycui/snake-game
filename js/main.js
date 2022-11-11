@@ -374,7 +374,7 @@ function increaseSpeed() {//mechanics to increase speed.
 function gameOver() {//instructions on what to do when the game is over.
   clearInterval(moveFrames);
   let topScores = renderHighScores();
-  if (highScore < userData.playerScore) {
+  if (highScore <= userData.playerScore) {
     newTopScoreUI();
   } else if (userData.playerScore > topScores.pop().playerScore) {
     topTenUI();
