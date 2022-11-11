@@ -13,7 +13,7 @@ const speedChange = 0.9;
 const speedChangeFreq = 10;
 const minInterval = 5;
 const gameOverMsgs = ["TRY AGAIN", "GAME OVER"];
-const winningMsgs = ["NEW TOP SCORE!", "AWESOME!! TOP 10!"];
+const winningMsgs = ["NEW HIGH SCORE!", "AWESOME!! TOP 10!"];
 const controller = {
   ArrowUp: {
     name: "up",
