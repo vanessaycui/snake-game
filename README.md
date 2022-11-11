@@ -94,6 +94,6 @@ The following enhancements are some exciting features I will be implementing in 
 * Creating a backend to store top scores so players can compete against each other online
 * Creating a mobile-friendly version (web or app)
 
-Please feel free to leave a comment or provide some feedback. Open to all suggestions :)
+Please feel free to provide some feedback. Open to all suggestions :)
 
 <hr>
