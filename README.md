@@ -87,7 +87,7 @@ Click on the link below to play.
 
 ## **NEXT STEPS**
 
-The following enhancements are some exiting features I will be implementing in the near future:
+The following enhancements are some exciting features I will be implementing in the near future:
 * Adding sound effects
 * Option to include or exclude boosters/poisonous food in the game
 * Option for Player vs Player
